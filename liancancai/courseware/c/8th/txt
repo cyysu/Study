@@ -1,0 +1,140 @@
+多维数组：
+	str家族函数
+	mem函数
+
+	int a[2][3][4]
+	
+	&a:
+	a:
+	a[0]:
+	a[0][0]:
+	
+	char 
+==========================
+多维数组
+	传参：
+		类型一致
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+vt: 控制终端
+	定位：
+		\033[x;yH 设置光标位置
+			x : 表示行
+			y : 表示列
+	下划线：
+		\033[4m 下划线
+	\033[30m -- \033[37m 设置前景色
+	\033[40m -- \033[47m 设置背景色
+	\033[fcolor;bcolorm
+	字背景颜色范围:40----49
+		40:黑
+		41:深红
+		42:绿
+		43:黄色
+		44:蓝色
+		45:紫色
+		46:深绿
+		47:白色
+	字颜色:30-----------39
+		30:黑
+		31:红
+		32:绿
+		33:黄
+		34:蓝色
+		35:紫色
+		36:深绿
+		37:白色
+	移动：
+		\033[nA 光标上移 n 行
+		\033[nB 光标下移 n 行
+		\033[nC 光标右移 n 行
+		\033[nD 光标左移 n 行
+	清屏：
+		\033[2J 清屏
+		\033[K 清除从光标到行尾的内容
+	光标：
+		 \033[s 保存光标位置
+		 \033[u 恢复光标位置
+		 \033[?25l 隐藏光标
+		 \033[?25h 显示光标
+
+	获取键值：
+		ssize_t read(int fd, void *buf, size_t count);
+		第一个参数：表示文件描述符 0
+		第二个参数：表示存储空间
+		第三个参数：表示空间大小
+		返回值： 表示获取的键值个数
+
+	1 封装VT码
+		void gotoxy(int x, int y);
+		void putch(char ch, int fcolor, int bcolor);
+		void putstr(char s[], int fcolor, int bcolor);
+		void save_cur(void);
+		void load_cur(void);
+		void hide_cur(void);
+		void show_cur(void);
+		void move_up(int bit);
+		void move_down(int bit);
+		void move_left(int bit);
+		void move_right(int bit);
+		void draw_vline(int x, int y, char ch, int len, int color);
+		void draw_hline(int x, int y, char ch, int len, int color);
+		void darw_box(int x, int y, int h, int w, int ch, int color);
+		void darw_rect(int x, int y, int h, int w, int ch, int color);
+		用VT实现弹球程序
+			球碰到边界改变颜色
+	2 实现密码程序
+		
+	3 实现五子棋
+		1 画棋盘
+		2 下子 黑棋(A) 白棋(B) flag = 1 -1
+		3 不可以越界，同时不可以吃子
+		4 判断输赢
+			判断四个方向
+			如果有连续的5个A 或者B 则赢
+=====================================
+	指针：难点
+	一级指针：
+		指针保存的是变量地址
+		格式：
+			type varname = value;
+
+			type：
+			 	char * int * float * .....
+		
+		任意类型指针变量的空间都是4个字节
+		不同类型指针决定地址偏移量大小 -> 类型
+
+	空类型：void *
+
+	未初始化指针叫野指针
+
+
+	申请空间：
+	#include <stdlib.h>
+
+	申请空间
+	void *malloc(size_t size);
+		参数：表示申请空间大小
+	void *calloc(size_t nmemb, size_t size);
+		第一个参数：表示数据个数
+		第二个参数：表示数据类型
+	void *realloc(void *ptr, size_t size);
+		表示在原有基础上申请空间
+		第一个参数：表示原来空间地址
+		第二个参数：表示总空间大小
+
+	释放空间
+	void free(void *ptr);
+
+
+
+
+
+
+
+
+
+
+
+

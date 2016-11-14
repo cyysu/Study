@@ -1,0 +1,277 @@
+rpm安装：
+	1 直接通过rpm命令安装
+		rpm -ivh .rpm
+	2 yum安装 -> 安装包之间存在依赖关系
+	3 源码包安装：查看说明文档 read -> makefile
+		./configure : 检测硬件和软件环境
+		make all 		表示编译
+		make install	表示安装
+		make uninstall	表示卸载
+		make clean		表示清空
+	4 其他安装方式 可执行权限
+
+
+	压缩和解压:
+	gzip	=> .gz
+	bzip2	=> .bz2
+	rar		=> .rar
+
+	打包：
+	tar 
+		-cvf	: 表示打包
+		-xvf	: 表示解包
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+进程：
+	就是一段可执行代码，如果这段代码放在硬盘中，那就是一个文件。
+		如果这段代码放在内存中，并获得CPU资源，则这就是一个进程。
+
+	进程就是动态产生，动态消亡一个过程。
+
+	每一个进程都会有一个进程pid,是进程唯一标识
+
+	init : 所有进程祖先，就是所有进程都是由它直接或者间接创建的
+
+
+	五态模型（三态模型）
+		新建态：就是给进程分配系统资源
+		就绪态：获得系统资源，等待CPU分配可运行资源
+		运行态：获得CPU资源，处于运行状态
+		挂起态：因某一事件的发生，而处于阻塞状态。
+		终止态：回收进程资源。
+
+
+	查看后台进程：
+		ps -ef
+		[root@aa test]# ps -ef
+		用户	进程号 父进程号 启动时间 运行终端 运行时间 命令
+		UID        PID  PPID  C STIME TTY          TIME CMD
+		root         1     0  0 Sep13 ?        00:00:01 init [5]            
+		root         2     1  0 Sep13 ?        00:00:01 [migration/0]
+		root         3     1  0 Sep13 ?        00:00:00 [ksoftirqd/0]
+		root         4     1  0 Sep13 ?        00:00:00 [watchdog/0]
+		root         5     1  0 Sep13 ?        00:00:01 [migration/1]
+
+
+	top : 动态查看后台进程状态
+		h : 表示帮助
+		P ：表示按CPU利用率排序
+		M ：表示内存排序
+		q : 表示退出
+	进程号 ｜ 进程用户 ｜ 优先级 ｜ 占有内存大小（虚拟内存）｜实际内存大小 ｜ 共享内存 ｜进程状态 ｜  CPU占用率 ｜ 内存占用率 ｜ CPU执行时间 
+	｜ 命令
+
+	杀死进程
+		kill -9 pid
+			进程号由系统自动分配一个未使用进程号。
+		pkill -9 pid_name
+
+	前台后台
+		vim & 表示把进程放到后台运行
+		fg %1 表示把后台进程放到前台
+		ctrl + z : 表示进程暂停并放入后台
+		jobs : 查看后台进程
+		kill %1 : 杀死后台进程
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+shell编程
+	监听用户输入指令，并执行这些命令 -> bash
+	shell也是一门编程语言，会有变量，关键字，语法规则等等。
+
+	查看当前系统所使用shell
+		echo $SHELL
+	查看当前系统所支持所有shell
+		ls /bin/*sh
+		[root@aa test]# ls /bin/*sh
+		/bin/bash  /bin/csh  /bin/ksh  /bin/sh  /bin/tcsh
+	
+	初始化shell环境四个文件
+		/etc/bashrc
+		/etc/profile
+		~/.bashrc
+		~/.bash_profile
+	执行顺序：
+		/etc/profile -> ~/.bash-profile -> ~/.bashrc -> /etc/bashrc
+
+	退出用户文件
+		~/.bash_logout
+
+	变量：没有类型
+		局部变量：本shell起作用
+			定义变量：
+			[root@aa test]# a=123
+			查看局部变量：
+			[root@aa test]# set	查看所有局部变量
+			[root@aa test]# set | grep -w a 查看定义普通变量
+			a=123
+			查看变量值：${varname}
+			[root@aa test]# echo $a
+			123
+			[root@aa test]# echo $[$a + $b]	简单加法运算
+				linux不支持小数运算
+
+			案例1：
+				[root@aa test]# echo $a		表示不安全取值方式
+				apple
+				[root@aa test]# touch $a	表示成功
+				[root@aa test]# ls
+				apple
+				[root@aa test]# touch $a_7.txt	表示失败
+				[root@aa test]# ls
+				apple
+				[root@aa test]# ls -a
+				.  ..  apple  .txt
+				[root@aa test]# touch ${a}_7.txt	表示安全取值方式
+				[root@aa test]# ls
+				apple  apple_7.txt
+			案例2：
+				[root@aa test]# touch $a b
+				[root@aa test]# ls
+				apple  b
+				[root@aa test]# touch "$a b"
+				“” ： 会屏蔽空格
+				[root@aa test]# ll
+				总计 0
+				-rw-r--r-- 1 root root 0 09-14 11:51 apple
+				-rw-r--r-- 1 root root 0 09-14 11:52 apple b
+				-rw-r--r-- 1 root root 0 09-14 11:51 b
+				[root@aa test]# touch '$a b'
+				‘’ ：会屏蔽空格和一些特殊字符
+				[root@aa test]# ll
+				总计 0
+				-rw-r--r-- 1 root root 0 09-14 11:53 $a b
+				`` ：表示首先执行引号里面内容，必须是命令
+
+				[root@aa test]# date +%s
+				1473825303	表示从1970年到此刻的秒数
+				[root@aa test]# seconds=`date +%s`
+				[root@aa test]# echo $seconds
+				1473825363
+				[root@aa test]# echo $[$[$seconds / 60 / 60 + 8] / 24]
+				17058			表示统计从1970年到现在总天数
+
+
+		环境变量：不仅本shell可以访问，同时子shell也可以访问
+			定义环境变量：
+				export e=hello
+
+			查看环境变量：
+				env
+			
+	练习：
+		root 共消耗XX小时XX分钟XX妙
+		su - root		表示用户登录
+		exit			表示用户退出
+
+
+	如何创建一个脚本
+		1 创建一个脚本文件
+			touch filename.sh
+		2 shell解析器
+			#!/bin/bash	表示所有脚本命令都是通过bash解析执行
+		3 设置可执行权限
+			chmod 755 hello.sh
+		4 执行
+			./hello.sh		表示当前环境shell执行这个hello脚本
+			bash hello.sh	表示指定某一种shell执行hello脚本
+
+		
+	数值运算
+		+ - * / % 
+		$[]  运算
+
+	参数：
+		$1	: 表示接受第一个参数
+		$2  : 表示第二参数
+		$n  : ....
+		$#	: 表示参数个数
+		$$	: 表示进程号
+		$?	: 表示上次命令执行成功与否
+			如果成功，则用0表示
+			如果失败，则用非零表示
+	练习：
+		模拟服务成功启动状态
+
+	输入输出语句：
+		
+		输出语句：echo 
+			-n : 表示不换成
+		输入语句 ：read
+			-p : 表示显示提示信息
+			-s : 表示输入信息不显示
+			-t : 表示设置超时 单位秒
+			-n : 设定字符串长度
+
+	流程控制：
+		顺序结构：代码由上到下顺序执行
+		选择结构：
+			格式一：
+				if [ con ]
+				then
+					cmd
+				fi
+			数值比较
+						c		bash
+			大于：		>		-gt
+			大于等于：	>=		-ge
+			小于：		<		-lt
+			小于等于：	<=		-le
+			等于：		==		-eq
+			不等于：	!=		-ne
+
+		练习：
+			输入两个数。求最大值
+
+			格式二
+			if [ con ]
+			then
+				true_cmd
+			else
+				false_cmd
+			fi
+		练习：
+			输入一个整数，求绝对值
+
+			格式三：
+				if [ con1 ]
+				then
+					if [ con2 ]
+					then
+						.....
+					else
+						......
+					fi
+					.......
+				else
+					if [ con2 ]
+					then
+						.....
+					else
+						......
+					fi
+					.......
+				fi
+
+	练习：
+		输入一个年份，判断是否闰年
+			能被4整除且不能被100整除或者能被400整除就是闰年
+			如果是闰年 -> yes 如果不是闰年，打印no
+		循环结构：
+		
+
+			
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

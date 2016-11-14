@@ -1,0 +1,350 @@
+文本操作基本命令
+	cut -> grep -> wc -> sort -> uniq -> diff -> tr
+	管道命令：|
+	重定向：
+		> 2> &> >> < <<
+
+vim : 程序开发器
+	vim ~/.vimrc
+	
+====================================
+linux用户管理：
+	分两类：
+		管理员用户：root uid = 0
+		其他用户：
+			服务用户：uid(1 - 499) 用户无法登录，开启服务需要用户信息。
+			普通用户：uid(500以上)，方便其他用户登录，是由管理原创建。
+
+		查看用户uid ： id + username
+		注意：1 设置用户的时候，必须给用户设置密码，否则无法登录。
+			  2 创建用户的时候，会创建一个同名组
+用户对应配置文件：
+	/etc/passwd : 用户帐号信息文件
+	/etc/shadow	：用户信息密码文件
+	/etc/group 	：用户组的帐号信息文件
+	/etc/gshadow：用户组密码信息文件
+
+	/etc/skel/ ： 用户模板文件
+
+	/var/spool/mail/tom	用户邮件信息文件
+
+
+用户帐号信息文件详解：/etc/passwd
+	root:x:0:0:root:/root:/bin/bash
+	bin:x:1:1:bin:/bin:/sbin/nologin
+	以冒号为分割符，分割成7列
+	第一列：表示用户名
+	第二列：表示用户密码 -> /etc/shadow
+	第三列：表示用户uid,是计算机识别用户唯一标识。
+	第四列：表示用户组gid
+	第五列：表示描述性信息
+	第六列：表示用户家目录
+			管理员家目录	/root
+			普通用户家目录  /home
+	第七列：表示用户使用shell
+			查看本机所支持shell 
+			[root@localhost test]# echo $SHELL
+			/bin/bash
+			查看本机支持所有shell
+			[root@localhost test]# ls /bin/*sh
+			/bin/bash  /bin/csh  /bin/ksh  /bin/sh  /bin/tcsh
+
+用户密码信息文件 /etc/shadow
+	root:$1$7wbPxbXa$Z4a9Zw/VQ8/2sVDEez0Og/:17051:0:99999:7:::
+	bin:*:17021:0:99999:7:::
+	daemon:*:17021:0:99999:7:::
+	第一列：表示用户名
+	第二列：表示用户密码信息，是通过md5加密算法来实现
+		123456								叫明文
+		$1$7wbPxbXa$Z4a9Zw/VQ8/2sVDEez0Og/ 	叫暗文
+		$1$7wbPxbXa$						密钥
+		Z4a9Zw/VQ8/2sVDEez0Og/				密码
+		[root@localhost test]# grub-md5-crypt 生成md5密码命令
+		Password: 
+		Retype password: 
+		$1$yUdDy$7qAVLaKALsmS5qdLWT5Mb/
+	第三列：表示从1970年1月1日到上次修改密码天数
+	第四列：表示上次修改密码时间间隔天数
+			0 ： 表示随时所以修改
+	第五列：表示密码有效期
+			99999 ： 表示密码不会失效
+	第六列：表示密码失效前提示信息有效期
+			7 ： 表示失效前会给用户发送提示信息
+	第七列：表示失效后多少天还可以使用
+	第八列：表示系统有效期，主要用于收费系统
+	第九列：保留
+
+用户组帐号信息文件 /etc/group
+	root:x:0:root
+	bin:x:1:root,bin,daemon
+	daemon:x:2:root,bin,daemon
+
+	第一列：表示组名
+	第二列：表示组密码 /etc/gshadow
+	第三列：表示用户组gid
+	第四列：表示组成员
+用户组密码信息文件：
+	root:$1$5OuRd/HH$Np5Mou5TBCqgWeawVH.Fx1::root
+	bin:::root,bin,daemon
+	daemon:::root,bin,daemon
+
+	第一列：用户组名
+	第二列：用户组密码
+	第三列：用户组管理员
+	第四列：用户组成员
+===========================================
+创建用户：useradd adduser
+	格式：cmd + option + username
+		-c : 表示描述性信息
+		-d : 指定家目录
+		-s : 指定shell
+		-u : 指定uid
+		-g : 指定gid
+
+设置用户密码：passwd
+	格式：cmd + username
+
+		在设置密码时候，会有复杂度要求，对管理员无效，如果是普通用户，则必须遵循密码复杂度要求。
+		密码复杂度必须是字母，数字，下划线，特殊字符等组合，而且必须6位以上。
+
+删除用户：userdel
+	userdel -r username : 表示彻底删除
+
+	userdel username : 只删除用户配置文件信息中内容，不会删除用户家目录和Email文件。
+
+修改用户信息：
+	格式：usermod + option + username
+	-c : 表示指定注释栏
+	-d : 表示指定用户家目录
+	-g : 表示指定用户组
+	-G : 表示加入用户组中
+	-l : 表示修改用户名
+		usermod -l new_name old_name
+	-s : 表示修改shell
+		usermod -s /sbin/nologin tt
+	-L : 表示锁住用户
+	-U : 表示解锁用户
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+切换用户：su
+	
+	su username : 表示不完全切换
+		[root@stu72 test]# pwd		上级用户工作目录
+		/test
+		[root@stu72 test]# su tom	切换用户
+		[tom@stu72 test]$ pwd		工作目录环境并没有在当前用户家目录下。
+		/test
+		[tom@stu72 test]$ id   		表示切换成功
+		uid=500(tom) gid=500(tom) groups=500(tom)
+		[tom@stu72 test]$ echo $PATH 显示PATH环境变量值
+		/usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/X11R6/bin:/root/bin
+
+	su - username : 表示完全切换
+		[root@stu72 test]# pwd
+		/test
+		[root@stu72 test]# su - tom
+		[tom@stu72 ~]$ pwd
+		/home/tom
+		[tom@stu72 ~]$ echo $PATH
+		/usr/kerberos/bin:/usr/local/bin:/bin:/usr/bin:/home/tom/bin
+
+	root -> tom 高级用户切换到普通用户，不需要密码验证
+		如果普通用户切换到高级用户，则需要密码验证
+		普通用户之间切换也需要密码验证。
+
+
+	
+	切换到某一用户，然后回到上级用户环境中去，一般执行exit命令
+
+	如果一直切换，则CPU资源则一直被占用，到时系统性能降低。
+===============================================
+用户权限：
+	一般权限：
+		r : 表示只读	=> 4
+		w : 表示只写	=> 2
+		x : 表示可执行	=> 1
+
+		rwx => 7
+		rw- => 6
+		r-x => 5
+		r-- => 4
+		-wx => 3
+		-w- => 2
+		--x => 1
+		--- => 0
+	
+	属主：u
+	属组: g
+	其他用户: o
+	所用用户：a
+	如何指定文件权限：chmod
+		+	: 表示原有基础上添加
+		-	: 表示原有基础上取消
+		=	: 表示替换
+	案例：
+		-R : 表示修改目录权限，所有子目录都会跟着发生变化。
+		chmod u+x a.txt
+		chmod u-w a.txt
+		chmod u=w a.txt
+		chmod a+x a.txt
+		chmod u=rwx,g=rx,o=r a.txt
+		chmod 0755 a.txt  rwxr-xr-x
+
+	指定文件属主和属组：chown
+		-R :
+
+		chown jim a.txt 	指定文件属主
+		chown :game a.txt 	指定文件属组
+		chown root:root a.txt	指定文件属主和属组
+
+	创建组：groupadd groupname
+	
+		案例：
+			groupadd admin : 表示创建一个admin的组
+
+			注意：在创建一个新组的时候，不会创建一个同名的用户。
+	删除一个组：groupdel groupname
+			groupdel admin
+	
+	管理一个组：gpasswd
+		-a : 表示添加用户到组中
+
+		gpasswd admin	：表示给组设置一个密码 md5
+
+		gpasswd -a jim admin	:表示添加jim用户到admin组中
+		gpasswd -d jim admin	:表示从admin组中删除jim用户.
+		gpasswd -A game admin	:表示给admin组设置管理员game.
+
+	修改组信息：groupmod
+		-g:修改组gid
+		-n:修改组名
+
+	练习：
+		创建共享文件，tom用户对其可读可写可执行，jim mary join用户对其可读可执行，其他用户只读。
+		
+		1 创建文件
+		touch /test/share		表示创建共享文件
+		2 创建用户
+		useradd tom
+		useradd jim
+		useradd mary
+		useradd join	表示创建4个用户
+			验证 tail /etc/passwd
+
+		3 创建用户组
+		groupadd guest	
+			验证 tail /etc/group
+		4 将用户添加到组中
+		gpasswd -a jim guest
+		gpasswd -a mary guest
+		gpasswd -a join guest
+			验证 tail /etc/group
+		5 共享文件指定属主和属组
+		chown tom:guest /test/share
+		6 共享文件权限
+		chmod 0754 /test/share
+
+	r:
+		文件：
+			对文件查看(cat ls more less tail head ...)
+			看文件是否是用户属主还是其他用户
+			如果是属主，则可以强制修改
+			如果是其他用户，则只能查看文件内容。
+		目录：		
+			无论是属主或者其他用户，只可以查看(ls)
+	w:
+		文件：
+			可以写文件内容(vim)
+		目录：
+			看是否可以在目录中创建文件或者目录(touch mkdir)
+	x:
+		文件：
+			对二进制可执行文件
+		目录：
+			看是否可以cd进入
+
+	对文件写：
+		其他用户而言，如果当前文件没有写权限，依然可以强制写成功。则说明上级目录有写权限。
+
+	删除文件：
+		看上级目录是否有写权限，如果没有写权限，则不可以删除，如果有写的权限，则可以删除。
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+默认权限:umask => 0022
+	最高权限：0777
+	创建文件：0644：
+		666 - umask = file_mode
+		666 & (~umask) = file_mode
+	创建目录：0755
+		777 -umask = dir_mode
+		777 & (~umask) = dir_mode
+
+	临时生效
+		umask 0222
+	
+	永久生效
+		vim ~/.bashrc
+		再最后田间一行
+			umask 0222
+		文件生效
+			source ~/.bashrc
+	
+			高级权限(特权)：
+	对属主特权：
+	S_ISUID    0004000   set UID bit
+		chmod u+s cmd
+		chmod 04XXX cmd
+
+		文件：对二进制可执行文件起作用
+		目录：不适用
+		
+		案例：
+			[root@stu72 test]# ll /sbin/fdisk 	查看权限
+			-rwxr-xr-x 1 root root 96148 2010-01-07 /sbin/fdisk
+			[root@stu72 test]# chmod 04755 /sbin/fdisk 
+				通过数字设置特权
+			[root@stu72 test]# ll /sbin/fdisk 
+			-rwsr-xr-x 1 root root 96148 2010-01-07 /sbin/fdisk
+			[root@stu72 test]# chmod 0755 /sbin/fdisk 
+				表示还原
+			[root@stu72 test]# ll /sbin/fdisk 
+			-rwxr-xr-x 1 root root 96148 2010-01-07 /sbin/fdisk
+			[root@stu72 test]# chmod u+s /sbin/fdisk 
+				通过特权标识设置
+			[root@stu72 test]# ll /sbin/fdisk 
+			-rwsr-xr-x 1 root root 96148 2010-01-07 /sbin/fdisk
+
+	对属组特权：
+	S_ISGID    0002000   set-group-ID bit (see below)
+		chmod 02XXX dir
+		chmod g+s dir
+		文件：以属组身份来运行
+		目录：在目录创建任何文件或者目录都属于当前目录属组
+	对其他用户特权：
+	S_ISVTX    0001000   sticky bit (see below)
+		chmod 01XXX dir
+		chmod o+t dir
+		文件：不适用
+		目录：每一个用户都可以修改，创建自己文件，同时可以浏览其他用户文件，但不可以修改或者删除其他用户文件。
+
+	==================================
+
+	1 手动创建一个用户，并验证是否可以登录(密码)
+	不能用useradd or adduser
+	
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+

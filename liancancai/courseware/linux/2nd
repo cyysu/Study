@@ -1,0 +1,411 @@
+安装linux
+	分区：
+	包定制：
+禁用防火墙和selinux安全包
+安装vmware tools工具：虚拟机
+	分辨率：
+	共享文件(windows)
+
+	1 虚拟机菜单VM -> install vmware tools ... -> 弹出文件框 -> 拷贝文件到临时目录中(tmp)
+	2 解压：
+		cp VMwareTools-8.4.5-324285.tar.gz /tmp
+		cd /tmp
+		tar -xvf VMwareTools-8.4.5-324285.tar.gz
+	3 进入解压目录
+		cd vmware-tools-distrib
+	4 执行可执行文件
+		 ./vmware-install.pl 
+	5 重启
+		reboot
+=============================================
+linux版本：
+	安装方式分：
+		.dpkg:ubuntu Debian BSD
+		.rpm: redhat SUSE CentOS
+		.exe: windows
+
+	查看系统版本信息：lsb_release -a
+	查看内核版本：
+		[root@localhost test]# uname -r
+		2.6.18-194.el5 5.5
+		[root@localhost test]# uname -r
+		2.6.32-194.el5 6.5
+
+		2 : 表示主版本号
+		6 ：表示次版本号
+			奇数：测试版本
+			偶数：稳定版本
+		18：表示释放版本号
+	查看系统平台：
+		[root@localhost test]# uname -m
+		i686		表示32位操作系统
+		x86_64		表示64位操作系统
+
+	redhat:
+		fedora: 侧重桌面环境
+		openSUSE : 德国著名linux操作系统
+		CentOS : 社区版本操作系统
+		Debian : 最遵循GNU规范操作系统
+		Ubuntu : 桌面和游戏的首选。
+
+		国内：红旗
+=================================
+linux桌面环境
+	打开终端：
+		1 ：桌面点击右键 -> 打开终端
+		2 ：Alt + F2 -> gnome-terminal
+		3 : 应用程序 -> 附件 -> 终端
+
+	关闭终端：exit
+
+	终端打开多个标签
+		ctrl + shift + t 
+	标签之间切换：
+		alt + num
+	
+	放大字体：
+		ctrl + shift + +
+	缩小字体：
+		ctrl + -
+	永久修改：
+		菜单栏 -> 编辑 -> 当前配置文件
+	
+	窗口最大化：
+		Alt + F10
+	窗口最小化：
+		Alt + F9
+	
+	进入字符界面：
+		ctrl + alt + F2 ~ F6
+	返回：
+		ctrl + alt + F1 or F7
+
+	关机：
+		init 0 | shutdown -h now
+		shutdown -h 18:00 & 表示下午6点系统自动关机
+			& : 表示程序放在后台运行
+		shutdowm -h +30 : 表示半小时后自动关机
+
+
+	重启：
+		init 6 ｜ shutdown -r now | reboot
+
+	ctrl + c : 表示终止命令执行,命令不会执行
+	ctrl + d : 表示结束命令执行，命令会执行
+	wall	:  表示发送广播
+	ctrl + l : 表示清屏 
+	clear: 表示清屏
+=========================================
+linux文件目录：
+	/	: 表示根目录
+		所有文件都是从根开始
+	bin	：存放二进制可执行文件(普通用户基本命令)
+	sbin：存放管理员使用命令
+		查看命令存放位置：which + cmd
+	etc	: 存放配置文件信息
+		/etc/sysconfig/network-scripts/ifcfg-eth0 配置网卡基本信息文件
+	media ：挂在光盘或者U盘挂载目录
+		只识别fat格式U盘，如果是ntfs格式后期则需要安装ntfs格式包
+	root ： 表示root用户(管理员)的家目录
+	home :  表示普通用户家目录
+	tftpboot ：表示tftp服务目录
+	usr		： 表示用户安装软件目录
+		/usr/bin /usr/sbin : 存放用户安装命令
+	boot	： 表示存放镜像文件目录
+		vmlinuz-2.6.18-194.el5
+	lib	：	表示存放库文件目录
+		.so : 表示动态库
+		.a :  表示静态库
+	opt	：	表示扩展包存放目录
+	sys	：
+	proc ： 虚拟目录
+		cat /proc/cpuinfo	查看cpu基本信息
+		cat /proc/meminfo	查看内存信息
+		cat /proc/version	查看版本信息
+
+	tmp	：临时目录
+	dev	：存放设备类文件目录
+	mnt ：默认挂载目录
+===============================================
+linux基本命令：
+	内部命令：就是shell自带一些命令(就在kernel内部，说明这些命令没有路径)
+	外部命令：就是用户自己安装的一些命令，说明命令存在路径
+			同时外部命令是可以卸载的
+
+	如何区分命令是内部命令还是外部命令：
+		type + cmd
+	
+	案例1：查看ls是内部还是外部命令：
+		[root@localhost ~]# type ls
+		ls is aliased to `ls --color=tty' 说明ls是一个别名
+		[root@localhost ~]# which ls 查找
+		alias ls='ls --color=tty'
+		        /bin/ls					表示是一个外部命令
+		卸载外部外部外部命令
+			mv /bin/ls /tmp
+		执行则显示没有找到ls这个命令。
+	案例2 ： 查看cd 
+		[root@localhost ~]# type cd
+		cd is a shell builtin			表示cd是一个内部命令
+		[root@localhost ~]# which cd
+		/usr/bin/which: no cd in (/usr/kerberos/sbin:/usr/kerberos/bin:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/X11R6/bin:/root/bin)
+				表示在对应可执行命令文件中查找不到这个命令。
+
+	查看所有内部命令 man type
+
+	[root@localhost test]# type echo
+	echo is a shell builtin
+	[root@localhost test]# which echo
+	/bin/echo
+
+	说明echo 即使一个内部命令也是一个外部命令
+	＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+	tab:自动补齐
+		1 对命令自动补齐
+			如果按一次没有任何反应，则说明匹配信息有多个，则需要再按一次，则显示所有匹配信息。
+		2 对文件自动补齐
+	＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+	man : 帮助命令
+		格式： man + cmd
+		1 Commands
+			表示基本命令
+		2 System calls
+			表示系统库调用函数
+		3 Library calls
+			表示C库调用函数 数学库 第三方库
+		4 Special files
+			表示设备文件说明文档
+		5 File formats and conventions
+			表示文件格式相关说明文档
+		6 Games
+			表示游戏相关说明文档
+		7 Conventions and miscellaneous
+			表示网络相关说明文档
+		8 System management commands
+			表示管理员命令
+		9 Kernel routines
+			表示内核相关说明文档
+	info:
+		info + cmd
+	help:
+		外部命令 cmd --help
+		内部命令 help cmd
+	
+	百度 谷歌
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+ls : 显示目录所有信息
+	format : cmd + option + filename dirname
+	option:
+		-a : 表示显示所有文件(隐藏文件 . 和 ..)
+		-A : 表示除了.和..不显示外，其他都显示。
+		-d : 显示目录
+			ls aa	: 表示显示目录下所有信息
+			ls -d aa : 表示显示当前目录信息
+		-i : 表示文件索引号 计算机识别文件唯一标识
+		-h : 表示易读方式显示文件信息 （文件大小）
+			B -> K -> M -> G -> T -> ..... 进制1024个字节
+
+			1K = 1024B
+			1B = 8bit
+		-l : 表示长格式显示文件信息
+		drwxr-xr-x 2 root root   4096 09-06 14:25 aa
+		-rwxr-xr-x 1 root root   4613 09-06 10:24 a.out
+		-rw-r--r-- 1 root root 201705 09-06 14:36 a.txt
+		drwxr-xr-x 2 root root   4096 09-06 14:31 bb
+		-rw-r--r-- 1 root root    114 09-06 10:24 hello.c
+
+		分成7列：drwxr-xr-x
+		第一列：表示文件类型和权限
+			第一列的第一个字符：表示文件类型
+				d : 表示目录
+				- : 表示普通文件
+				s : 表示套接子文件 net
+				c : 表示字符设备类文件
+				l : 表示链接文件
+				b : 表示块设备类文件
+				p : 表示管道类文件  sys
+			第一列2 - 10字符表示文件权限
+				r : 表示只读
+				w : 表示只写
+				x : 表示可执行
+				- : 表示无权限
+
+				三位为一组，共三组
+				第一组：表示文件属主权限
+				第二组：表示文件属组权限
+				第三组：表示其他用户对文件权限
+
+		第二列：2 表示文件硬链接数
+			硬链接：
+				创建硬链接：ln src_filename dest_filename
+				相当于给文件做一个备份
+				不可以对目录作硬链接。
+				硬链接文件inode节点是相同。
+			软链接：
+				创建软链接 ln -s src dest
+				相当于创建一个快捷方式
+				inode节点号不一样
+				可以对目录创建软链接
+			无论软链接还是硬链接都不可以跨分区
+
+		第三列：表示文件所有者 属主
+			文件归某个用户所有
+		第四列：表示文件所有组 属组
+			文件归某个用户组所有
+		第五列：表示文件大小 字节
+		第六列：表示文件内容时间
+			atime:访问时间
+			mtime:表示修改文件内容时间 触发atime和ctime时间
+			ctime:表示修改文件属性时间(属主，属组)
+			stat: 查看文件状态
+		第七列：表示文件名
+==========================================
+cd : 切换目录
+	格式： cd + dirname
+
+	cd : 表示切换到当前用户的家目录
+		/root: 表示管理员家目录
+		/home: 表示普通用户家目录
+	pwd : 表示显示当前工作目录的绝对路径
+		绝对路径：从根开始路径叫绝对路径
+		相对路径：从当前工作目录开始的叫相对路径
+		[root@localhost network-scripts]# pwd
+		/etc/sysconfig/network-scripts
+		[root@localhost network-scripts]# cd / 通过绝对路径回到/下
+		[root@localhost /]# pwd
+		/
+		[root@localhost /]# cd -			表示返回上次目录所处环境
+		/etc/sysconfig/network-scripts
+		[root@localhost network-scripts]# pwd
+		/etc/sysconfig/network-scripts
+		[root@localhost network-scripts]# cd ../../.. 表示相对路径方式
+		[root@localhost /]# cd -
+		/etc/sysconfig/network-scripts
+		[root@localhost network-scripts]# pwd
+		/etc/sysconfig/network-scripts
+
+		.	: 表示当前工作目录
+		..	: 表示上级目录
+		~	: 表示当前用户家目录
+		-	: 表示上次所处目录状态
+=============================================
+touch : 创建文件
+	[root@localhost test]# touch a	表示创建一个文件
+	[root@localhost test]# touch a b 表述多个文件
+	[root@localhost test]# touch a{1,2,3}b{1,2} 创建6个文件
+	[root@localhost test]# touch "a{1,2,3}b{1,2}"
+	[root@localhost test]# touch "$USER" 表示不会屏蔽$
+	[root@localhost test]# touch '$USER' 表示会屏蔽$
+		$ : 表示给变量取值
+	[root@localhost test]# touch `date`  表示取出命令值
+		`` : 表示只对命令起作用。
+	[root@localhost test]# touch `seq 1 100` 创建1 ～ 100文件
+============================================
+rm : 删除文件
+	rm + filename dirname
+
+	-f : 表示无需确认删除
+	-r : 表示删除目录
+	
+	注意：
+		rm /* -rf !!!!!!!!!!!!!!!!!!!!
+		cd / && rm * -rf !!!!!!!!!!!!!!!!!!!!
+
+	通配符：
+		* :	 表示匹配任意多个字符
+		? :  表示匹配任意一个字符
+
+	touch *.c -rf : 表示删除所有.c文件
+==============================================
+mkdir : 创建目录
+	-p : 表示如果上级目录不存在，则自动创建
+	案例：
+		[root@localhost test]# mkdir aa/bb/cc/dd
+		mkdir: 无法创建目录 “aa/bb/cc/dd”: 没有那个文件或目录
+		[root@localhost test]# mkdir -p aa/bb/cc/dd
+		[root@localhost test]# tree 	表示树结构显示目录信息
+		.
+		`-- aa
+		    `-- bb
+			        `-- cc
+					            `-- dd
+
+								4 directories, 0 files
+================================================
+rmdir : 删除空目录
+============================================
+cp : 拷贝文件
+	格式：cp [option] src dest
+
+	-r : 表示复制目录
+
+	注意：
+		如果目标文件存在，在复制时候会有提示信息，如果不需要显示提示信息，则需要按如下操作：
+	[root@localhost test]# /bin/cp a.txt b.txt 表示执行正真的cp
+	[root@localhost test]# \cp a.txt b.txt 	 表示转义cp命令
+	[root@localhost test]# which cp
+	alias cp='cp -i'		表示执行cp的时候其实是在执行cp -i
+	        /bin/cp
+===============================================
+mv : 移动文件 改名
+	[root@localhost test]# mv c.txt /tmp	表示移动
+	[root@localhost test]# mv a.txt c.txt	表示改名
+	[root@localhost test]# mv b.txt /tmp/aa 表示移动并改名
+===================================================
+alias : 别名
+	临时生效
+	[root@localhost test]# alias "ii=ls -l -h -a" 设置别名
+	[root@localhost test]# unalias ii	取消别名
+	永久生效
+		[root@localhost test]# vim ~/.bashrc 打开配置文件
+		添加一行
+			alias ii = 'ls -l'
+		并保存退出
+		[root@localhost test]# source ~/.bashrc 表示让文件生效
+========================================================
+cat : 查看文件内容
+	格式：cmd + option + filename
+
+	option:
+		-n : 表示显示行号
+		-b : 表示不统计空行
+		-E : 表示显示结尾符
+
+more : 分屏显示信息		只能向下滚动
+	more +5 : 表示从第5行开始显示
+	more -5 : 表示显示5行
+less : 分屏显示			上下滚动
+head : 显示前面行
+	head -n num filename : 表示显示前面num行
+tail : 显示后面行
+	tail -n num filename : 表示显示后面num行
+tac : 反着显示
+====================================
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

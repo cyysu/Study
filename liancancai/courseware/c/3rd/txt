@@ -1,0 +1,203 @@
+变量操作：
+	1 算术运算符：7 
+	2 关系运算符：6
+	3 逻辑运算符：3
+	4 位运算符：  6
+		计算机只识别 0 1 代码
+		正数：源码
+		负数：补码
+		算术移位：考虑符号位
+		逻辑移位：不考虑符号位
+			本机：右移：算术右移
+				  左移：逻辑左移
+	5 赋值运算符：11
+	6 求空间大小运算符：sizeof()
+	7 条件运算符：con ? true : false
+
+
+	() : 改变优先级
+	[] : 定义数组下标
+	{} : 表示模块
+
+	printf()
+	fprintf()
+		stdin stdout stderr
+	sprintf()
+	snprintf()
+		buf
+	putchar()
+		char
+	puts()
+		string
+
+	scanf() format
+	getchar()
+
+	type:
+
+================================
+结构化流程控制：
+	顺序结构：
+		表达式: 2 + 3
+		函数：printf
+		空语句：;
+		返回语句：return
+
+	选择结构：
+		if 
+		if .. else
+		
+		if .. else if ... else if ... else	开关语句
+		switch case							
+
+		格式一:
+			if (con)
+			{
+				cmd	成立
+			}
+		格式二：
+			if (con)
+			{
+				cmd		表示条件成立则执行
+			}
+			else
+			{
+				cmd		表示条件不成立则执行
+			}
+		格式三：
+			if (con)
+			{
+				....
+			}
+			else
+			{
+				.....
+			}
+		格式四
+			if (con1)
+				cmd1		表示满足条件1语句
+			else if (con2)
+				cmd2		表示满足条件2语句
+			else if (con3)
+				cmd3		表示满足条件3语句
+			else
+				cmd_false	表示所有条件都不满足
+		格式五：
+			switch (var)
+			{
+				case value1:
+					cmd1;		表示满足value1执行语句
+					break;
+				case value2:
+					cmd2;		表示满足value2执行语句
+					break;
+				......
+				dafult:
+					cmd_false;	表示不满足所有值后执行语句
+					break;
+			}
+
+		练习：
+			1 模拟qq登录方式 username passwd
+				317297515 123456
+			2 商场作促销卖空调
+				1 -> 1999
+				3 -> 95
+				5 -> 9
+				10 -> 85
+				15 -> 8
+				20 -> 7
+			输入台数，计算总的价格
+
+	循环结构：
+		for
+			格式一
+			for (init; con; add)
+			{
+				body;
+			}
+			init -> con -> body -> add 第一遍循环
+				-> con -> body -> add  表示第二遍循环
+				..........
+				直到条件不成立，则结束循环
+				
+		1 一个循环实现如下图形 putchar
+		2 输入一个整形，判断是奇校验还是偶校验
+		3 打印99乘法表
+		4 求1 + 2 + 3 + ... + 100 = ? 
+
+		while
+			先判断，再执行
+			while (con)
+			{
+				body
+			}
+			满足条件则执行循环体，如果不满足，则退出
+		do_while
+			先执行，再判断
+
+		练习：while 奇数 do_while 偶数
+			 
+			 99
+
+
+	死循环
+
+		延迟函数：
+			sleep()
+			usleep()
+		刷新缓冲区：
+			fflush()
+				输入缓冲区：stdin
+				输出缓冲区：stdout
+
+		break;		表示退出当前循环
+		continue;	表示退出本次循环
+		
+	随机数：
+		srand(time(NULL)) : 随机数种子
+		rand()			  : 随机数
+
+
+		goto :
+			1 深层退出
+			2 循环
+			3 容错处理
+		
+		练习：
+			1 + 2 + 3 + ... + 100 = ?
+			99
+
+
+		break
+		continue
+		
+	1 打印今年有多少个黑色星期五  (1900 1 1)
+		首先是星期五，同时必须是13号
+		?月13日是黑色星期五
+	三天打鱼两天晒网(2000 1 1) 问今天大打鱼还是晒网
+
+	2 百元百鸡
+		公鸡：5元1只
+		母鸡：3元1只
+		小鸡：1元3只
+
+	3 求1000以内水仙花数
+		123  1 * 1 * 1 + 2 * 2 * 2 + 3 * 3 *3 = 123
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

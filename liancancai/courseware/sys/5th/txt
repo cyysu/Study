@@ -1,0 +1,219 @@
+进程：
+	特性：
+		动态性：
+		独立性：
+		并发行：
+		异步性：
+	五态模型：
+		新建态：
+		就绪态：
+		运行态：
+		挂起态：
+		结束态：
+
+创建进程：
+	fork()
+		-1 : 表示创建进程失败
+		0  : 表示返回子进程
+		>0 : 表示返回是一个父进程
+僵尸进程：
+	子进程退出，而父进程还处于运行状态。
+孤儿进程：
+	父进程退出，而子进程还处于运行状态。 就会被1号进程收养
+
+服务进程 / 守护进程
+	
+
+进程退出函数：
+	exit();
+等待子进程：
+	wait();
+进程环境：
+	extern char **environ;  外部变量
+	int main(int argc, char **argv, char **env)
+	{
+	
+	}
+实现3000 - 6000素数
+==================================================
+创建守护进程
+	int daemon(int nochdir, int noclose);
+	//第一个参数：表示进程当前工作目录 0 
+	//第二个参数：表示关闭文件描述符 0
+
+	子进程：getpid()
+	父进程：getppid()
+	组进程：getpgrp(void) getpgid(pid_t pid)
+		设置进程组：int setpgid(pid_t pid, pid_t pgid);
+	会话：	pid_t getsid(pid_t pid);
+
+	1 创建孤儿进程 fork
+
+	2 创建新的会话 setsid()
+		pid_t setsid(void);
+		1 让进程摆脱原进程组的控制
+		2 让进程摆脱原会话的控制
+		3 让进程摆脱原控制终端的控制
+	3 改变进程工作目录
+	4 重设文件默认权限
+	5 关闭所有文件描述符
+	6 退出
+		kill -9 pid
+	
+	命令：[root@aa homework]# pkill -9 a.out 杀死a.out进程
+=============
+	获取资源限额：
+		软限额：
+		硬限额：
+	int getrlimit(int resource, struct rlimit *rlim);
+	获取资源限额
+	第一个参数：表示资源
+	RLIMIT_NOFILE : 表示获取文件描述符资源
+
+	第二个参数：表示获得资源结构体信息
+	struct rlimit {
+		rlim_t rlim_cur;  /* Soft limit */
+		rlim_t rlim_max;  /* Hard limit (ceiling for rlim_cur) */
+	};
+	返回值：
+		成功： 0
+		失败： －1
+	int setrlimit(int resource, const struct rlimit *rlim);
+	设置资源限额
+
+创建一个临时文件
+	 int mkstemp(char *template);
+		参数：不可以定义成常量
+			  格式后面6为必须是XXXXXX
+	如果成功，则文件默认以读写的方式操作。
+				权限 0600
+
+==============================
+执行外部命令：
+	int execl(const char *path, const char *arg, ...);
+	第一个参数：表示执行命令的绝对路径
+	第二个参数：表示执行命令名 
+		。。。  表示命令参数
+	最后一个参数：NULL
+
+	int execlp(const char *file, const char *arg, ...);
+	第一个参数： 表示命令名 绝对路径 相对路径
+
+	int execle(const char *path, const char *arg,
+			..., char * const envp[]);
+	可以接受环境变量
+	int execv(const char *path, char *const argv[]);
+
+	int execvp(const char *file, char *const argv[]);
+	int execve(const char *filename, char *const argv[],
+	                  char *const envp[]);
+	第一个参数：必须是绝对路径
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+fork()
+vfork()
+	1 确保子进程先运行
+	2 子进程不可以用return结束
+	3 vfork创建子进程和父进程共享资源
+
+============================================
+信号：
+	在软件层次对一种中断机制模拟，也叫软中断机制
+
+信号源：
+	kill -l
+
+	2) SIGINT	:	ctrl + c
+	3) SIGQUIT	:	ctrl + \
+	6) SIGABRT	:	管道破裂信号
+	9) SIGKILL	：	杀死进程信号
+	13) SIGPIPE	：	管道信号
+	14) SIGALRM	：	定时器信号
+	26) SIGVTALRM	
+	27) SIGPROF		定时器信号
+
+
+发送信号：
+	kill -9 pid
+	pkill -9 cmdname
+	int kill(pid_t pid, int sig);
+		第一个参数：表示进程号
+		第二个参数：表示信号源
+
+	返回值：
+		成功：0
+		失败: -1
+接受信号
+	typedef void (*sighandler_t)(int); 函数指针
+	sighandler_t signal(int signum, sighandler_t handler);
+	第一个参数：表示接受信号
+	第二个参数：接受到信号，执行操作：
+		1 自定义操作：func
+		2 忽略操作：SIG_IGN
+		3 默认操作：SIG_DFL
+	返回值：
+		失败：SIG_ERR
+		成功：指向函数地址
+
+	9) SIGKILL
+	19) SIGSTOP 不可以修改
+
+闹钟信号
+	alarm() 设定闹钟
+	pause() : 表示等待任意一个信号的退出
+===============
+定时器：
+	int setitimer(int which, const struct itimerval *value,
+	                     struct itimerval *ovalue);
+	第一个参数：表示定时器类型
+		ITIMER_REAL：表示机器时间
+		ITIMER_VIRTUAL	：表示用户态时间
+		ITIMER_PROF		：表示用户态和系统态下消耗时间
+	第二个参数：表示设定结构体时间实例
+	struct itimerval {
+		struct timeval it_interval; /* next value */  循环时间
+		struct timeval it_value;    /* current value */ 第一次开始时间
+	};
+	struct timeval {
+		long tv_sec;                /* seconds */ 秒
+		long tv_usec;               /* microseconds */ 微秒
+	};
+	1秒 ＝ 1000毫秒 ＝ 1000000微妙
+	第三个参数：上次设置时间 NULL
+
+	homework:
+	封装定时器
+	1 -> 11111 1
+	3 -> 33333 0
+	5 -> 55555 1
+	8 -> 88888 0
+	10 ->10101 1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

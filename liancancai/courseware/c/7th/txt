@@ -1,0 +1,109 @@
+数组：
+	格式：varname[const int]
+	&a :
+	a :
+	&a[0]:
+	参数：
+	操作：
+
+	char "" => %s
+====================================
+	字符串和函数关系
+
+	str家族函数：
+	strlen()
+	void bzero(void *s, size_t n); 清空字符串
+	第一个参数：表示数据空间地址(首地址)
+	第二个参数：表示数据空间大小
+
+	strcpy() : 拷贝
+	char *strcpy(char *dest, const char *src);
+	把源拷贝给目标
+	拷贝会赋值\0
+	char *strncpy(char *dest, const char *src, size_t n);
+	表示指定拷贝数据个数
+	如果指定个数越过\0,则不拷贝。
+
+	字符串连接：
+	char *strcat(char *dest, const char *src);
+	表示把源连接到目标结尾，目标的空间要足够大。
+
+	char *strncat(char *dest, const char *src, size_t n);
+	表示指定连接个数
+
+	比较：
+	int strcmp(const char *s1, const char *s2);
+
+	-1 	: 表示 s1 < s2
+	1	：表示 s1 > s2
+	0	: 表示 s1 == s2
+	int strncmp(const char *s1, const char *s2, size_t n);
+
+	查找匹配字符：
+	char *strchr(const char *s, int c);
+	表示从前代后查找
+	char *strrchr(const char *s, int c);
+	表示从后到前查找
+
+	如果找不到，则返回空
+
+	查找匹配字符串
+	char *strstr(const char *haystack, const char *needle);
+	char *strcasestr(const char *haystack, const char *needle);
+
+=============================================================
+	mem函数
+		void *memcpy(void *dest, const void *src, size_t n);
+		第一个参数：表示目标
+		第二个参数：表示源
+		第三个参数：表示拷贝数据空间大小
+
+		清空函数：
+		memset()
+
+		移动函数：
+		void *memmove(void *dest, const void *src, size_t n);
+
+		如果出现内存重叠，我们一定要使用memmove
+		如果内存不重叠，memmove 和 memcpy功能一样。
+=====================================
+	多维数组：
+		二维数组 int
+	
+	1 homework:
+		void my_strcpy(char dest[], char src[])
+		strncpy()
+		void strcat()
+		strncat()
+
+		int strcmp()
+		strncmp()
+		-1 1 0
+		int strchr()
+		int strrchr()
+		int strstr()
+		int strcasestr()
+	2 实现约瑟夫环
+		m  n 
+	
+	3 弹球程序
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

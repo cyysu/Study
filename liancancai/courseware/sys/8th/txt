@@ -1,0 +1,215 @@
+共享内存：
+	1 获取关键字
+		key_t ftok(const char *pathname, int proj_id);
+	2 创建共享内存：
+		int shmget(key_t key, size_t size, int shmflg)
+	3 映射共享内存到进程中
+		void *shmat(int shmid, const void *shmaddr, int shmflg);
+	4 处理数据
+		void *memcpy(void *dest, const void *src, size_t n);
+		char *strcpy(char *dest, const char *src);
+		int printf(const char *format, ...);
+	5 取消映射
+		int shmdt(const void *shmaddr);
+	6 销毁共享内存
+		int shmctl(int shmid, int cmd, struct shmid_ds *buf);
+信号量:
+	1 获取关键字
+		key_t ftok(const char *pathname, int proj_id);
+	2 创建信号锁
+		int semget(key_t key, int nsems, int semflg);
+	3 设置锁
+		int semctl(int semid, int semnum, int cmd, ...);
+			cmd => SETVAL
+	4 加锁和解锁
+		int  semop(int  semid,  struct  sembuf  *sops,  unsigned
+		       nsops);
+	
+		unsigned short sem_num;  /* semaphore number */ 信号编号
+		short          sem_op;   /* semaphore operation */加锁和解锁
+			加锁：负数
+			lock  a
+			解锁：正数
+			unlock b
+		short          sem_flg;  /* operation flags */ 标识 0
+
+
+	5 锁的销毁
+		int semctl(int semid, int semnum, int cmd, ...);
+			cmd => IPC_RMID
+			
+线程：
+	注意：
+		1 打印线程号 %lu
+		2 编译 -lpthread
+
+	1 创建线程：
+		int pthread_create(pthread_t *restrict thread, const pthread_attr_t *restrict attr, void  *(*start_routine)(void*),  void  *restrict arg);
+
+	func(&a);
+
+	2 线程退出：
+		void pthread_exit(void *value_ptr);
+		不可以返回局部变量地址  => 运行时段地址空间
+		通过返回动态呢内存空间地址
+		通过返回全局变量地址
+		通过返回接受参数地址
+	3 线程等待函数
+		int pthread_join(pthread_t thread, void **value_ptr)
+	
+====================================================
+
+线程锁：
+	动态锁：
+		//锁的初始化
+		int pthread_mutex_init(pthread_mutex_t *restrict mutex,
+		              const pthread_mutexattr_t *restrict attr);
+		//销毁锁
+		int pthread_mutex_destroy(pthread_mutex_t *mutex);
+
+	静态锁：
+		pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
+		int pthread_mutex_lock(pthread_mutex_t *mutex);//加锁
+		int pthread_mutex_unlock(pthread_mutex_t *mutex);//解锁
+
+
+线程清理函数
+	//注册
+	void pthread_cleanup_push(void  (*routine)(void*),  void *arg);
+	//销毁
+	void pthread_cleanup_pop(int execute);
+
+
+	1 注册顺序和销毁顺序相反的
+	2 销毁函数和代码位置有关
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+net:
+	就是通讯套接子实现进程之间的通讯就是网络编程。
+
+网络基础知识：
+	网络模型：
+		OSI： 开放系统互联参考模型
+		TCP/IP ： 网络协议
+
+		7层：由底到高
+			物理层：检测物理线路，保证数据发送
+				设备：集线器
+				1 放大信号，防止信号减弱
+				2 扩展物理接口
+
+			数据链路层：保证数据在物理线路上可靠传输
+				交换机
+				主要作用：物理编址、 网络拓扑结构、错误校验、帧序列以及流控
+
+				
+			网络层：将网络地址转换成物理地址，解析IP地址
+				设备：路由器 网关
+				大端和小端
+			传输层：
+				实现不同用户之间数据通讯
+				tcp/ip
+			会话层：
+				保证数据的链接
+				会话层提供服务可使用应用建立和维持会话，并使会话同步。
+
+			表示层：就是数据显示方式
+				压缩和解压缩 加密和解密等等
+			应用层：数据用户接口。也就是应用层用户编程接口。
+	TCP/IP协议：
+		应用层：
+			TCP协议：确保数据安全
+				Telnet 	: 虚拟终端协议
+				FTP		: 文件传输协议
+				SMTP	: 简单邮件传输协议
+				HTTP	: 超文本链接协议
+			UDP协议：执行效率会高
+				RIP		： 路由信息协议
+				DNS		： 域名解析协议
+				NFS		： 网络文件系统
+		传输层：
+			TCP :	传输控制协议
+			UDP :	用户数据报协议
+			RIP :	实时传输协议
+		网络层：
+			IP		:	网络互联协议
+			ICMP	：	控制报文协议
+			IGMP	：	互联网组管理协议
+			ARP		：	地址解析协议
+			RARP	：	逆地址解析协议
+		物理层：
+			X.25	:	第一个面向网络链接 分组交换服务
+			LANS	：	局域网
+			ARPAnet	:	一种广域网，连接整个美国国防部研究机构的网络。
+			DECNet	:	数字设备公司网络
+			SatNet	:	卫星网络
+			Radio	:	无线电广播设备
+
+	＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+	linux下TCP实现
+		
+
+		hello -> 以太网帧
+		以太网帧格式：
+			Ethernet II类型以太网帧的最小长度为64字节。 最大长度为1518字节
+
+		| 目标MAC地址 ｜ 源MAC地址 | 类型 | 数据 | FCS |
+				6    		6		  2    46~1500  4
+
+		目标MAC地址	：确定帧的接受者。
+		源MAC地址	：表示帧发送的工作站。
+		类型字段	：告诉接受者如何解析数据字段
+		数据字段：
+				数据帧 ：帧头 + IP数据包 + 帧尾
+					帧头包括源和目标主机MAC地址和类型
+					帧尾就是校验位
+				IP数据包：IP包头 + TCP数据信息
+					IP包头包括源和目标主机IP地址和类型及生存周期等
+				TCP数据信息：TCP包头 + 实际数据
+					TCP包头包括源和目标主机端口号 帧序列，确认号，校验字等
+	机器地址：硬件地址 MAC地址
+		机器地址由6个字节组成：前面3个字节表示厂商编号，后面3个字节是指网络适配器编号
+
+	IP地址：
+		IPV4 ：32个位 4个字节，每一个字节用.隔开，所以也叫点分十进制。
+		最多设置ip : echo[2**32 - 1];
+	
+		TPV6 128位
+
+	IP地址 = 网络号 + 主机号
+	分类：
+		A类地址：美国
+			范围：0.0.0.0 ~ 127.255.255.255
+			网络号：126
+			子网掩码：255.0.0.0
+		B类地址：欧洲
+			128.0.0.0 ~ 191.255.255.255
+			子网掩码: 255.255.0.0
+		C类地址：亚洲
+			192.0.0.0 ~ 223.255.255.255
+		D类地址：广播地址
+			224.0.0.0 ~ 239.255.255.255  
+		E类地址：保留
+			240.0.0.0 ~ 247.255.255.255
+
+	ip地址 MAC地址
+	ARP: 地址解析协议 MAC => ip
+	RARP:逆地址解析协议 ip => MAC
+
+	=======================
+	实现TCP：
+		
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+

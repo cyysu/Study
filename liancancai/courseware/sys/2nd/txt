@@ -1,0 +1,141 @@
+kernel:
+	1 文件系统
+	2 进程管理
+		信号 管道 消息队列 共享内存 信号量 套接字
+	3 内存管理
+	4 设备驱动
+	5 网络协议
+fopen -> open -> api
+	close
+
+	flag: 进程对文件操作权限
+	mode: 用户对文件操作权限
+
+	creat() 创建文件
+
+	read()
+	write() 无缓冲函数
+	printf() 行缓冲函数
+	fwrite() 满缓冲函数
+
+	fflush(NULL) 刷新缓冲区
+===================================================
+	fseek() : 
+	off_t lseek(int fildes, off_t offset, int whence);
+
+	SEEK_SET : 表示文件开头
+	SEEK_CUR ：表示文件当前位置
+	SEEK_END ：表示文件结尾
+
+	返回值：成功，表示偏移的位置(文件开头)
+			失败：-1
+
+	复制文件描述符
+	int dup(int oldfd);
+	int dup2(int oldfd, int newfd);
+	第一个参数：表示旧的文件描述符，
+	第二个参数：表示新的文件描述符
+	把旧的文件描述符拷贝给新的文件描述符， 执行结束后。关闭新的文件描述符
+	新的文件描述符，用户可以指定。
+		如果文件描述符被使用，则关闭这个文件描述符，让其指向复制文件描述符
+		如果文件描述符未被使用，则新的文件描述符指向旧的文件描述符。
+
+	dup2(old, new) => close(new) && new = dup(old)
+
+	用户输入文件如何被计算机所访问
+
+	进程 => 进程表相
+			0 -> stdin
+			1 -> stdout
+			2 -> stderr
+			3          -> 文件表
+							[flag]
+							[off_t]
+							[which]
+							[inode节点指针]		-> inode节点
+													[inode | size | type | mode ... | name]
+			4
+			.....
+			1023
+
+
+	v节点 <==> inode节点 <==> 文件索引号， 在计算机中文件唯一标识
+
+
+	获取文件状态信息
+	int fcntl(int fd, int cmd);
+	int fcntl(int fd, int cmd, long arg);
+	第一个参数：表示文件描述符 open
+	第二个参数：表示操作命令
+		F_DUPFD ： 表示复制文件描述符
+			执行赋值文件描述符(dup2),不会关闭新的文件描述符。
+		F_GETFL	：	表示获取文件标志
+		F_SETFL	：	表示设置标志
+			只能设置如下标志
+			O_APPEND
+			O_ASYNC
+			O_DIRECT
+			O_NOATIME
+			O_NONBLOCK  ： 表示非阻塞
+	后面参数：表示命令补充
+
+	返回值：
+		成功：!= -1
+		失败：-1
+
+	文件属性：
+	int stat(const char *path, struct stat *buf);
+	第一个参数：文件路径
+	第二个参数：表示保存文件属性空间地址
+	int fstat(int filedes, struct stat *buf);
+	int lstat(const char *path, struct stat *buf);
+	
+	
+
+	权限： st_mode
+	属主：rwx 	S_IRWXU  0700
+	属组：		S_IRWXG  0070
+	其他用户：	S_IRWXO  0007
+
+	rwx => 7
+	rw- => 6
+	r-x => 5
+	r-- -> 4
+	-wx => 3
+	-w- => 2
+	--x => 1
+	--- => 0
+
+
+	通过用户uid获得用户名 /etc/passwd
+	struct passwd *getpwuid(uid_t uid);
+	struct passwd *getpwnam(const char *name)
+	struct passwd *getpwent(void);
+	void setpwent(void);//表示指向文件开头
+	void endpwent(void); //关闭用户帐号信息文件
+
+
+	实际用户：表示文件执行者
+		uid_t getuid(void);
+	有效用户：表示文件所有者
+		uid_t geteuid(void);
+
+	一般情况下 有效用户等于实际用户。
+	设置特权位，则不同 chmod u+s filename
+
+	通过用户组gid获取组帐号信息 /etc/gruop
+	struct group *getgrgid(gid_t gid);
+	struct group *getgrnam(const char *name);
+	struct group *getgrent(void);
+	void setgrent(void)
+	void endgrent(void)
+
+	实现ll
+
+
+
+
+
+
+
+

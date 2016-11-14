@@ -1,0 +1,385 @@
+磁盘：
+	硬盘： -> file -> /dev/sda  表示第一张硬盘 
+		必是有空闲硬盘 -> 就是没有建立文件系统
+		空余 -> 剩余的磁盘空间，用来存放文件
+		IDE: hd
+		SISC:sd
+
+	1 分区 fdisk /dev/sda
+	2 格式化: mkfs -t ext4 /dev/sda5
+	3 挂载分区：mount 
+
+	file uname cal date bc which locate find sync fidsk mount showmount 
+	/etc/fstab	实现自动挂载
+	=============================================
+	手动创建一个用户：useradd + username  test
+	1 修改用户帐号信息文件
+		vim /etc/passwd 添加如下一行代码
+		test:x:505:506:check:/home/test:/bin/bash
+		
+	2 设置用户密码：
+		vim /etc/shadow	添加一行
+		获取md5加密密码信息
+			[root@aa test]# grub-md5-crypt 
+			Password: 
+			Retype password: 
+			$1$PyRby$tDwGFI1ueXlJb92Y5kPTT.
+		test:$1$PyRby$tDwGFI1ueXlJb92Y5kPTT.:17052:0:99999:7:::
+
+	3 创建用户家目录
+		[root@aa test]# mkdir /home/test
+		[root@aa test]# cp /etc/skel/.bash* /home/test/ -rf
+		[root@aa test]# cp /etc/skel/.mozilla /home/test/ -rf
+		[root@aa test]# cp /etc/skel/.emacs /home/test/ -rf
+
+	4 创建用户组信息
+		vim /etc/group
+		test:x:506:
+	5 组密码文件
+		vim /etc/gshadow
+		test:!::
+	6 指定用户模板文件属主和属组
+		chown -R test:test /home/test
+		
+	7 创建用户mail文件
+		touch /var/spool/mail/test
+====================================
+	网络管理
+	检测网络连接状态：
+	mii-tool
+		no MII interfaces found	表示网卡驱动没有安装或者网卡松动。
+		no link : 表示没有插网线
+
+	查看网卡信息
+		ifconfig:
+			eth0 : 表示第一张网卡
+		ifconfig eth0 down 	关闭网卡
+		ifconfig eth0 up	启动网卡
+		设置IP地址：ipv4 32
+			ip地址分五类
+			A类 B类 C类 D类 E类
+			0  ~ 127
+			ip号 = 网络号 + 主机号
+		ifconfig eth0 192.1.1.10 修改ip地址 临时生效
+
+		永久生效：
+			/etc/sysconfig/network-scripts/ifcfg-eth0
+
+		DEVICE=eth0				表示设备名
+		BOOTPROTO=none			表示网络连接方式
+			dhcp	: 表示动态连接
+				不需要用户自定IP地址，系统默认自动分配一个可用IP地址
+			static  : 表示静态连接
+				则需要用户指定ip地址
+		HWADDR=00:0C:29:36:D2:7E	表示MAC地址
+		ONBOOT=yes					表示是否启动这张网卡
+		TYPE=Ethernet				表示网络协议
+		IPADDR=10.1.1.72	指定用户ip地址
+			
+		设置好后，要重启网络
+			service network restart
+		service : 只是红冒特有命令
+			第一种用法
+			service network start	表示开启网络服务
+			service network stop	表示暂停网络服务
+			service network restart 表示重启网络服务
+			service network	status	表示查找网络服务状态
+			第二种用法
+			/etc/init.d/network restart
+
+		[root@aa test]# system-config-network 打开网卡配置窗口信息
+		
+		[root@aa test]# setup 永久开启服务
+
+	远程登录：ssh
+		默认登录用户是root
+		[root@aa test]# ssh jim@10.1.1.72 	表示指定用户登录
+		退出登录状态：exit
+
+		1 保证网络ping通
+		2 知道登录用户用户名和密码
+		3 服务器要启动sshd服务
+
+	ping 命令：
+		检测网络连接状态
+		-c : 表示指定ping次数
+
+		如下表示ping成功
+		[root@aa test]# ping 10.1.1.72
+		PING 10.1.1.72 (10.1.1.72) 56(84) bytes of data.
+		64 bytes from 10.1.1.72: icmp_seq=1 ttl=64 time=0.052 ms
+		64 bytes from 10.1.1.72: icmp_seq=2 ttl=64 time=0.069 ms
+		64 bytes from 10.1.1.72: icmp_seq=3 ttl=64 time=0.050 ms
+		表示可以连通
+		64 bytes	表示ping包大小
+		from 10.1.1.72:	表示目标ip地址
+		icmp_seq=24		表示ping序列号 icmp ：数据包协议
+		ttl=64			表示生存周期,表示数据经过多少个路由
+		time=0.064 ms	表示响应时间
+		
+		ping 10.1.1.72 -c 3  表示ping了3次
+
+		如下表示ping失败
+		[root@aa test]# ping 10.1.1.127
+		PING 10.1.1.127 (10.1.1.127) 56(84) bytes of data.
+		From 10.1.1.72 icmp_seq=2 Destination Host Unreachable
+		From 10.1.1.72 icmp_seq=3 Destination Host Unreachable
+		From 10.1.1.72 icmp_seq=4 Destination Host Unreachable
+
+		不同设备用的交叉线
+			白橙 橙 白绿 蓝 白蓝 绿 白棕 棕
+		相同设备用的直连线
+
+	网络拷贝
+	由客户端拷贝到服务器
+	[root@aa test]# scp 10.1.1.88:/etc/passwd /tmp
+	root@10.1.1.88's password: 
+	passwd                             100% 2024     2.0KB/s   00:00
+	由服务器到客户端
+	[root@aa test]# scp /etc/passwd 10.1.1.88:/tmp
+	root@10.1.1.88's password: 
+	passwd                             100% 2097     2.1KB/s   00:00 
+
+	由客户端到客户端
+	scp 10.1.1.170:/etc/passwd 10.1.1.88:/tmp
+
+	拷贝目录 -r
+	
+	设置主机名：
+		查看主机名：hostname
+		/etc/sysconfig/network
+			修改主机名一行：
+				HOSTNAME=aa.bb.com 修改主机名
+		生效：reboot
+	帮定主机名和ip地址
+		vim /etc/hosts
+			添加一行：
+			10.1.1.72 aa.bb.com
+
+		网络访问是http:://www.test.com <=> http:://10.1.1.72
+	DNS ：域名解析服务
+		/etc/resolv.conf 
+		添加如下信息
+			nameserver 10.1.1.1 	设置DNS
+
+============================================================
+网络服务：
+	NFS:实现linux之间文件共享
+	服务器名：nfsd
+	服务器：
+	1 安装nfs服务 -> 安装nfs包源 -> iso
+		挂在iso文件
+		通过yum安装：就是为了解决包之间依赖
+		如何配置yum：
+		1> : 配置yum
+			打开配置文件
+			vim /etc/yum.repos.d/rhel-debuginfo.repo
+			touch /etc/yum/repos.d/hello.repo
+	
+		[rhel-debuginfo]	表示标签
+		name=Red Hat Enterprise Linux $releasever - $basearch - Debug
+							表示名称
+		baseurl=ftp://ftp.redhat.com/pub/redhat/linux/enterprise/$releasever/en/os/$basearch/Debuginfo/
+						表示包存放路径
+						ftp://	表示ftp服务共享文件
+						http:// 表示http服务共享文件
+						file:// 表示本地文件
+		enabled=0
+						表示是否启动这个服务包
+						0 表示关闭
+						1 表示开启
+		gpgcheck=1
+						表示校验位
+						1 表示校验
+						0 表示不校验
+
+		6.5系统配置方案：
+			
+			[iso]
+			name=iso
+			baseurl=file:///iso
+			enabled=1
+			gpgcheck=0
+
+			系统 -> 管理 -> 添加/删除软件
+
+		5.5系统配置方案：
+			
+			[Server]
+			name=Server
+			baseurl=file:///iso/Server
+			enabled=1
+			gpgcheck=0
+			[VT]
+			name=VT
+			baseurl=file:///iso/VT
+			enabled=1
+			gpgcheck=0
+			[Cluster]
+			name=Cluster
+			baseurl=file:///iso/Cluster
+			enabled=1
+			gpgcheck=0
+			[ClusterStorage]
+			name=ClusterStorage
+			baseurl=file:///iso/ClusterStorage
+			enabled=1 
+			gpgcheck=0
+
+			应用程序 -> 添加/删除软件
+
+		2> : 加载yum配置
+			yum clean all 	: 表示清空以前yum配置
+			yum list 		: 表示重新加载yum
+		3> : 通过yum安装服务
+			yum install "nfs*" 		表示第一次安装
+			yum reinstall "nfs*" 	表示重新安装
+			yum -y reinstall "nfs*" 表示无需确认安装
+
+		4> : yun erase "nfs*" 表示卸载安装服务
+
+			
+
+	2 配置nfs服务
+		vim /etc/exports
+		/ken *(ro)
+		/tools *(rw,sync)
+		/homework *(rw)
+
+		格式
+		共享目录 客户端(参数)
+		客户端：
+			* : 表示可以访问服务器的所有用户
+			10.1.1.88 : 表示只有88这个用户可以访问
+			10.1.1.*  : 表示只有10.1.1网段的所有用户可以访问
+		参数：
+			ro : 表示只读
+			rw : 表示读写
+			sync : 表示数据同步
+
+	3 重启服务
+		service nfs restart
+
+	客户端：
+		1 ping的服务器
+			ping service_ip
+		2 查看共享课间
+			showmount -e  service_ip
+		3 挂载共享课间
+			mount 10.1.1.72:/ken /mnt
+		4 拷贝文件到本机
+			cp
+		4 卸载：
+			umount
+			
+				
+	
+
+	HTTP:实现linux和windows之间文件共享
+		超文本连接服务
+		服务器名：httpd
+		端口号：80
+		
+	1 安装httpd服务
+		yum install httpd*
+	2 配置http服务
+		共享文件信息：
+		/etc/httpd/conf/httpd.conf
+		
+		修改共享目录	
+		281 : DocumentRoot "/var/www/html" 修改为/ken
+
+		291 ~ 294行
+		<Directory /> 表示容器开始
+			Options FollowSymLinks
+			AllowOverride None
+		</Directory>
+		修改为如下
+		<Directory /ken>			修改共享目录
+			Options FollowSymLinks Indexes	表示列方式显示文件信息
+			AllowOverride all				表示允许通过http访问
+		</Directory>
+	
+		欢迎界面设置：
+		/etc/httpd/conf.d/welcome.conf
+    		Options -Indexes 去掉中间-
+	3 重启服务
+		service httpd restart
+
+		如果文件配置成功，但启动服务时候出现报错
+		ServiceName localhost:80
+
+	帮定ip地址和主机名
+		vim /etc/hosts
+		10.1.1.72 aa.bb.com
+	安装火狐：
+		yum install firefox
+
+	客户端：
+
+		http://10.1.1.72
+
+
+	www.baidu.com		-> ken
+	www.uplooking.com	-> tools
+
+	基于域名网络共享
+
+	1 打开配置文件
+		
+	NameVirtualHost *:80  去掉注释
+
+	模板：
+	#<VirtualHost *:80>			表示容器开始
+	#    ServerAdmin webmaster@dummy-host.example.com
+					表示Email邮箱
+	#    DocumentRoot /www/docs/dummy-host.example.com
+					表示共享目录
+	#    ServerName dummy-host.example.com
+					表示域名
+	#    ErrorLog logs/dummy-host.example.com-error_log
+	#    CustomLog logs/dummy-host.example.com-access_log common
+					表示日志信息
+	#</VirtualHost>				表示容器结束
+
+	案例：
+	
+	#www.baidu.com
+	<VirtualHost *:80>
+		ServerAdmin webmaster@baidu.com
+		DocumentRoot /ken
+		ServerName www.baidu.com
+		ErrorLog logs/baidu.com-error_log
+		CustomLog logs/baidu.com-access_log common
+	</VirtualHost>
+	#www.uplooking.com
+	<VirtualHost *:80>
+		ServerAdmin webmaster@uplooking.com
+		DocumentRoot /tools
+		ServerName www.uplooking.com
+		ErrorLog logs/uplooking.com-error_log
+		CustomLog logs/uplooking.com-access_log common
+	</VirtualHost>
+		
+
+	帮定ip和主机名
+		vim /etc/hosts
+		10.1.1.72 www.baidu.com
+		10.1.1.72 www.uplooking.com
+
+	重启网络：
+		service httpd restart
+
+
+
+
+
+
+
+
+
+
+
+
+
+

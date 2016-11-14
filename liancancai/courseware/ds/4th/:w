@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define MAX 128
+
+int main(void)
+{
+	int top = 0;
+	char stack[MAX];
+	char buf[128];
+
+	return 0;
+}

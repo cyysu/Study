@@ -1,0 +1,159 @@
+函数：
+	库函数：调用C库函数
+			头文件: /usr/include => .h
+				预处理
+			库文件: /lib/    => .so .a
+				运行
+	自定义函数
+			格式：
+			函数不可以嵌套定义
+
+	无参：void 
+	实参：调用函数参数
+	形参：实现函数参数
+
+	函数传参参的是变量值
+
+	类型 位置 个数要保持一致
+	传参：
+		变量 常量 表达式 函数
+	调用：
+		语句 运算 返回 参数
+
+	可变参：...
+		va_stat
+		va_arg
+			char short int long -> int 
+			float doubel -> double
+			string -> char *
+		va_end
+	func -> file -> makefile 
+		默认规则 ：all
+		变量：
+			变量赋值：
+				=	:	递归赋值
+				+=	:	累加赋值
+				?=	:	判断赋值
+				:=	:	直接赋值
+			自动变量：
+				$^	:	表示依赖所有
+				$<	:	表示第一个依赖
+				$@	:	表示规则名
+		依赖：
+			规则 变量 文件
+
+		伪代码：
+			.PHONY:
+		参数：
+			-s -f 
+			make -f makefile
+	=============================
+	
+	int main(int argc, char *argv[])
+
+	第一个参数： 表示接受参数个数
+	第二个参数： 表示接受参数内容
+	
+	函数递归：
+		直接递归：A -> A
+		间接递归：A -> B -> A
+
+		一定要有退出条件。
+
+		栈：先进后出
+			后进先出
+	==================================
+	动态库：.so
+		1 生成.o文件
+			32 : gcc -c filename.c
+			64 : gcc -c filename.c -fPIC
+		2 生成共享动态库
+			gcc -shared -fPIC -o libname.so hello.o world.o
+			动态库命名格式
+				lib + name + .so
+			参数：
+				-shared : 表示生成共享动态库标识
+				-fPIC	: 表示生成共享动态库跟代码位置无关
+		3 编译
+			gcc main.c -L. -lmyhello
+			-L : 表示链接动态库路径
+			-l : 表示跟动态库库名
+		4 运行：
+			[root@aa lib]# ./a.out 
+			./a.out: error while loading shared libraries: libmyhello.so: cannot open shared object file: No such file or directory
+			说明找不到共享动态库
+
+			1 把动态库拷贝到系统库目录中
+				cp ./libmyhello.so /lib
+			2 修改配置文件
+				vim /etc/ld.so.conf 添加生成共享动态库的绝对路径
+				ldconfig ： 使文件生效
+		查看动态库函数：
+			nm libname.so
+			readelf -a libname.so
+
+	静态库：.a
+		1 依赖.o文件
+		2 生成静态库
+			格式：lib + name + .a
+			ar cr -o libname.a *.o
+			c : 表示创建静态库
+			r : 表示添加模块到静态库中
+				如果库中还有同名模块，则替换掉
+		3 编译：
+			gcc main.c -L. -lmyworld
+		4 执行
+
+		查看静态库模块
+			ar -t libmyhello.a
+
+	结论：
+		动态是在程序运行的时候调用。
+		静态库在编译的时候包含进来。
+
+		动态库优先级高于静态库
+
+
+	homework:
+		1 date => time(NULL) 1970年1月1日到此刻秒数
+
+			file -> makefile -.so .a
+			cal
+		2 实现汉诺塔
+
+		3 实现任意进制之间转换
+		
+		4 走台阶 共9个台阶
+			1步走1个台阶 2个台阶 3个台阶
+			问有多少中走法
+
+
+
+
+	系统默认库存放路径 ： /lib
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

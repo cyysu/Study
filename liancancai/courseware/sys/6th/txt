@@ -1,0 +1,171 @@
+创建守护进程:
+	daemon() : 系统提供接口
+
+自己实现守护进程：
+	1 创建孤儿进程
+	2 创建新的会话 setsid()
+		1 摆脱原进程组控制 => getpid()
+			getgprg
+		2 摆脱原会话控制   => getpid()
+			getsid()
+		3 摆脱原控制终端的控制
+
+	3 改变进程当前工作目录
+		chdir("/tmp")
+	4 改变文件默认权限
+		umaks(0)
+	5 关闭文件描述符
+		getrlimit()   RLIMIT_NOFILE 获取文件描述符限额
+		setrlimit()
+
+	6 退出
+		signal()
+=============================================
+system("cmdname") // fork() => child cmd
+							=> parnet getpid()
+exec一套函数
+	
+vfork() 和fork() 区别：
+	1 vfork() 创建的进程，确保子进程先运行
+	2 不可以return
+	3 共享进程资源。
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+信号：
+	信号源 kill -l
+	发送信号 ： kill()
+				abort()
+				alarm()
+	接受信号：
+		signal()
+		处理：
+			func
+			SIG_DFL:
+			SIG_IGN:屏蔽
+	等待信号：
+		pause() : 等待任意一个信号
+	定时器：
+		setitimer()
+
+	封装定时器：
+
+=============================================
+管道：
+	管道命令：| 
+	管道文件：
+		mkfifo ken
+		echo hello > ken : 写端
+		cat ken 		 : 读端
+	管道：实现进程通讯
+
+	匿名管道：实现父子进程或者兄弟进程之间通讯
+
+	创建匿名管道
+		int pipe(int filedes[2]);
+		filedes[0]  is for reading  文件描述符
+		filedes[1] is for writing
+		管道是一种半双工模式：
+			单双工：要么读，要么写
+			半双工：只能在一端读，另一段写
+			全双工：一端即可以读，也可以写。
+		
+		返回值：
+			成功：0
+			失败：-1
+
+
+	管道大小 => 64K
+	管道信号：关闭父进程读端和写端， 同时确保父进程
+	有名管道：实现任意进程之间通讯
+
+有名管道
+	创建有名管道
+	 int mkfifo(const char *pathname, mode_t mode);
+	 第一个参数：文件名
+	 第二个参数：文件权限
+	 返回值：
+	 		0 -1
+====================================
+消息队列：为了解决对方不在线问题
+	
+	查看消息队列：
+	ipcs -q
+	删除消息队列：
+	ipcrm -q msg_id
+	ipcrm -Q key
+
+	1 创建消息队列
+	int msgget(key_t key, int msgflg);
+		第一个参数：就是关键字 ftok()
+			key_t ftok(const char *pathname, int proj_id);
+			第一个参数：表示文件路径
+			第二个参数：表示序列号
+			一般情况下：关键字值，是把序列号转换成16进制然后放在高位 + 文件inode节点转换成16进制，组合而成。
+
+		第二个参数：表示标志位
+			IPC_CREAT ： 表示新建消息队列
+
+	如果消息队列不存在，则创建
+	如果消息队列存在，则把当前存在消息队列描述符返回回来。
+
+	＝＝＝＝＝＝＝
+	发送数据
+	int  msgsnd(int  msqid,  const void *msgp, size_t msgsz,
+	       int msgflg);
+		第一个参数：表示消息队列描述符 msgget
+		第二个参数：表示发送数据
+		第三个参数：数据大小
+		第四个参数：表示标志位 
+			0 : 表示忽略
+
+		返回值：
+			失败：-1
+			成功：0
+	＝＝＝＝＝＝＝＝
+	接受数据
+	ssize_t msgrcv(int msqid, void *msgp, size_t msgsz, long
+	       msgtyp, int msgflg);
+
+		第一个参数：表示消息队列描述符 msgget
+		第二个参数：表示发送数据
+		第三个参数：数据大小
+		第四个参数：表示数据类型 
+			如果不考虑数据类型，则给0
+		第五个参数：表示标识 0
+		返回值：
+			失败:-1
+			成功：表示接受字节数
+	==================
+	销毁消息队列
+	int msgctl(int msqid, int cmd, struct msqid_ds *buf);
+		第一个参数：表示消息队列描述符
+		第二个参数：表示执行命令
+		第三个参数：表示消息队列属性结构体实例
+			IPC_STAT ：获取状态信息
+
+			IPC_RMID：表示销毁
+
+
+
+
+	homework:
+		实现cat /etc/passwd | grep root
+		实现一对一聊天系统
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

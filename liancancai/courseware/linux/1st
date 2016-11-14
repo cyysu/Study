@@ -1,0 +1,144 @@
+嵌入式开发
+	软件和硬件相结合一门技术
+	应用软件 操作系统 微处理器 硬件
+
+1 linux 基础 -> redhat 5.5 => 32 6.5 => 64 10
+2 c		12
+3 ds	10
+4 sys	
+5 net	12
+6 c++
+7 qt	10
+8 arm	15
+9 dri	15
+=====================================
+linux基础：
+	1 linux发展历史 版本 安装 桌面环境 目录结构
+	2 linux的基本命令 vim使用
+	3 用户管理和权限
+	4 磁盘管理
+	5 网络管理
+	6 rpm包安装
+	7 服务管理 nfs http
+	8 进程管理
+	9 shell编程
+========================================
+如何下载课间：
+	1 检测网络是否可以ping通服务器
+		确保跟服务器在同一网段
+		[root@localhost ken]# ifconfig
+		eth0      Link encap:Ethernet  HWaddr 00:0C:29:36:D2:7E  
+		inet addr:2.2.2.100  Bcast:2.2.2.255  Mask:255.255.255.0
+		是否在2.2.2网段
+		inet6 addr: fe80::20c:29ff:fe36:d27e/64 Scope:Link
+		UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+		RX packets:44966088 errors:0 dropped:0 overruns:0 frame:0
+		TX packets:45135466 errors:0 dropped:0 overruns:0 carrier:0
+		collisions:0 txqueuelen:1000 
+		RX bytes:3415826388 (3.1 GiB)  TX bytes:3273409970 (3.0 GiB)
+		Interrupt:67 Base address:0x2024
+
+		如果没有ip地址， 则重启网络服务
+		[root@localhost ken]# service network restart
+		正在关闭接口 eth0：                                [确定]
+		关闭环回接口：                                     [确定]
+		弹出环回接口：                                     [确定]
+		弹出界面 eth0： 
+		正在决定 eth0 的 IP 信息...完成。                  [确定]
+
+		[root@localhost ken]# mii-tool 检测网络
+		no MII interfaces found	表示没有网卡驱动或者网卡松动
+		no link 				: 表示网线有问题
+
+		ping 2.2.2.100 -c 3 
+			-c : 表示指定ping的次数
+			ctrl + c : 结束命令执行。
+
+	2 查看共享课间
+		[root@localhost ken]# showmount -e 2.2.2.100
+		Export list for 2.2.2.100:
+		/ken      *			表示课间
+		/homework *			表示作业
+	3 挂载共享课间
+		mount  2.2.2.100:/ken /mnt
+	4 拷贝课间到本机
+		[root@localhost ken]# mkdir /zhangsan 创建张三目录，用来保存课间
+		[root@localhost ken]# cp /mnt/* /zhangsan/ -rf 拷贝课间到目录中
+	5 卸载挂载
+		umount /mnt
+		df -h : 查看挂载情况
+		umount -l /mnt	：强制卸载
+
+	上传作业：
+=====================================
+	linux安装：
+	网络安装 U盘安装 光盘安装 硬盘安装
+
+	1 媒体检测 -> skip
+	2 安装界面语言选择 -> 简体中文
+	3 键盘选择 -> 美国英语式 US
+	4 序列号选择 -> 跳过
+	5 分区 -> 自定义分区
+		/boot	100 - 200M 存放引导镜像文件
+		swap	是内存1.5-2倍之间，交换分区
+		/		10G以上 
+			在linux下，所有文件都是从根开始
+			在linux下，所有的设备都是以文件方式体现出来。
+
+	6 设置引导系统界面 -> next
+	7 网卡设置	-> next
+	8 时区选择 -> 亚洲/上海
+	9 根用户密码设置 -> 123456
+	10 安装包定制
+		6.5 : 	桌面环境全选
+				开发库全选
+				开发工具全选
+				中文和英文全选
+	11 安装
+
+	安装完成后系统界面设置
+		1 关闭防火墙：
+		查看防火前状态：
+			[root@localhost ken]# chkconfig --list iptables
+		关闭防火墙状态：
+			[root@localhost ken]# chkconfig --level 0123456 iptables off
+		开启防火墙：
+			[root@localhost ken]# chkconfig --level 0123456 iptables on
+		2 关闭selinux安全包：
+			vim /etc/selinux/config 打开配置文件
+			i (编辑模式) -> ESC键 -> :(命令行模式) ->wq(保存并退出)
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+linux:
+	是一种类unix操作系统，确切的说只是一个kernel
+
+	1965年 MIT GE BELL -> multics -> 300
+	1969年 BELL Ken.thompson -> unix
+	1972年 Dennis Ritchie  -> c -> unix 
+		AT&T -> BELL
+			AT&T:
+			朗讯：-> BELL
+		sysV -> NOVELL -> SCO
+		BSD 
+	1991年 linus Torvalds -> minis -> unix \ -> linux
+	1993年 Richarm Storman -> GNU -> OSS -> hurd -> linux -> GUN/linux
+
+
+
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+

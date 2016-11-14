@@ -1,0 +1,25 @@
+#var += world.c
+
+#var = hello.c
+
+name = $(var)"name"
+
+
+var = hello.c
+
+all:install www $(var) test.c
+	echo all
+	echo $(var) #lksdfkjsahfja
+	echo #kkkkkkkkkkkkkk
+	#echo world
+www:
+	echo www
+install:www $(var)
+	echo install
+Install:
+	echo Install
+uninstall:
+	echo uninstall
+.PHONY:clean
+clean:
+	echo clean

@@ -1,0 +1,244 @@
+linux基本命令：
+	内部命令：
+	外部命令：
+		type 
+	man + num + cmd
+		printf
+	ls -> stat -> ln -> mkfifo -> cd (. ..) -> pwd -> touch -> rm -> mkdir -> rmdir -> cp -> mv -> cat -> more -> less -> head -> tail -> tac
+	==========================================
+cut : 分割
+	-d : 表示分割符
+	-f : 表示字段
+
+	案例：
+		cut -d : -f 1 /etc/passwd 	表示以:为分割符，并取出第一列
+		cut -d' '  -f 1 ./a.txt		表示空格分割
+		cut -d:  -f 1,7 /etc/passwd	表示取出第一列和第七列数据
+		cut -c1-10 /etc/passwd		表示取出1-10个字符
+grep : 查找匹配关键字
+	案例：
+	grep root /etc/passwd			表示查找匹配字符串
+	grep -n root /etc/passwd		表示显示行号
+	grep -i root ./a.txt			表示不区分大小写查找
+	grep -w root ./a.txt			表示查找完全匹配单词
+	grep -v root ./a.txt			表示显示不匹配信息
+
+wc : 统计
+	wc -l /etc/passwd				表示统计有多少行
+	wc -w /etc/passwd				表示统计有多少个单词
+	wc -c /etc/passwd				表示统计有多少个字符
+sort : 排序 默认升序
+	sort -r /etc/passwd 			表示降序
+	sort -t : -n -k 3 /etc/passwd	表示以:分割并取出第三列按数字排序
+uniq:	表示去掉连续重复行
+	uniq a.txt						表示不显示连续重复行
+	uniq -d a.txt					表示只显示连续重复行
+	uniq -u a.txt					表示显示不连续重复行
+	uniq -i a.txt					表示不区分大小写显示
+diff : 比较文件内容是否相同
+	[root@localhost test]# ll	查看文件大小
+	总计 8
+	-rw-r--r-- 1 root root 6 09-07 11:37 a.txt
+	-rw-r--r-- 1 root root 6 09-07 11:37 b.txt
+	[root@localhost test]# diff a.txt b.txt 如果有显示信息，则表示不同
+	1c1
+	< hello
+	---
+	> world
+	[root@localhost test]# vim a.txt 
+	[root@localhost test]# cp a.txt c.txt
+	[root@localhost test]# diff a.txt c.txt 没有任何显示信息，则表示相同。
+tr	: 替换
+	echo hello | tr a-z A-Z 			表示替换小写字母为大写字母
+	[root@localhost test]# echo hello
+	hello	表示原始数据
+	[root@localhost test]# echo hello | tr "abcdefghijklmnopqrstuvwxyz" "efghijklmnopqrstuvwxyzabcd"
+	lipps	表示加密后数据
+	[root@localhost test]# echo lipps | tr "efghijklmnopqrstuvwxyzabcd" "abcdefghijklmnopqrstuvwxyz"
+	hello	表示解密后数据
+| : 表示管道命令
+	就是把不同的命令连接起来，前一个命令输出作为后一个命令输入
+	cat /etc/passwd | grep root 	表示查找匹配root字符串
+
+	练习：统计/etc/passwd共有多少种shell
+	cat /etc/passwd | cut -d : -f 7 | sort | uniq | grep -v '^$' | wc -l
+
+重定向：
+								c			sys
+	标准输入：键盘 鼠标			stdin		0
+	标准输出：显示器 打印机		stdout		1
+	错误输出：显示器 打印机		stderr		2
+
+	输出重定向：
+		正确输出重定向：>
+			echo hello > a.txt
+		错误输出重定向：2>
+			ls /lkhsdj 2> a.txt
+		案例：
+			ls ./ /lkshfdkj > a.txt 2> b.txt	表示把正确输出放入a.txt文件中，错误的放入到b.txt中
+			ls ./ /lkshfdkj &> a.txt			表示把正确的和错误的放在同一个文件中
+		追加方式重定向：>>
+			echo hello >> a.txt
+
+		空洞文件：/dev/null
+	输入重定向：
+		passwd  < ./a.txt
+		cat << AAA		AAA表示结束符
+===================================================
+vim : 编辑器
+gcc : 编译器
+	程序开发器
+
+	查看vim版本：vim
+
+	三种模式：
+		一般模式：就是vim直接打开一种模式
+		编辑模式：文件左下角有“insert”字样模式
+		命令行模式：文件左下角有":"字样模式
+	模式之间切换：
+		一般模式切换到编辑模式：
+			i I o O s S a A
+		编辑模式切换到命令行模式：
+			ESC键 -> : -> cmd
+		
+	一般模式操作：
+		删除：
+			dd	: 表示删除一行
+			ndd	: 表示删除n行
+
+			dw	: 表示删除一个单词	光标指向单词开头
+			ndw : 表示删除n个单词
+			daw	: 表示删除一个单词  光标可以在单词任何一个地方。
+
+			d^	: 表示从光标位置删除到行首
+			d$	: 表示删除到行尾
+			dgg	: 表示删除到文件开头
+			dG	: 表示删除到文件结尾
+
+			J	: 表示合并两行
+			u	:  表示取消上次操作
+			ctrl + r : 撤销上次操作
+
+		复制：
+			yy	: 表示复制一行
+				p : 表示粘贴
+			nyy	: 复制n行
+
+			可视化操作：
+				可视化行：shift + v -> 方向键选择要复制行 -> y -> p
+				可视化块：ctrl + v
+				可视化字符：v
+
+		剪贴：
+			选中 -> d(x) -> p
+		移动：
+			h: left
+			j: down
+			k: up
+			l: right
+
+			^:	行首(第一个有效字符位置)
+			$:	行尾
+			0:	表示第一列
+			gg: 表示文件开头
+			G : 表示文件结尾
+			H : 当前屏幕第一行
+			M : 当前屏幕中间
+			L : 当前屏幕最后一行
+			50% : 表示整个文件中间
+			ngg : 直接定位到某一行
+	＝＝＝＝＝＝＝＝＝
+	编辑模式：
+		i I o O a A s S
+
+		i : 当前光标的前面插入
+		I : 表示在行首插入
+		o : 表示在下一行插入
+		O : 表示在光标所处上一行插入
+		a : 表示在光标后面插入
+		A : 表示行尾插入
+		s : 表示删除光标所处字符插入
+		S : 表示删除整行插入
+
+	＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+	命令行模式
+		:w		表示保存
+		:wq		表示保存并退出
+		:q 		表示退出
+		:wq!	表示强制保存并退出
+		:q!		表示强制退出
+
+		临时生效
+		:set number <=> set nu	显示行号
+		:set nonu				取消行号
+		永久生效
+			vim ~/.vimrc    vim配置文件
+			添加一行set number
+
+			set ts=4	设置tab键位宽
+			set shiftwidth=4 设置shift位宽
+				shift + v => shift + > 表示右移
+							 shift + < 表示左移
+			set ai		设置对齐
+			set mouse=a 		表示支持鼠标
+
+		"set number
+		set ts=4
+		set shiftwidth=4
+		set ai
+		set ic 		表示不区分大小写
+		map ,ma i#include <stdio.h><CR>#include <string.h><CR>#include <stdlib.h><CR><CR>int main(void)<CR>{<CR>return 0;<CR>}<ESC>=kko
+
+		另存为：
+			:w filename
+		读取信息：
+			:r !cmd
+			:r !sed -n "m,np" filename : 表示读取文件中的第五行到第十行。
+	
+	多窗口：
+		水平：
+			vim -o filename1 filename2 ... filenamen
+			窗口之间切换 ctrl + w(2)
+			全部退出	 :wqa
+
+			:split filename
+		垂直：
+			vim -O f1 f2 ... fn
+			:vsplit filename
+
+	===============================
+	查找和替换
+	查找：
+		格式：:/key
+		向下循环：n
+		向上循环：N
+		格式: :?key
+		向下循环：N
+		向上循环：n
+	替换：
+		格式：:范围s/old/new/option
+		范围：
+			%	: 表示全文
+			m,n : m表示起始行 n表示结束行
+		参数：
+			g	: 表示全部替换
+			i	: 表示不区分大小写
+			
+	替换特殊字符，则需要转义字符 \
+
+	:set key=passwd  	设置密码
+	:set key=			取消密码
+
+	
+
+
+
+
+
+
+
+
+
+
+
+

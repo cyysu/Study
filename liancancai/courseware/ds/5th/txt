@@ -1,0 +1,102 @@
+stack:
+	先进后出
+	大小：max
+	栈顶元素：top = 0
+	满栈：top == max
+	空栈：top == 0
+	入栈：
+		是否满栈 -> 入栈 -> top++
+	出栈：
+		是否空栈 -> 出栈 -> top--
+queue:循环队列
+	先进先出
+	大小：max
+	队头：front = 0
+	队尾：end = 0
+	队满：(end + 1) % max == front
+	队空：end == front
+	入队：
+		是否是满队 -> 入队 -> end++ -> end == max end = 0
+	出队：
+		是否是空队 -> 出队 -> front++ -> front == max front = 0
+	队列长度：
+		len end > front => end - front
+						=> max - (front - end)
+		front 
+数栈：
+链栈：
+	//有头 循环 双向
+
+	struct node_t{
+		void *data;
+		struct node_t *next;
+		struct node_t *prev;
+	};
+	struct stack_t{
+		struct node_t head;
+		int top;
+		int size;
+		int max;
+	};
+数队：
+链队：
+==============================
+排序：
+	void qsort(void *base, size_t nmemb, size_t size,
+	                  int(*compar)(const void *, const void *));
+	第一个参数：表示数据空间地址
+	第二个参数：表示数据长度
+	第三个参数：数据类型
+	第四个参数：表示比较函数
+查找：
+	二分查找法
+	void *bsearch(const void *key, const void *base, size_t nmemb,
+	              size_t size, int (*compar)(const void *, const void *));
+
+	第一个参数：表示关键字
+	第二个参数：表示数据
+	第三个参数：表示数据长度
+	第四个参数：表示数据类型
+	第五个参数：表示比较函数
+
+	返回值 ：
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+输入number, 作为数组下标，然后返回值 ＝> 空间上浪费 => 哈希算法
+number % MAX => 哈希冲突 => 哈希表
+	哈希遍历：
+	哈希查找：
+	哈希销毁：
+
+homework:
+	实现快排
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+

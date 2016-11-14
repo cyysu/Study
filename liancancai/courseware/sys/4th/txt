@@ -1,0 +1,200 @@
+用户密码文件
+	getspnam() 输入用户名，获取用户密码信息帐号文件
+	getspent() 循环获取用户密码帐号信息文件
+	setspent() 设置到/etc/shadow开头
+	endspent() 关闭/etc/shadow文件  释放内存空间 关闭文件描述符 回收系统资源。
+
+	实现md5加密算法函数
+	char *crypt(const char *key, const char *salt);
+	1 定义宏命令
+	2 链接动态库
+
+	time(NULL) : 1970/1/1 秒
+	本地时间：上海 localtime()     
+	国际标准时间： gmtime()
+		月份 ：+1
+		年	 ：+ 1900 
+	asctime() 	: 把结构体转换成字符串
+	ctime()		: 把秒转换成字符串
+	mktime()	: 把结构体转换成秒数
+	strftime()	: 把结构体转换成格式化时间
+
+
+	uname()		: 获取系统信息函数
+	gethostname():获取主机名
+	sethostname():设置主机名
+
+	getcwd()	: 获取当前工作目录
+	get_current_dir_name() :
+	chdir()
+	fchdir()	: 切换当前工作目录
+
+	creat()		: 新建文件
+	unlink()	: 删除文件
+	mkdir()		: 创建目录
+	remove()	: 删除一个空目录或者文件 
+	rmdir()		: 删除一个空目录
+	chmod()		: 设置权限
+		权限设置用八进制 => %o
+				 十六进制 => %x %X
+	umask()		: 设置默认权限
+	chown()		: 设置文件属性
+	link()		: 创建硬链接
+	symlink()	: 创建软链接
+
+	
+	opendir()	: 打开目录
+	closedir()	: 关闭目录
+	readdir()	: 获取目录信息
+	rewinddir()	: 指向目录开头
+	glob()		: 查找目录匹配格式
+
+========================================================
+进程：
+	在内存中一段运行代码，就是一个进程。
+	进程唯一的标识是进程号
+	父进程：
+	子进程：
+	1号进程：所以进程祖先进程，一直驻留在内存中。
+
+	获取当前进程的进程号
+	pid_t getpid(void); //由系统指定分配
+	获取当前父进程进程号
+	pid_t getppid(void);
+
+	kill -9 22862  表示kill进程给22862发送一个9号信号
+	kill -l : 查看所有信号源
+
+	特性：
+		动态性：动态产生 动态消亡过程。
+		并发性：进程之间竞争CPU资源
+		独立性：进程之间资源独享
+	状态：
+		D    Uninterruptible sleep (usually IO) 不可终端睡眠进程
+		R    Running or runnable (on run queue) 运行/可运行进程
+		S    Interruptible sleep (waiting for an event to complete)
+		T    Stopped, either by a job control signal or because it is
+		     being traced.
+		W    paging (not valid since the 2.6.xx kernel)
+		X    dead (should never be seen)
+		Z    Defunct ("zombie") process, terminated but not reaped by
+			      its parent.  僵尸进程
+		<    high-priority (not nice to other users)
+		N    low-priority (nice to other users)
+		L    has pages locked into memory (for real-time and custom IO)
+		s    is a session leader
+		l    is multi-threaded (using CLONE_THREAD, like NPTL
+		     pthreads do)
+			 +    is in the foreground process group
+	
+	创建进程：
+	pid_t fork(void);
+	返回值：
+		-1 	: 表示创建失败
+		0	: 表示子进程
+		>0  : 表示父进程
+		
+
+	子进程复制父进程资源
+		复制父进程地址空间，包括上下文切换， 进程堆栈，内存信息，打开文件描述符，信号控制，当前进程组，当前工作目录，根目录，资源限额，控制终端等。而子进程唯一拥有的就是它本身进程号和运行时段。
+		
+
+	孤儿进程：
+		父进程已退出，而子进程还在运行，则这个子进程就变成孤儿进程，就会被1号进程收养。
+
+	僵尸进程：
+		子进程已结束，但是父进程还处于运行的状态，则这个子进程就是僵尸进程。
+		僵尸进程杀不死。
+	练习：
+		父进程打开一个文件
+		1 验证子进程是否可以写入.
+		2 如果子进程可以写入数据，则执行完后关闭文件，看父进程是否可以写入
+		3 父子进程都可以写入，则看文件数据是否发生混乱。
+
+=============================
+	进程退出
+	进程退出有8种方式：
+	正常退出：5
+		1 从main函数退出 return 
+		2 调用exit // 0 - 255
+		3 调用_exit或者_Exit()
+		4 最后一个线程从启动例程退出。
+		5 最后一个线程调用pthread_exit
+	异常退出：3
+		1 调用abort()
+		2 接受到一个信号强制退出 kill
+		3 最后一个线程对取消请求作出响应。
+
+		exit和return 区别
+		1 exit() 是一个函数 return 关键字
+		2 exit是系统级别，它表示是一个进程的结束
+			return是语言级别的，他表示调用堆栈的返回
+		3 exit退出删除进程所使用的内存空间，将控制全交给父进程
+			return 是退出当前函数，将控制权给调用函数。
+
+		exit和_exit区别
+		exit退出会刷新缓冲区，释放内存空间，关闭缓冲区。
+		_exit退出不会刷新缓冲区。
+
+		exit 在退出的时候会调用atexit()函数
+		int atexit(void (*function)(void));
+
+		函数注册顺序和注销顺序是相反
+
+
+============================
+	进程等待函数：
+	pid_t wait(int *status);//确保子进程先运行
+
+		WIFEXITED(status) ： 表示进程是正常退出 exit _exit
+			如果是正常退出，则宏为真
+			如果是异常退出，则宏为假
+		WEXITSTATUS(status)：只有正常退出，才可以打印
+			如果正常退出，则取出返回值
+		WIFSIGNALED(status) ： 表示异常退出宏
+			如果异常退出，则宏值为真
+			如果异常退出，则宏值为假
+		
+		WTERMSIG(status) ：如果是异常退出，则异常退出取出信号值。
+
+	第一个参数：表示接受进程退出状态
+		如果不接受进程退出状态 NULL
+	返回值：
+		失败：-1
+		成功：返回接受进程的进程号
+======================================
+	进程环境
+		int main(int argv, char **argv, char **env);//函数传参
+		全局：
+			extern char **environ;
+		
+		获取环境变量
+		 char *getenv(const char *name);
+		设置环境变量
+		int putenv(char *string);
+			//string format : name=vaule  =号中间不能加空格
+		取消环境变量
+		int unsetenv(const char *name);
+		设置环境变量
+		int setenv(const char *name, const char *value, int overwrite);
+		如果环境变量存在：
+			设置：overwirte = 1
+			不设置：oberwrite = 0
+		如果缓建变量不存在
+			无论overwrite 为0 或者 1 都会设置
+
+		删除所有环境变量值
+		int clearenv(void);
+
+	homework:
+		求3000 ～ 6000 以内素数的个数 通过10个进程实现。
+
+
+
+
+
+
+
+
+
+

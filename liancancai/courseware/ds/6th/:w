@@ -1,0 +1,157 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+#define MAX 10
+
+//定义树节点信息
+struct tree_t{
+	int data;
+	struct tree_t *left;
+	struct tree_t *right;
+};
+
+
+void insert(int num, struct tree_t **root)
+{
+	struct tree_t *new = NULL;
+	struct tree_t *tail = *root;
+
+
+	//新节点申请空间
+	new = (struct tree_t *)malloc(sizeof(struct tree_t));
+	if (NULL == new)
+	{
+		printf("malloc new failed!\n");
+		return ;
+	}
+
+	//保存用户传的数据到新的节点信息中。
+	new->data = num;
+	new->left = NULL;
+	new->right = NULL;
+
+	//插入新的节点到树中。
+	if (*root == NULL)
+	{
+		*root = new;//如果是一个空树，则把第一个数据作为根节点。
+	}
+	else
+	{
+		while(1)
+		{
+			if (new->data >= tail->data)
+			{
+				if (tail->right == NULL)
+				{
+					tail->right = new;
+					return ;
+				}
+				tail = tail->right;
+			}
+
+			if (new->data < tail->data)
+			{
+				if (tail->left == NULL)
+				{
+					tail->left = new;
+					return ;
+				}
+				tail = tail->left;
+			}
+		}
+	}
+}
+
+void fri(struct tree_t *root)
+{
+	if (root == NULL)
+		return ;
+	printf("%d ", root->data);
+	fri(root->left);
+	fri(root->right);
+}
+void mid(struct tree_t *root)
+{
+	if (root == NULL)
+		return ;
+
+	mid(root->left);
+	printf("%d ", root->data);
+	mid(root->right);
+}
+
+void lev(struct tree_t *root)
+{
+	struct tree_t *queue[MAX + 1];//指针数组
+	int end = 0, front = 0;
+
+	if (root == NULL)
+	{
+		return ;
+	}
+	queue[end++] = root;
+
+	printf("qe : ");
+	while(end != front)
+	{
+		root = queue[front++];
+		/*printf("%d ", root->data);*/
+
+		
+		if (root->left != NULL)
+		{
+			printf("%d ", root->data);
+			queue[end++] = root->left;
+		}
+		if (root->right != NULL)
+		{
+			printf("%d ", root->data);
+			queue[end++] = root->right;
+		}
+	}
+	printf("\n");
+
+}
+void end(struct tree_t *root)
+{
+	if (root == NULL)
+		return ;
+
+	end(root->left);
+	end(root->right);
+	printf("%d ", root->data);
+}
+
+
+int main(void)
+{
+	int i,num;
+	struct tree_t *root = NULL;//表示定义一个空树
+
+	for (i = 0; i < MAX; i++)
+	{
+		num = rand() % 100;
+		printf("%d ", num);
+		insert(num, &root);
+	}
+	printf("\n");
+
+	printf("fri : ");
+	fri(root);
+	printf("\n");
+	printf("mid : ");
+	mid(root);
+	printf("\n");
+	printf("end : ");
+	end(root);
+	printf("\n");
+	printf("lev : ");
+	lev(root);
+	printf("\n");
+	return 0;
+}
+
+
+
+

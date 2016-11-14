@@ -1,0 +1,131 @@
+多极指针：
+	二级指针为例：
+
+	多维数组和数组指针完全等价
+
+	指针数组：
+		int *p[10] => 40
+	数组指针：
+		int (*p)[10] => 4
+
+	函数指针：
+		func_type (*func_name)(argu_type, ....);
+		
+		typedef int INT
+		typedef func_type (*FUNC)(...);
+		type var_name
+	指针函数：
+
+
+	char *strsep(char **stringp, const char *delim);
+	第一个参数：表示源地址
+	第二个参数：表示分割符
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+预处理：ESC
+	宏命令：
+		传参数：不需类型
+
+		# : 字符串连接符
+		## : 字符连接符
+	
+	宏和函数区别：
+		1 宏预处理 函数运行时候调用
+		2 宏参数没有类型 函数则需要类型
+		3 宏执行效率比函数执行效率要高
+		4 函数空间效率比宏要高
+
+		默认规则，函数代码不超过5行，可以用宏实现。
+
+	
+	头文件：
+		系统默认头文件 /usr/include
+		<> : 默认从系统头文件目录中查找
+		"" : 默认先从当前工作目录中查找，如果找不到，则到系统头文件目录中查找
+
+		为了防止头文件重复包含
+		#ifndef __NAME_H__
+		#define __NAME_H__
+
+		#endif /*NAME_H*/
+
+	条件编译：
+		格式一：
+			#if const define_name
+
+			#endif
+
+			const : 0 表示不成立
+					非零 表示成立
+			define_name : 0 或者宏不存在，则表示为假
+							反之，则成立
+		格式二：
+			#if ... #else ... #endif
+
+		格式三：
+			#if ... #elif ... #elif ... #else ... #endif
+			-D define_name = define_value
+
+		格式四：
+			#ifdef define_name
+
+			#endif
+			
+			判断宏是否存在，如果存在，则执行。
+							如果不存在，则为假。
+		格式五：
+			#ifndef define_name
+
+			#endif
+			
+			判断宏是否存在，如果存在，则为假。
+							如果不存在，则为真。
+
+	特殊字符：
+=================================
+结构体：把不同数据类型存放在一块
+	定义：
+	struct name{
+		argumentlist
+		.....
+	};
+
+	struct cls_t{
+		char name[128];//数组
+		int age;		//int 
+		char sex;		//char
+		float cn;		// float
+		float en;
+		void (*func)(void); //point
+	};
+
+	如果是普通变量，访问.
+	如果之指针变量，反问->
+
+
+	1 实现多球
+	2 实现
+		+ - * / % ^
+		return a + b
+		return a ^ b
+		((5 3) 2) = 4
+
+		格式
+			5 - 3 + 2 = 4
+			5 - 3 * 2 = 4
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

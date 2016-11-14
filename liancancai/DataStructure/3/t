@@ -1,0 +1,26 @@
+// int llist_prevend(void *data, LLIST *handle)
+// {
+// 	struct node_t *new = NULL;
+
+// 	ERRP(data == NULL, llist_prevend option, goto ERR1);
+
+// 	new = (struct node_t *)malloc(sizeof(struct node_t));
+// 	ERRP(NULL == new, malloc new, goto ERR1);
+
+// 	new->data = (void *)malloc(handle->size);
+// 	ERRP(new->data == NULL, malloc new->data, goto ERR2);
+
+// 	memcpy(new->data, data, handle->size);
+	
+// 	new->next = handle->head.next;
+// 	new->prev = &handle->head;
+// 	handle->head.next->prev = new;
+// 	handle->head.next = new;
+// 	handle->num++;
+
+// 	return 0;
+// ERR2:
+// 	free(new);
+// ERR1:
+// 	return -1;
+// }

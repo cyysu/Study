@@ -1,0 +1,78 @@
+多分支：
+	if [ con1 ]
+	then
+		cmd1
+	elif [ con2 ]
+	then
+		cmd2
+	......
+	else
+		cmd_failed
+	fi
+
+	case $varname in
+		value1)
+			cmd1;
+			;;
+		value2)
+			cmd2
+			;;
+		......
+		*)
+			cmd_failed
+			;;
+	esac
+
+	循环语句：
+		for:
+			for varname in value1 value2 ... valuen
+			do
+				cmd
+			done
+			for varname in $(seq stat_value step_value end_value)
+			do
+				cmd
+			done
+			for ((init; con; add)) c式for循环
+			do
+				stat
+			done
+		while:
+			while [ con ]
+			do
+				cmd
+			done
+=======================
+死循环：
+	1 死循环必须有延迟函数
+		sleep  : 表示秒单位
+		usleep : 表示微妙单位
+		
+		1秒 ＝ 1000毫秒 
+		1毫秒 ＝ 1000微妙
+	2 一定退出条件
+
+	break	：退出循环
+		退出整个循环，只对当前循环起作用
+	continue：退出循环
+		退出本次循环，只对当前循环起作用
+		
+	不会深层退出
+	
+	1 2 3 4 5 6 7 8 9
+	for while () -> 1 3 4 6
+	
+	实现nfs服务自动检测并启动
+
+	函数格式
+		fun_name()
+		{
+			fun_bady
+		}
+		或者
+		function fun_name()
+		{
+			cmd
+		}
+	
+

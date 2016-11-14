@@ -1,0 +1,283 @@
+mii-tool
+	:no MIT 表示网卡驱动没有安装
+	:no link 表示网线有问题
+
+ifconfig:查看网卡状态
+	eth0 1 2 .... 表示网卡名
+	ifconfig eth0 IP  : 表示临时生效
+	/etc/sysconfig/network-scripts/ifcfg-eth0	表示网卡配置文件
+
+重启网络服务：service network restart
+			 /etc/init.d/network restart
+
+ping : 检测网络连接
+	-c 表示指定ping次数
+ssh : 远程登录
+	指定用户登录
+	ssh usrename@service_ip
+
+	1 服务器必须有这个用户
+	2 必须用户密码
+	3 启动sshd服务
+
+scp : 网络拷贝
+DNS ：/etc/resolv.conf
+
+服务：
+	安装nfs:
+		.iso -> mount -> yum 
+		1 配置yum
+		/etc/yum.repos.d/rhel-debuginfo.repo
+		2 加载yum
+			yum clean all 	: 清空以前yum配置
+			yum list		: 重新加载yum配置
+		3 安装
+			yum install
+			yum reinstall
+			yum -y reinstall
+		4 卸载
+			yum erase 
+	配置nfs
+		vim /etc/exports
+	重启nfs:
+		service nfs restart
+	访问nfs:
+		ping service_ip				表示检测是否可以连通服务器
+		showmount -e service_ip		表示查看服务器共享课件
+		mount -t nfs service_ip:/share_dir /mnt	表示挂载共享目录到本机
+		\cp /mnt/* /zhangsan -rf 	表示拷贝课件到本机目录
+		umount /mnt || umount service_ip:/share_dir 表示卸载挂载
+
+	如果服务启动不成功，则关闭防火墙和selinux安全包
+	[root@aa ken]# chkconfig --list iptables
+	iptables        0:启用  1:启用  2:启用  3:启用  4:启用  5:启用  6:启用
+	[root@aa ken]# chkconfig --level 0123456 iptables off
+	[root@aa ken]# chkconfig --list iptables
+	iptables        0:关闭  1:关闭  2:关闭  3:关闭  4:关闭  5:关闭  6:关闭
+
+	关闭selinux安全包
+		/etc/selinux/config
+		修改为：SELINUX=disabled
+
+http:
+	配置文件：
+		/etc/httpd/conf/httpd.conf
+	欢迎界面：
+		/etc/httpd/conf.d/welcome.conf
+
+	访问：
+		firefox 10.1.1.72 &
+	
+	基于域名共享：
+	
+	注意：帮定域名和ip地址：
+		vim /etc/hosts
+==============================================
+linux安装：
+	1 .rpm安装
+		格式：rpm option 包名全称
+
+		linuxqq-v1.0.2-beta1.i386.rpm
+		linuxqq	表示包名
+		v1.0.2-beta1	表示版本
+		i386			表示平台
+			i386 i485 i586 ... 	表示32位操作系统安装包
+			x86_64				表示64为操作系统安装包
+		rpm				表示安装包格式
+	案例：安装qq
+		[root@aa tools]# rpm -ivh linuxqq-v1.0.2-beta1.i386.rpm
+			-i : 表示安装
+			-v : 表示显示安装过程
+			-h : 表示显示安装进度条
+		Preparing...                                                         ########################################### [100%]
+		   1:linuxqq                                                         ########################################### [100%]
+		表示安装成功
+		[root@aa tools]# rpm -ivh linuxqq-v1.0.2-beta1.i386.rpm --force
+		表示强制安装，因为非法卸载造成安装不成功。
+
+	查看：
+		-aq : 表示查找系统所有安装包
+			
+		案例：
+			[root@aa tools]# rpm -aq | grep "qq"
+			linuxqq-v1.0.2-beta1
+	卸载：
+		rpm -e 包名(不需要路径)
+		[root@aa tools]# rpm -e linuxqq-v1.0.2-beta1
+	
+	练习安装：
+		RealPlayer11GOLD.rpm		32
+		tigervnc-1.0.90-0.17.20110314svn4359.el6.x86_64.rpm	64
+
+	办公软件安装：
+		1 解压文件：
+			tar -xvf OpenOffice_3.2.0_Linux_zh-CN.tar.gz
+		2 进入解压目录的rpm包存放目录
+			cd /tools/OOO320_m12_native_packed-1_zh-CN.9483/RPMS
+		3 安装所有rpm
+			rpm -ivh *.rpm
+		4 安装桌面环境
+			cd desktop-integration/
+			rpm -ivh openoffice.org3.2-redhat-menus-3.2-9472.noarch.rpm
+
+		www.pbone.net -> libcidn.so.1
+
+	查看命令使用安装包
+	[root@aa desktop-integration]# which vim
+	/usr/bin/vim
+	[root@aa desktop-integration]# rpm -qf /usr/bin/vim
+	vim-enhanced-7.0.109-6.el5
+	
+	查看库依赖安装包
+	[root@aa desktop-integration]# rpm -qf /lib/libc-2.5.so 
+	glibc-2.5-49
+
+	查看rpm安装包的卸载包
+	[root@aa test]# rpm -pi /tools/RealPlayer11GOLD.rpm 
+	        package RealPlayer-11.0.0.4028-20080225.i586 is already installed
+
+	2 安装包依赖：
+		练习：手动解决
+			看网络小说
+			32 -> chm
+				chmlib-0.39-1.el5.rf.i386.rpm
+				chmsee-1.0.1-6.fc9.i386.rpm
+				
+				chmsee filename
+
+			桌面屏保			
+			64 -> xlock 
+				esound-libs-0.2.41-3.1.el6.x86_64.rpm
+				xlockmore-5.31-2.el6.x86_64.rpm
+
+				xlock -> passwd
+
+		yum安装依赖包
+			1 生成依赖关系命令
+				安装生成依赖关系命令
+				yum install createrepo
+			2 通过依赖命令生成依赖关系
+				createrepo /myyum
+			3 配置yum
+				/etc/yum.repos.d/rhel-debuginfo.repo
+			4 加载
+				yum clean all
+				yum list
+			5 安装 
+				yum install chm*
+			6 卸载：
+				yum erase chm*
+
+		注意：
+			不能在/myyum 当前目录下指向安装命令
+				
+	3 源码包安装
+		1 检测软硬件环境
+			./configure  -> Makefile
+		2 编译：
+			make -> Makefile -> all
+			make -j4
+		3 安装
+			make install
+		4 运行
+			mplay filmname
+		5 卸载：
+			make uninstall  -> make install
+		6 彻底卸载
+			make clean -> make
+
+	练习：安装ntfs-3g格式源码包
+		
+		mount -t ntfs-3g 设备名 挂载点
+
+		mount.ntfs-3g 设备名 挂载点
+		fdisk -l 
+		mount.ntfs-3g /dev/sdb1 /mnt
+
+	4 其他方式安装：
+		.pl .sh
+		安装:
+			./vmware-install.pl
+		卸载：
+			vmware-uninstall-tools.pl
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+linux压缩和解压缩
+	gzip:	.gz
+		压缩：
+			gzip filename : 源文件会被删除，生成一个和源文件同名的一个压缩文件
+		解压：
+		gzip -d filename : 解压
+
+		gzip -c passwd > 123.gz	表示保留源文件压缩
+
+
+	bzip2:	.bz2
+		bzip2 passwd			压缩
+		bzip2 -d passwd.bz2		解压缩
+
+
+	有什么区别：
+		压缩空间效率：
+			[root@aa test]# gzip -c passwd > passwd1.gz
+			[root@aa test]# bzip2 -c passwd > passwd2.bz2
+			[root@aa test]# ll
+			-rw-r--r-- 1 root root      3540 09-13 16:56 passwd1.gz
+			-rw-r--r-- 1 root root      2333 09-13 16:56 passwd2.bz2
+
+			通过上面的案例，可以看出bzip2 比 gzip 压缩空间效率要高
+		压缩时间效率：
+			[root@aa test]# time gzip -c passwd > passwd11.gz
+
+			real    0m0.131s
+			user    0m0.073s
+			sys     0m0.036s
+			[root@aa test]# time bzip2 -c passwd > passwd22.bz2
+
+			real    0m17.071s
+			user    0m15.952s
+			sys     0m0.239s
+
+			通过上面案例可以看出gzip  比 bzip2 执行效率要高
+
+	rar: 压缩方式：
+		安装：
+			1 解压：
+				tar -xvf rarlinux-3.8.0.tar.gz
+			2 进入解压目录，然后安装
+				cd /rar && make install
+		压缩：
+			rar a 111.rar passwd
+		解压：
+			rar e 111.rar
+
+打包工具：tar -> .tar
+		
+		option:
+			-c : 表示打包
+			-v : 表示显示打包过程
+			-f : 表示接文件名
+			-x : 表示解包
+			-C : 表示指定解包路径
+			-j : 表示通过bzip2方式解压和压缩
+			-z : 表示通过gzip方式解压和压缩
+			-t : 表示查看压缩包
+
+
+
+		案例：
+			[root@aa test]# tar -cvf  aa.tar aa 打包aa目录为aa.tar
+			[root@aa test]# tar -xvf etc.tar	默认解压到当前工作目录。
+			[root@aa test]# tar -xvf etc.tar -C /tmp/
+
+			tar -tf etc1.tar.bz2 查看压缩包
+
+
+
+
+
+
+
+
+
+

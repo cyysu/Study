@@ -1,0 +1,174 @@
+复制文件描述符
+dup()
+dup2()  
+获取文件状态信息
+fcntl()
+获取文件属性
+stat()
+lstat()
+fstat()
+
+struct stat;
+
+命令 ： stat ll
+
+uid => name /etc/passwd
+struct passwd *getpwuid(uid);
+struct passwd *getpwname(name);
+
+gid => name /etc/group
+struct group *getgrnam(const char *name);
+struct group *getgrgid(gid_t gid);
+
+
+getuid()	: 实际用户
+geteuid()	：有效用户
+chmod u + s
+getgid()	: 实际用户组
+getegid()	：有效用户组
+chmod g + s
+====================================
+密码
+/etc/shadow
+struct spwd *getspnam(char *name);
+struct spwd *getspent();
+void setspent();
+void endspent();
+
+md5加密函数
+char *crypt(const char *key, const char *salt);
+	第一个参数：表示用户输入关键字
+	第二个参数：表示密码加密算法 从/etc/shadow中获取
+	返回值：
+		表示暗文
+
+	[root@aa 3rd]# grub-md5-crypt 
+	Password: 	123456		第一次输入关键字（明文）
+	Retype password: 		第二次输入关键字(相同)
+	$1$aOcT1/$7h9gaIbSyaRMJ4K2zcn.a. 表示暗文
+	   密钥  | 密文
+
+	注意：
+		1 添加密码函数宏，并且定义在头文件前面
+		2 编译的时候，需要连接库文件 -lcrypt
+========================
+时间：
+	
+	time_t    st_atime;   /* time of last access */
+	time_t    st_mtime;   /* time of last modification */
+	time_t    st_ctime;   /* time of last status change */
+	从1970年1月1日 到 此刻秒数
+	time(NULL);
+	
+	把时间秒数转换成时间结构体信息
+	本地时间
+	struct tm *localtime(const time_t *timep)
+	struct tm {
+		int tm_sec;         /* seconds */
+		int tm_min;         /* minutes */
+		int tm_hour;        /* hours */
+		int tm_mday;        /* day of the month */
+		int tm_mon;         /* month */
+		int tm_year;        /* year */
+		int tm_wday;        /* day of the week */
+		int tm_yday;        /* day in the year */
+		int tm_isdst;       /* daylight saving time */
+	};
+	国际标准时间
+	struct tm *gmtime(const time_t *timep);
+	
+	注意：本地时间 ＝ 国际标准时间 + 8
+
+	char *asctime(const struct tm *tm);
+	char *ctime(const time_t *timep);
+	time_t mktime(struct tm *tm);
+
+	格式化时间函数
+	size_t strftime(char *s, size_t max, const char *format,
+	                           const struct tm *tm);
+
+	第一个参数：表示存储时间的空间
+	第二个参数: 表示空间地址大小
+	第三个参数：表示格式
+	第三个参数: 表示时间结构体信息
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+	文件路径：
+	char *getcwd(char *buf, size_t size);
+	如果没有定义buf, 则函数内部会申请一段空间，保存当前工作路径
+	char *get_current_dir_name(void);
+	char *getwd(char *buf);
+
+	切换文件路径
+	int chdir(const char *path);
+	int fchdir(int fd);
+
+	删除一个文件
+	int remove(const char *pathname);
+
+	创建硬链接：link
+	创建软链接：symlink
+	删除文件 ： unlink remove
+	修改文件权限：chmod
+	修改文件属性：chown
+
+	创建文件：creat
+	创建目录：mkdir
+	删除目录：rmdir
+	删除一个目录或者文件 remove
+
+	获取登录用户帐号
+	char *getlogin(void);
+	获取主机名
+	 int gethostname(char *name, size_t len);
+	 int sethostname(const char *name, size_t len);	
+	获取系统信息
+	uname
+
+	================================
+	打开目录
+		DIR *opendir(const char *name);
+
+	读取目录内容
+		struct dirent *readdir(DIR *dir);
+
+	关闭目录
+	int closedir(DIR *dir);
+		
+	查找匹配文件
+	int glob(const char *pattern, int flags,
+	                int errfunc(const char *epath, int eerrno),
+					                glob_t *pglob);
+	第一个参数：表示查找文件匹配信息
+	第二个参数：表示标志位 0 默认快速查找
+	第三个参数：表示错误信息 NULL 忽略
+	第四个参数：保存信息结构体
+
+
+
+	homework:
+		1实现：tree
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

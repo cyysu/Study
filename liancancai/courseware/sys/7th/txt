@@ -1,0 +1,165 @@
+管道：
+	匿名管道：
+		pipe() -> arr -> fd[0] fd[1]
+			fd[0] -> read
+			fd[1] -> write
+		SIGPIPE:
+			确保一段关闭，而且先运行，则在另一段操作就会产生一个管道信号。
+		管道大小：
+			64K
+	有名管道： 管道文件
+		创建管道文件：mkfifo() => p
+		
+	保证双方在线
+=========================================
+消息队列：
+	查看消息队列：ipcs -q
+	销毁消息队列：ipcrm -Q/q
+				Q ： 关键字
+				q :  消息队列描述符
+	
+
+	1 获取关键字
+		ftok():
+	2 创建消息队列
+		msg_id = msgget(key,IPC_CREAT)
+	3 发送数据：
+		msgsnd
+	4 接受数据：
+		msgrcv
+	5 销毁消息队列
+		msgctl:
+
+===============================================
+共享内存：
+	查看共享内存：
+		ipcs -m
+	销毁共享内存：
+		ipcrm -M/m 
+
+	1 创建共享内存：
+		int shmget(key_t key, size_t size, int shmflg);
+		第一个参数：表示关键字 ftok()
+		第二个参数：表示共享内存大小
+		第三个参数：表示标识
+			IPC_CREAT ： 表示创建
+			IPC_EXCL  ： 表示判断是否存在，如果存在，则报错。
+
+	2 映射：把共享内存映射到进程地址空间
+		 void  *shmat(int  shmid,  const void *shmaddr, int shm-
+		        flg);
+		第一个参数：表示共享内存描述符
+		第二个参数：表示进程地址，地址由系统分配
+				NULL : 表示由系统指定一个未被使用空间地址
+		第三个参数：表示操作内存标识
+				0 ： 表示可读可写
+				SHM_RDONLY ： 表示只读
+
+	3 读写：
+		strcpy
+
+		struct cls_t{
+			char name[128];
+			int age;
+			char sex;
+			double result;
+		}
+
+		cls = {"zhang san", 18, 'M', 99.5};
+
+	4 取消映射
+		int shmdt(const void *shmaddr);
+
+	5 销毁
+		int shmctl(int shmid, int cmd, struct shmid_ds *buf);
+
+＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+信号量：是一种锁机制
+	互斥锁
+	
+	1 创建锁
+		int semget(key_t key, int nsems, int semflg);
+		第一个参数：表示关键字 ftok
+		第二个参数：表示锁的数量 1
+		第三个参数：表示标志位
+			IPC_CREAT
+
+	2 初始化锁
+		int semctl(int semid, int semnum, int cmd, ...);
+		第一个参数：表示信号两描述符 semget
+		第二个参数：表示信号量索引号 0
+		第三个参数：表示执行命令
+			SETVAL ：表示设置锁
+		第四个参数：
+			正数：表示解锁
+			负数：表示加锁
+
+	3 加锁和解锁
+		int  semop(int  semid,  struct  sembuf  *sops, unsigned
+		       nsops);
+		第一个参数：表示锁的描述符
+		第二个参数：表示加锁或者解锁结构体信息
+			unsigned short sem_num;  /* semaphore number */
+				表示锁索引号 0
+			short          sem_op;   /* semaphore operation */
+				加锁：负数
+				解锁: 正数
+			shor t          sem_flg;  /* operation flags */
+				表示锁的标志位 0
+		第三个参数：锁的数量 1
+
+	4 销毁信号锁
+		int semctl(int semid, int semnum, int cmd, ...);
+		IPC_RMID
+============================================
+线程：
+	进程是系统资源管理的最小单位
+	线程是进程执行一段流的最小单位
+	一个程序，至少有一个进程，而一个进程至少有一个线程。
+
+	进程资源独享
+	线程资源共享
+
+	线程id:
+		pthread_t pthread_self(void);
+
+		pthread_t unsigned long int %lu
+
+		编译的时候要连接线程动态库：-lpthtread
+
+	线程和进程区别
+
+	创建一个线程
+	int pthread_create(pthread_t *restrict thread,
+	              const pthread_attr_t *restrict attr, void  *(*start_routine)(void*),  void  *restrictarg);
+	第一个参数：表示存储创建线程线程号
+	第二个参数：表示线程属性 NULL
+	第三个参数：如果线程创建成功，则表示执行函数
+		如果不需要执行，则给NULL;
+
+	第四个参数：表示给执行函数传递参数。
+
+
+	线程等待函数
+	int pthread_join(pthread_t thread, void **value_ptr);
+	第一个参数：表示线程号
+	第二个参数：表示接受线程返回值
+		NULL ： 表示不接受线程返回值
+
+
+	线程退出函数
+	void pthread_exit(void *value_ptr);
+
+
+	homework:
+		创建10个线程， 实现3000 ~ 6000中的素数个数。
+
+
+
+
+
+
+
+
+
+

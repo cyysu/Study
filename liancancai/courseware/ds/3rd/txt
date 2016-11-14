@@ -1,0 +1,18 @@
+内核链表：数据里面包含链表
+	学生：
+	老师：
+	家长：
+	朋友：
+链表：链表里面包括数据
+	存储同一种数据元素
+
+
+	1 实现电子辞典 封装链表
+	2 实现学生查看系统
+		linux c ds sys net
+		xiaoliu  c sys
+		xiaohua  linux net
+		xiaoli  ds sys linux
+		xiaoqiang ?
+
+		c : xiaohua xiaoli xiaoqiang 

@@ -1,0 +1,196 @@
+sys:
+	就是系统给开发者提供一些接口(API),通过这些接口进行编程。
+
+	系统：
+		window:代码封闭
+		linux: 开源 对硬件要求不高
+	接口：
+		API：应用程序接口
+		sys:函数 -> 系统库 -> 头文件  不可以跨系统
+
+
+	位置：
+		linux(windows) -> app -> c -> c库
+					-> sys ->sys库  -> net -> arm -> dev
+
+	系统软件
+	kernel：
+		1 文件系统：把硬盘抽象成文件，供用户实现。
+			windows : msdoc vfat fat ntfs
+			linux :  ext2 ext3 ext4 nfs iso9660 fat
+		文件：
+			开发者：文件名区分不同文件
+			pc    : 通过文件inode节点来区分
+
+
+			三部分组成：
+			目录项：文件名和指向inode节点指针(文件索引号)
+			inode节点：文件基本信息和数据块指针
+					基本信息：inode节点 文件偏移量 位置 大小
+			数据块：就是文件内容
+			
+			2999938 drwxr-xr-x   7 root root  4096 10-27 16:54 test
+			inode节点号 文件类型和权限  硬链接数 属主 属组 文件大小 时间 文件名
+
+			文件类型：
+				d : 表示目录文件
+				- : 表示普通文件  => c
+				s : 表示套接子文件 => net
+				c : 表示字符设备类文件
+				b : 表示块设备类文件 => device
+				l : 表示链接文件	
+				p : 表示管道文件   => sys
+
+
+			权限：属主(u) 属组(g) 其他用户(o) 所有用户(a)
+
+			链接：
+				硬链接：ln srcfilename destfilename
+				软链接：ln -s srcfilename destfilename
+			属主：文件所有者
+			属主：文件所有组
+			
+			时间：
+				atime:访问时间
+				ctime:属性
+				mtime:内容 -> atime ctime
+
+
+		2 : 进程管理 就是一段可执行代码并占用CPU资源。 
+			进程号管理系统资源 ，进程号是由系统指定，用户不可以指定。
+			1号进程，这个进程是所有进程祖先。杀不死
+			getpid() ： 进程号
+			getppid() : 父进程号
+
+			进程五态模型：
+				新建态：就是进程被创建并没有被提交状态。创建进程表相，建立资源表格，打开文件，分配地址空间。
+				就绪态：进程等待CPU分配运行资源。
+				运行态：获得CPU资源，并处于运行状态
+				挂起态：因某件事情终端或者io请求而处于挂起状态
+				终止态：进程已经结束，但资源还没有被回首。
+
+		3 ：内存管理  arm
+			物理内存：
+			虚拟内存：
+				0 － 4G
+				系统态：
+				用户态：
+					栈：
+					堆：
+					数据段
+					代码段
+		4 ： 设备驱动 设备驱动
+		5 ： 网络协议
+
+	sysIO:  2 - 3
+		fileIO
+		dir
+	pid: 4
+		进程之间的通讯：
+			1 信号
+			2 管道通讯
+				匿名管道
+				有名管道 -> 管道文件
+			3 消息队列
+			4 共享内存
+			5 信号量
+			6 套接子
+	线程 ： 1	
+	net: 3
+		tcp:
+		udp:
+
+============================================
+fileio:man 3 
+	fopen:打开文件
+	 FILE *fopen(const char *path, const char *mode);
+		mode : 	r r+ 覆盖方式
+				w w+ 清空方式
+				a a+ 追加方式
+	fclose:关闭
+	容错函数
+	perror()
+	int errno
+	strerror()
+	按字符：
+	fgetc()
+	fputc()
+	按行：
+	fgets():
+	fputs():
+	按buf
+	fread():
+	fwrite():
+	按格式
+	fprintf():
+	fscanf():
+	
+	偏移：fseek(), ftell(), rewind();
+
+
+	练习：
+		实现cp
+			
+	app -> fopen ->  c库
+		-> open -> filename
+	int open(const char *pathname, int flags);
+	第一个参数：表示文件路径
+	第二个参数：表示文件标志
+		=> fopen mode 
+		flag:
+			O_RDONLY : 表示只读
+				如果文件存在，则打开成功
+				如果文件不存在，则打开失败
+			O_WRONLY ：表示只写
+
+	fopen:	open
+	r:		O_RDONLY
+	r+:		O_RDWR
+	w:		O_WRONLY | O_CREAT | O_TRUNC
+	w+:		O_RDWR | O_CREAT | O_TRUNC
+	a:      O_WRONLY | O_CREAT | O_APPEND
+	a+:		O_RDWR | O_CREAT | O_APPEND
+
+	返回值：成功：文件描述符,未被使用的最小文件描述符
+			失败：-1
+
+	0 标准输入
+	1 标准输出
+	2 错误输出
+	3
+	4
+	5
+
+
+	一个进程可以打开多少个文件描述符
+	32位系统一个进程默认最多可以打开1024个文件
+
+	读文件内容：
+		ssize_t read(int fd, void *buf, size_t count);
+		第一个参数：表示文件描述符
+		第二个参数：表示存储地址空间
+		第三个参数：表示空间大小
+		返回值：成功 >0
+				失败 <= 0
+
+	写入数据到文件中
+		ssize_t write(int fd, const void *buf, size_t count);
+
+ 
+ 	printf() : 行缓冲函数
+	fwrite() : 满缓冲函数
+	write()  : 无缓冲函数
+
+
+	int open(const char *pathname, int flags, mode_t mode);
+	第三个参数：表示文件权限
+
+	int creat(const char *pathname, mode_t mode);
+
+
+
+
+
+
+
+
