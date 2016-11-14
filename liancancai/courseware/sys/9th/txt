@@ -1,0 +1,168 @@
+实现TCP协议：
+	三次握手机制：客户端 服务器
+		第一次握手：客户端向服务器发送请求建立连接包(SYN) 客户端发送序列号X,同时把SYN位置1。
+		第二次握手：服务器接受到客户端请求包，向客户端发送一个确认包(ACK) => (SYN + ACK): 把客户端发送序列号X + 1,同时发送自己序列号Y,并把ACK标志位置1.
+		第三次握手：客户端接受到服务器确认包，再次发送一个确认包，SYN => X + 1 syn = 0 ACk => Y + 1 ack = 1
+
+
+	客户端：
+		1 创建套接子
+		int socket(int domain, int type, int protocol);
+		第一个参数：表示地址家族
+			 PF_INET   IPv4 Internet protocols     ip(7) => AF_INET
+		第二个参数：表示套接子类型：
+			SOCK_STREAM ： 表示流式套接子 tcp
+			SOCK_DGRAM	： 表示数据报套接子 udp
+		第三个参数：表示所使用协议 tcp/ip
+			默认给0 表示tcp/ip协议
+		 tcp_socket = socket(PF_INET, SOCK_STREAM, 0);
+
+		 返回值：成功：返回文件描述符
+		 		 失败：-1
+
+		2 请求建立连接
+		int    connect(int   sockfd,   const   struct   sockaddr
+		       *serv_addr, socklen_t addrlen);
+
+		第一个参数：表示套接子文件描述符 scoket
+		第二个参数：表示服务器的地址信息
+		struct sockaddr_in {
+			sa_family_t    sin_family; /* address family: AF_INET */
+				表示地址家族
+			u_int16_t      sin_port;   /* port in network byte order */
+			u_int16_t => short int 0 ~ 65535
+				表示服务端口
+				转换：主机字节序转换成网络字节序
+				表示将主机字节序 => 网络字节序
+				uint32_t htonl(uint32_t hostlong);  转换成long int
+				uint16_t htons(uint16_t hostshort);	转换成short int
+				表示将网络字节序 => 主机字节序
+				uint32_t ntohl(uint32_t netlong);
+				uint16_t ntohs(uint16_t netshort);
+
+				数据存储方式;
+				主机：一般是小端模式
+				网络：一般是大端模式
+				小端：
+					就是高字节存储高地址 底字节存储底地址
+				大端：
+					就是高字节存储底地址 底字节存储高地址
+
+
+			struct in_addr sin_addr;   /* internet address */
+				表示服务器ip地址
+
+				in_addr_t inet_addr(const char *cp);表示将ip地址转换成二进制数字
+				char *inet_ntoa(struct in_addr in);表示将网络二进制数字转换ip地址
+
+		};
+
+		/* Internet address. */
+		struct in_addr {
+			u_int32_t      s_addr;     /* address in network byte order */
+		};
+
+		第三个参数：表示目标地址大小
+
+	服务器：
+		1 创建套接子
+		2 帮定端口和ip
+		int  bind(int  sockfd,  const  struct sockaddr *my_addr,
+		       socklen_t addrlen);
+		第一个参数：表示文件描述符
+		第二个参数：表示帮定自己地址
+		第三个参数：表示地址大小
+		
+		3 监听
+		int listen(int sockfd, int backlog);
+		第一个参数：表示套接子文件描述符
+		第二个参数：表示监听数量
+
+		4 建立连接
+		int  accept(int sockfd, struct sockaddr *addr, socklen_t
+		       *addrlen);
+		第一个参数：表示创建套接子文件描述符
+		第二个参数：表示目标地址信息
+
+		5 接受数据
+
+		服务端口：启动服务所需要端口 自己指定
+		数据端口：发送数据所需要端口 系统指定
+
+		文件描述符
+		sd: 建立连接
+		fd: 数据通讯
+
+
+	//接受数据
+	ssize_t recv(int s, void *buf, size_t len, int flags);
+	//发送数据：
+	ssize_t  send(int  s,  const  void *buf, size_t len, int
+	       flags);
+
+	第一个参数：表示套接子文件描述符
+	第二个参数：表示数据空间地址
+	第三个参数：表示数据空间大小
+	第四个参数：表示标识0
+
+
+	练习：实现tell
+
+=============================================
+	UDP: 
+
+	客户端：
+		1 创建套接子
+		2 发送数据：
+		ssize_t sendto(int s, const void *buf, size_t  len,  int
+		       flags, const struct sockaddr *to, socklen_t tolen);
+		第一个参数：表示套接子
+		第二个参数：表示发送数据地址空间
+		第三个参数：表示发送数据长度
+		第四个参数：表示标识 0
+		第五个参数：表示连接目标端口的实例
+		第六个参数：表示目标地址长度
+		返回值：
+			成功: 返回数据字节
+			失败：-1
+	服务器：
+		1 socket
+		2 bind
+		3 接受数据
+		ssize_t recvfrom(int s, void *buf, size_t len, int flags,
+		                        struct sockaddr *from, socklen_t *fromlen);
+		第一个参数：表示套接子文件描述符
+		第二个参数：表示存储空间地址
+		第三个参数：空间大小
+		第四个参数：标识 0
+		第五个参数：表示目标端口和ip
+		第六个参数：表示目标地址空间大小地址
+
+	homework:
+		udp实现tell
+	homework :
+		实现ssh 
+		client
+		./a.out username ip
+		root@10.1.1.72's password: buf
+		write
+
+
+		service
+		read -> passwd
+		/etc/shadow -> username -> passwd
+		if passswd 
+		buf 明文=> 暗文
+
+		write -> yes no
+	
+
+
+
+
+
+
+
+
+
+
