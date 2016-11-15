@@ -1,0 +1,89 @@
+1 结束当前的函数可以使
+	until 退出循环，不会打印信息
+	finish 打印堆栈返回值等信息
+ 
+2 添加参数argv[1], argv[2]...
+	使用run(r) argv[1], argv[2]...
+
+3 查看命令list(l)
+	(1)list num, 查看近10行代码
+	如: list 20	
+	查看第20~29行
+	
+	(2)list num1, num2, 查看num1 到 num2 行之间的代码
+	如：list 1,5 
+	查看1~5行的代码
+	
+	(3)list func
+	查看func函数的源码
+	
+	(4)list file:func
+	查看file文件下的func函数的源码
+
+4 继续运行到下一个断点
+	continue(c)
+	
+5 step会进入到函数内部
+	next不会进入到函数内部
+	
+6 ptype
+	查看类型
+	如 int a;
+	ptype a
+	则输出: type = int
+	如 ptype "123"
+	这输出: type char[4] (因为字符串有'\0'结尾)
+
+7 查看数组
+	int arr1[10] = {1, 2, 3, 4, 5, 6, 7 ,8, 9, 10};
+	int arr2* = NULL;
+	arr2 = (int *)malloc(sizeof(int) * 10);
+	for(i = 0; i < 10; i++)
+	{
+		arr2[i] = i;
+	}
+	
+	查看arr1的所有数据
+	print arr1
+	输出: {0, 1, 2, 3, 4, 5, 6, 7, 8 ,9}
+	
+	查看arr1的地址
+	print &arr1 (这里跟C语言不一样， arr1 会直接打出arr1数据的首地址， 而这里则需要添加 & 符号)
+	
+	查看arr2的数据
+	print arr2@10 (打印10个)
+	输出: {0, 1, 2, 3, 4, 5, 6, 7, 8 , 9}
+	
+	print arr2@3(打印3个)
+	输出: {0, 1, 2}
+	
+	print arr1@2(打印 10 * 2 = 20 个， 将arr1当做了一个整体，这个整体里有10个数据)
+	print arr1[2]@2 (打印arr1[2], arr1[3])
+	输出: {2,3}
+	
+	2016.11.1 23:40 看到8:24
+	
+8 查看core文件
+	ulimit -c 查看core文件大小
+	ulimit -a 查看所有信息
+
+9  产生core文件
+	ulimit -c  num
+	如ulimit -c 10
+	产生10 blocks大小的core文件
+	
+	如ulimit -c unlimited 
+	产生没有限制大小的core文件
+	
+10 调试core文件
+	gdb 文件名 core文件 
+	如 gbd a.out core.123
+	backtrace 
+	
+11 查看结构体
+	set print null-stop
+	set print pretty on
+	
+
+	
+	
