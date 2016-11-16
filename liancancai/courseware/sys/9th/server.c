@@ -18,7 +18,7 @@
 #include <sys/ipc.h>
 #include <sys/msg.h>
 #include <sys/shm.h>
-#include <sys/sem.h>
+#include<sys/sem.h>
 #include <pthread.h>
 #include <sys/socket.h>
 #include <netinet/in.h>

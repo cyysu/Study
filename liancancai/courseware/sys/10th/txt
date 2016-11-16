@@ -1,0 +1,121 @@
+tcp:保证双方都在线，可以使数据更安全
+	客户端：
+		1 socket() sd 负责用户连接和数据处理
+		2 connect()
+		3 write send
+		4 close()
+
+	服务器：
+		1 socket() sd 负责连接和监听用户
+		2 bind()
+		3 listen()
+		4 accept() fd 负责发送和接受数据
+		5 read recv
+		6 close()
+
+		服务端口：用户指定
+		数据端口：系统指定
+		unsigned short int 
+	
+		数据存储方式：
+			pc  : 小端存储
+			net : 大端存储
+
+		端口：
+		发送数据端口  服务端口
+		htons:
+		htonl:
+		接受数据端口  数据端口
+		ntohs:
+		ntohl:
+		ip地址：
+			inet_addr();
+			inet_ntoa();
+
+UDP:不需要双方都在线，则执行效率告，但会容易丢失数据。
+
+	1 客户端：
+		1 scoket()
+		2 sendto()
+		3 close()
+	2 服务器：
+		1 socket()
+		2 bind()
+		3 recvfrom()
+		4 close()
+	
+
+	设定套接子属性
+	int setsockopt(int s, int level, int optname, const void
+	       *optval, socklen_t optlen);
+	第一个参数：表示套接子文面描述符
+	第二个参数：表示套接子级别
+		SOL_SOCKET : 表示基本套接子 广播
+		IPPROTO_IP: IPv4套接口      多播
+		IPPROTO_IPV6: IPv6套接口
+		IPPROTO_TCP: TCP套接口
+	第三个参数：设定命令
+		SO_REUSEADDR  : 表示地址重用
+		SO_BROADCAST  : 表示设置广播
+		IP_MULTICAST_LOOP ：表示防止多播回路
+		IP_ADD_MEMBERSHIP : 表示添加用户到多播组中
+		struct ip_mreqn {
+			struct in_addr imr_multiaddr; /* IP multicast group
+			表示多播组
+											 address */
+			struct in_addr imr_address;   /* IP address of local
+			表示的是用户ip						 interface */
+			int            imr_ifindex;   /* interface index */
+			表示接口类型 0
+		};
+
+	第四个参数：表示是否启用设置  想当于开关。
+		NULL : 表示不起用
+		如果为非零，则表示可以使用
+	第五个参数：表示是否启动开关的大小
+		
+===================================
+IO复用
+	 int select(int nfds, fd_set *readfds, fd_set *writefds,
+	                   fd_set *exceptfds, struct timeval *timeout);
+
+	第一个参数：表示文件描述符最大值+ 1
+	第二个参数：表示文件描述符读集
+	第三个参数：表示文件描述符写集
+	第四个参数：表示文件执行集合   NULL 表示不获取
+	第五个参数：表示设定时间实例
+		NULL： 表示阻塞方式显示
+		0.0 :  表示不阻塞
+		
+
+		struct timeval {
+			long    tv_sec;         /* seconds */ 秒
+			long    tv_usec;        /* microseconds */ 毫秒
+		};
+
+
+		void FD_CLR(int fd, fd_set *set);	表示文件描述符从集合中删除。
+		int FD_ISSET(int fd, fd_set *set);	表示判断文件描述符是否在这个集合中。
+			如果存在，则为真
+			如果不存在，则为假
+		void FD_SET(int fd, fd_set *set); 表示文件描述符添加到集合中。
+		void FD_ZERO(fd_set *set);	表示清空集合。
+
+
+		返回值：
+			失败：-1
+			成功：
+				0：	表示时间超时
+				num:表示返回文件描述符数量
+
+
+
+
+
+
+
+	
+
+
+
+

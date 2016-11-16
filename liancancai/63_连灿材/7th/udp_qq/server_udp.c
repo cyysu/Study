@@ -62,8 +62,7 @@ int main(int argc, char **argv)
 	len = sizeof(src);
 
 	src.sin_family = AF_INET;
-	// src.sin_addr.s_addr = inet_addr(IP);
-	src.sin_addr.s_addr =  INADDR_ANY;
+	src.sin_addr.s_addr = inet_addr(IP);
 
 	system("clear");
 
@@ -102,9 +101,8 @@ int main(int argc, char **argv)
 			gotoxy(count, 2);
 
 			printf("%s\n", buf);
-			gotoxy(16, 1);
-			// printf("\n");//加上这句　gotoxy(15, 1)才会执行
-			fflush(NULL);
+			gotoxy(15, 1);
+			printf("\n");//加上这句　gotoxy(15, 1)才会执行
 		}
 	}
 	else//parents send

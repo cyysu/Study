@@ -1,0 +1,107 @@
+c:		面向过程语言 操作单元就是函数
+	gcc .c 主用用于系统层
+c++: 	面向对象语言 操作单元就是类
+	g++ .cpp 主要用于应用层
+
+c => c++
+	file.cpp => 库文件
+		生成动态库：g++ -shared -o libmytest.so file.o
+		编译： gcc -L. -llib_name file.c
+			-L : 表示指定库文件所在目录
+			-l : 表示指定库名
+		1 保存库文件到/lib
+		2 /etc/ld.so.conf 添加库文件所在路径
+			ldconfig 生效
+	案例：1.c 1.cpp C代码只能调用c++库文件
+		1.c => 1.cpp
+		1 ： 把1.cpp生成二进制文件
+			g++ -c 1.cpp => 1.o （32）
+			g++ -fPIC -c 1.cpp => 1.o (64)
+		2 : 把1.o文件生成库文件
+			g++ -shared -fPIC -o libmytest.so 1.0 => libmytest.so
+			 -shared : 表示生成动态共享库
+			 -fPIC	:  表示生成的库文件跟代码位置无关.
+		3 : 编译
+			gcc 1.c -L. -lmytest => a.out
+			-L : 表示指定库文件所在目录
+			-l : 表示指定库名
+		4 ：执行
+			[root@aa inc]# ./a.out 
+			./a.out: error while loading shared libraries: libmytest1.so: cannot open shared object file: No such file or directory
+			报错信息
+			解决方法：
+			1 保存库文件到/lib(32)
+				/lib64(64)
+
+			2 /etc/ld.so.conf 添加库文件所在路径
+				ldconfig:生效
+			
+
+c++ => c
+	file.c => 库文件
+		
+=============================
+cout.witch() : 表示指定对齐方式 默认右对齐
+cout.fill()	 : 表示填充的字符
+
+
+
+setf() : 设置格式
+	第一方法：传一个参数：
+		ios_base::boolalpha : 验证bool类型的值，以true方式显示，反之就是bool值
+		ios_base::showpoint : 表示显示小数点
+		ios_base::uppercase : 表示16进制显示大写
+		ios_base::showpos	: 表示正数前面加+
+		ios_base::showbase	: 表示显示前缀 (0,0x);
+	第二方法：可以传两个参数：
+		第一个参数		第二个参数
+		ios_base::oct
+		ios_base::hex
+		ios_base::dec		ios_base::basefield   表示显示不同进制
+
+		ios_base::fixed								表示定点浮点数
+		ios_base::scientific ios_base::floatfield	表示科学技术法浮点数
+
+		ios_base::left
+		ios_base::right		ios_base::adjustfield	表示对齐
+
+
+	对齐方式：
+	#include <iomanip>
+
+	setw() : 		表示对齐
+	setprecision() 表示设定小数点后几位
+	setfill():		表示填充
+========================================
+char arr[]
+string : 初始化
+	string one			：表示定义空对象
+	string two(one)		：表示复制one内存给two对象
+	string three("hello"):表示给three初始化为hello字符串
+	string four(num, ch) :  表示four对象保存了num个ch字符
+	string five(one, num): 表示从one对象起始位置向后偏移num个字符，然后赋值给five对象
+	
+
+	接受字符串：
+		如果是一个字符：
+			cin >> ch;
+		如果是string 对象
+			getline(cin, str);
+		如果是数组
+			cin.getline(buf, sizeof(buf));
+
+
+	c++ 申请空间： new
+		释放空间： delete
+
+		同时不可以多次释放
+
+
+
+
+
+
+
+
+
+

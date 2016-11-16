@@ -1,0 +1,125 @@
+
+stu2 to stu1 
+stu2 (2011-3-7 05:00:06):
+ hello
+
+
+stu9 to stu4 
+stu9 (2011-3-7 05:04:06):
+ hello
+
+
+stu9 to  
+stu9 (2011-3-7 05:04:34):
+ quit
+
+
+stu1 to stu2 
+stu1 (2011-3-7 05:21:19):
+ hello
+
+
+stu4 to stu1 
+stu4 (2011-3-7 05:21:31):
+ heloo
+
+
+stu4 to stu2 
+stu4 (2011-3-7 05:21:31):
+ heloo
+
+
+stu2 to stu1 
+stu2 (2011-3-8 06:09:52):
+ hello
+
+
+stu1 to stustu2 
+stu1 (2011-2-20 14:09:26):
+ hi
+
+
+stu1 to stu2 
+stu1 (2011-2-20 14:09:36):
+ hi
+
+
+stu1 to stu3 
+stu1 (2011-2-20 14:10:38):
+ ho
+
+
+stu1 to stu2 
+stu1 (2011-2-20 14:11:15):
+ yx
+
+
+stu1 to stu3 
+stu1 (2011-2-20 14:11:15):
+ yx
+
+
+stu1 to all 
+stu1 (2011-2-20 14:11:33):
+ yu
+
+
+stu3 to stu1 
+stu3 (2011-3-8 06:14:52):
+ kk
+
+
+stu3 to stu1 
+stu3 (2011-3-8 09:42:40):
+ hello
+
+
+stu2 to stu1 
+stu2 (2011-3-18 11:48:08):
+ 你好
+
+
+stu2 to stu1 
+stu2 (2011-3-18 11:48:19):
+ welcome
+
+
+stu1 to stu1 
+stu1 (2011-3-18 11:48:37):
+ 你是谁
+
+
+stu1 to stu2 
+stu1 (2011-3-18 11:48:57):
+ system
+
+
+stu4 to stu1 
+stu4 (2011-3-18 11:49:26):
+ 大家好
+
+
+stu4 to stu2 
+stu4 (2011-3-18 11:49:26):
+ 大家好
+
+
+stu4 to stu4 
+stu4 (2011-3-18 11:49:26):
+ 大家好
+
+
+stu4 to stu1 
+stu4 (2016-11-15 17:23:22):
+ hello
+
+
+stu2 to stu4 
+stu2 (2016-11-15 17:23:40):
+ hello
+
+
+stu4 to all 
+stu4 (2016-11-15 17:23:54):
+ how are you
+
