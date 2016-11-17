@@ -1,0 +1,7 @@
+sudo apt-get update
+sudo apt-get dist-upgrade
+sudo apt-get install --reinstall software-center
+
+
+sudo rm /var/lib/apt/lists/* -vf
+sudo apt-get update

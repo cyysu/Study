@@ -1,0 +1,123 @@
+c++:
+	g++ .cpp
+	main()
+	cout => printf
+	cin => scanf
+	cerr => fprintf(stderr, fromat)
+
+
+	get(ch) : 表示接受一个字符，会把换行保留在缓冲区中
+	get(ch).get() : 表示把换行处理掉
+	get(buf, sizeof(buf)).get()
+	getline(buf, sizeof(buf)) : 表示换行结束用户输入，同时会处理换行。
+	getline(buf, sizeof(buf), 'ch') : 表示以ch结尾输入。
+
+	c和c++库文件可以相互调用
+
+	extern "C"
+	{
+		code
+	}
+
+	对齐方式：
+		cout.width() : 表示指定位宽
+		cout.fill()	 : 表示填充字符
+		cout << left : 表示左对齐
+		cout << right: 表示右对齐
+
+	float:
+		
+		#include <iomanip>
+		setw():
+		setpercision():
+		setfill():
+
+	数组：
+		string :
+		string str;
+		string : 类
+		str	:	表示类对象
+
+	new: 申请空间 => malloc calloc realloc
+	格式 p = new type 
+		 p = new type [size]  以上申请空间都在动态内存中
+		 p = new (buf) type  表示向指定空间空间申请地址空间，不需要释放空间
+	delete:释放空间 => free
+		delete p
+		delete [] p  
+	new -> string
+		char buf[1024]; 
+		string *p = NULL
+
+		for (i = 0; i <5; i++)
+		{
+			printf("pleas name :");
+			getline(cin, p[i]);
+		}
+	=========================================
+	
+	引用：&
+		1 在定义的时候必须初始化
+		2 引用不可以指向数组
+	=========================================
+	字符集：
+	#include <cctype>
+
+	isalnum()	:表示字符如果是字母或者数组，则为真(true)
+	isalpha()	:判断字符是不是字母
+	isdigit()	:判断是否是数字字符
+	islower()	:判断是否是小写
+	isupper()	:判断是否是大写
+	ispunct()	:判断是否是标点符号
+	isspace()	:判断是否是空白字符(空格 换行符 制表符 回车)
+	tolower() 	:表示大写转换成小写
+	toupper()	:表示小写转换成大写
+	
+	练习：
+		输入一个字符串
+		统计里面有多少个空格 多少个字母 多少个标点符号，多少个数字字符，其他字符多少个。
+	==========================================
+	函数：
+		1 defaultarg : 默认参数
+			设置默认参数，必须从右到左依次设置。
+		2 inline ： 内联函数
+			inline void test(void);//表示内联函数
+			就是只能被被文件的函数所访问 => static 
+			static 函数在运行的时候才去调用
+			inline 则是在预处理的时候加载进来 拥有宏的特性
+
+			注意：
+				inline代码不能太大，依然遵循宏的规则
+			static 作用：
+				1 修饰局部变量
+					stack:
+					ds	:
+				2 修饰外部变量
+					
+				3 修饰函数
+		3 函数引用 string
+			1 引用不可以返回局部变量引用
+			2 传参的时会出现地址不匹配
+				常量 类型不匹配 表达式
+
+				类型转化：
+				char -> short -> int -> long -> double <- float
+		4 函数重载 多态
+			就是函数名相同，而参数类型 位置 数量不一致。
+			特征标决定是否可以重名
+				报口参数类型 参数数量 参数位置
+
+		5 函数模板
+			函数模板重载
+			显示模板
+
+		验证：普通函数和模板的优先级
+
+
+	
+
+
+
+
+
+

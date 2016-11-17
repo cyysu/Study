@@ -70,7 +70,7 @@ setf() : 设置格式
 	#include <iomanip>
 
 	setw() : 		表示对齐
-	setprecision() 表示设定小数点后几位
+	setpricision(): 表示设定小数点后几位
 	setfill():		表示填充
 ========================================
 char arr[]
@@ -88,7 +88,7 @@ string : 初始化
 		如果是string 对象
 			getline(cin, str);
 		如果是数组
-			cin.getline(buf, sizeof(buf));
+			cin.getline(buf, sizeof(bug));
 
 
 	c++ 申请空间： new
