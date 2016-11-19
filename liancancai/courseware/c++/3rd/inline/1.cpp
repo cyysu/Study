@@ -5,15 +5,8 @@ using namespace std;
 extern void hello(void);
 extern void world(void);
 
-inline void test(void)
-{
-	cout << "test" << endl;
-}
-
 int main(void)
 {
-	//hello();
-	world();
-	test();
+	hello();
 	return 0;
 }
