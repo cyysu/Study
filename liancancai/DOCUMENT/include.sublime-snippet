@@ -1,0 +1,20 @@
+<snippet>
+    <content><![CDATA[
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main(int argc, char **argv)
+{
+	return 0;
+}
+
+]]></content>
+    <!-- Optional: Tab trigger to activate the snippet -->
+    <tabTrigger>_headfile</tabTrigger>
+    <!-- Optional: Scope the tab trigger will be active in -->
+    <scope>source.c</scope>
+    <!-- Optional: Description to show in the menu -->
+    <description>Include Head File</description>
+</snippet>
+
