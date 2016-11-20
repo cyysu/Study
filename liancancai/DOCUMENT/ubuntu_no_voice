@@ -1,0 +1,5 @@
+
+登录后打开终端输入：
+pulseaudio --start --log-target=syslog
+sudo sh -c echo “pulseaudio --start --log-target=syslog” >> /etc/environment
+只需运行这一次，以后每次启动 音量调节 都可以使用。
