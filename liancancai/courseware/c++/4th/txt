@@ -1,0 +1,73 @@
+class class_name{
+
+	//属性
+		privte
+		protected
+		public
+	//方法
+		func
+};
+
+student stu
+
+构造函数
+析构函数
+this :
+static:
+const :
+
+运算术重载：
+	operator+(option);
+
+iosatream
+cout : ostream 
+cout
+cin : istream
+
+友元函数：
+	需要在类中声明，但不属于类的成员函数，属于类友元函数
+	友元函数就可以访问类的属性。
+
+类继承：
+	从一类派生出另一个类时， 原始类基类，继承类叫派生类
+
+	class A{}
+	class B{}
+
+	直接继承：
+		class A{};
+		class B : public A{};
+		B类直接继承A类
+
+	间接继承：
+		class A{};
+		class B : public A{};
+		class c : public B{};
+		
+		C类间接继承A类
+		
+	多重继承：
+		class A{};
+		class B{};
+		class C : public A, public B{};
+
+	继承格式：
+		class 派生类 : 继承方式 基类名, ....
+		{
+		
+		}
+
+	继承方式：
+		公有继承：
+		私有继承：
+		保护继承：
+
+
+
+
+
+
+
+
+
+
