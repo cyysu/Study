@@ -1,6 +1,7 @@
-/* Date:
- * Author:
- * Brief:
+/**
+ * @Author:      lcc
+ * @DateTime:    2016-11-22 08:39:10
+ * @Description: 重定向 << >> 运算符
  */
 
 #include <iostream>
