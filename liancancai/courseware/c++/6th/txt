@@ -1,0 +1,73 @@
+类继承：
+	B类继承A类：A类叫基类， B类叫派生类 => 直接继承
+	间接继承
+	多重继承
+
+	派生类对象 就是自动调用基类构造函数和析构函数
+	定义一个基类对象(指针或者引用)，基类对象可以直接指向派生类对象。
+		
+	A类 => B类 show() :
+		1 通过派生类实现这个方法
+		2 虚函数 指定基类虚函数
+
+	纯虚函数：不可以定义这个类对象 ：抽象数据类型
+
+	友元类：
+		定义公有部分 friend class class_name;
+
+	file:
+	#include <iostream>
+		cout:	输出流 => stdout
+		cin:	输入流 => stdin
+		
+	#include <fstream>
+		//写文件
+		ostrean fout 输出流 => 文件 => write
+		seekp ：输出流
+		ostream &seekp( off_type offset, ios::seekdir origin );
+		ostream &seekp( pos_type position );
+
+			ios_base::set
+			ios_base::cur
+			ios_base::end
+
+		//读文件
+		istream fin  输入流 => 文件 => read
+		seekg 输入流
+		istream &seekg( off_type offset, ios::seekdir origin );
+		istream &seekg( pos_type position );
+
+
+	模式
+		open(filename, mode)
+	
+	写入文件：
+		write(char *, unsigned int);//二进制
+		fout <<  以空格分割
+	
+	获取文件信息
+		read(char *, unsigned int);//二进制
+		fin >>
+	
+STL:标准模板库
+	是由一组表示容器 迭代器 函数对象和算法的模板
+	容器相当于一个类似的数组，可以存储若干数据。
+	迭代器就是一个指针，用来遍历数据
+	算法：就是完成某种功能(排序 查找 删除 修改)的处方
+	函数：就是类的对象的方法或者函数指针。
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+

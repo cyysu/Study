@@ -7,7 +7,7 @@ int main(int agrc, char * argv[])
 	char buf[10] = {};
 	ofstream fout;
 
-	fout.open("./test", ios_base::in | ios_base::out);
+	fout.open("./test", ios::binary);
 
 	if(!fout)
 	{

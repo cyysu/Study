@@ -1,0 +1,59 @@
+Qt:
+	图形用户界面的框架
+
+	安装完成后，需要配置环境变量（命令）
+	vim ~/.bashrc
+	source ~/bashrc 
+
+	QT库文件：
+		vim /etc/ld.so.conf
+		ldconfig
+
+	查看帮助文档：help -> index
+
+	qmake -project 
+	qmake
+	make
+
+	信号和槽
+	一：系统提供信号和槽
+		
+	二：自定义槽实现
+	1：定义槽 => .h
+		private slots:
+			
+	2：实现槽 .cpp
+		定义槽和实现槽之间切换 F4
+		
+	3：连接槽
+			构造函数
+	QObject::connect(sender, what,recver, dowhat);连接
+
+	三：右键-> go to slot
+
+	四 ：自定义信号和槽
+
+	对话框：
+	#include <QDialog>
+
+	标准文件对话框
+	标准字体对话框
+	标准颜色对话框
+	标准输入对话框
+		输入字符串对话框 => name
+		输入条目对话框 => sex
+		输入int对话框 => age
+		输入double对话框 => result
+	标准消息对话框
+		question => 询问
+		infromation => 提示
+		warning	=> 一般警告
+		critical => 严重警告
+		about	=>
+		aboutQt => 
+	自定义消息对话框
+
+
+
+
+
