@@ -37,21 +37,85 @@ Qt:
 	#include <QDialog>
 
 	标准文件对话框
+		#include <QPushButton>
+		#include <QLineEdit>
+		#include <QFileDialog> //打开文件对话框头文件
+		#include <QGirdLayout> //表示网格布局 位置指定和数组一样
+
+		getOpenFileName()
+		QString	getOpenFileName ( QWidget * parent = 0, const QString & caption = QString(), const QString & dir = QString(), const QString & filter = QString(), QString * selectedFilter = 0, Options options = 0 )
+		第一个参数：表示标准文件对话框的父窗口
+		第二个参数：表示标题名
+		第三个参数：表示默认打开文件目录
+		第四个参数：表示默认文件类型过滤器
+			"C++ file(*.cpp)::C file(*.c)::Head file(*.h)"
+
 	标准字体对话框
 	标准颜色对话框
 	标准输入对话框
 		输入字符串对话框 => name
+		QString	getText ( QWidget * parent, const QString & title, const QString & label, QLineEdit::EchoMode mode = QLineEdit::Normal, const QString & text = QString(), bool * ok = 0, Qt::WindowFlags flags = 0 )
+		第一个参数：表示父窗口 => this
+		第二个参数：表示标题名
+		第三个参数：表示表示标签提示信息
+		第四个参数：表示输入控件 可以被修改(Normal)
+		第五个参数：表示显示输入控件默认文本。
+		第六个参数：表示是否修改成功
+
+
 		输入条目对话框 => sex
+		QString	getItem ( QWidget * parent, const QString & title, const QString & label, const QStringList & items, int current = 0, bool editable = true, bool * ok = 0, Qt::WindowFlags flags = 0 )
+		第一个参数：父窗口
+		第二个参数：标题名
+		第三个参数：标签提示信息
+		第四个参数：表示可选择条目对象
+		第五个参数：默认条目序列号
+			男[0] 女[1] 
+		第六个参数：表示QComboBox是否可以修改
+			false 表示不可以修改
+			true  表示可以修改
+		第七个参数：表示是否修改
+
+
 		输入int对话框 => age
+		nt	getInt ( QWidget * parent, const QString & title, const QString & label, int value = 0, int min = -2147483647, int max = 2147483647, int step = 1, bool * ok = 0, Qt::WindowFlags flags = 0 )
+
 		输入double对话框 => result
+		ouble	getDouble ( QWidget * parent, const QString & title, const QString & label, double value = 0, double min = -2147483647, double max = 2147483647, int decimals = 1, bool * ok = 0, Qt::WindowFlags flags = 0 )
+
 	标准消息对话框
 		question => 询问
+		StandardButton	question ( QWidget * parent, const QString & title, const QString & text, StandardButtons buttons = Ok, StandardButton defaultButton = NoButton )
+		第一个参数：表示父窗口
+		第二个参数：表示标题名
+		第三个参数：表示询问信息
+		第四个参数：表示需要按钮
+			QMessageBox => static => question => StandardButtons
+		第五个参数:默认按钮
+
 		infromation => 提示
+			StandardButton	information ( QWidget * parent, const QString & title, const QString & text, StandardButtons buttons = Ok, StandardButton defaultButton = NoButton )
+
 		warning	=> 一般警告
 		critical => 严重警告
 		about	=>
 		aboutQt => 
 	自定义消息对话框
+
+==========================
+	void	triggered ( bool checked = false )
+
+	编辑栏：
+		QTextEdit:
+			void	copy ()	表示复制
+			void	cut ()  表示剪贴
+			void	paste ()表示粘贴
+			void	redo ()	表示重做
+			void	selectAll () 表示全选
+			void	undo ()	表示撤销
+	设置图表：
+		资源文件
+
 
 
 
