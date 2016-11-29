@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2016-11-29T20:07:13
+# Project created by QtCreator 2016-11-29T10:12:18
 #
 #-------------------------------------------------
 
@@ -8,13 +8,13 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-TARGET = untitled
+TARGET = numberbook
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        numbook.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += numbook.h
 
-FORMS    += mainwindow.ui
+FORMS    += numbook.ui

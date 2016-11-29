@@ -1,10 +1,10 @@
-#include "mainwindow.h"
+#include "numbook.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
+    numbook w;
     w.show();
 
     return a.exec();
