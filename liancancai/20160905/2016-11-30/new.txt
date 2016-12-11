@@ -1,0 +1,336 @@
+
+
+[root@host253 A9]# df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/sda7              99G   95G     0 100% /
+tmpfs                 1.9G   76K  1.9G   1% /dev/shm
+/dev/sda5             486M   76M  386M  17% /boot
+/var/source/CentOS6.7_64_1.iso
+                      3.7G  3.7G     0 100% /CD1
+/var/source/CentOS6.7_64_2.iso
+                      2.1G  2.1G     0 100% /CD2
+/dev/sdb3             4.0G  175M  3.6G   5% /media/b4940bc7-5645-481c-952a-f79ce9523573
+/dev/sdb2             4.0G  156M  3.6G   5% /media/5bb62841-a070-4b01-862b-fd3166ed96bc
+/dev/sdb1             2.0G  4.6M  2.0G   1% /media/BDFA-6824
+[root@host253 A9]# umount /media/*
+[root@host253 A9]# df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/sda7              99G   95G     0 100% /
+tmpfs                 1.9G   76K  1.9G   1% /dev/shm
+/dev/sda5             486M   76M  386M  17% /boot
+/var/source/CentOS6.7_64_1.iso
+                      3.7G  3.7G     0 100% /CD1
+/var/source/CentOS6.7_64_2.iso
+                      2.1G  2.1G     0 100% /CD2
+[root@host253 A9]# dd if=/dev/zero  of=/dev/sdb   bs=1024 count=102400
+记录了102400+0 的读入
+记录了102400+0 的写出
+104857600字节(105 MB)已复制，16.4419 秒，6.4 MB/秒
+
+ot@host253 A9]# fdisk -l
+
+Disk /dev/sda: 500.1 GB, 500107862016 bytes
+255 heads, 63 sectors/track, 60801 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0xf0d675ed
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1               1       39164   314584798+   b  W95 FAT32
+/dev/sda4           39165       60801   173799202+   5  Extended
+/dev/sda5   *       39165       39229      522081   83  Linux
+/dev/sda6           39230       39752     4200966   82  Linux swap / Solaris
+/dev/sda7           39753       52807   104864256   83  Linux
+/dev/sda8           52808       60801    64211773+  83  Linux
+
+Disk /dev/sdb: 15.5 GB, 15523119104 bytes
+64 heads, 32 sectors/track, 14804 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+[root@host253 A9]# 
+[root@host253 tiny4412]# pwd
+/disk/A9/uboot_tiny4412-master/sd_fuse/tiny4412
+[root@host253 tiny4412]# ./sd_fusing.sh   /dev/sdb
+/dev/sdb reader is identified.
+---------------------------------------
+BL1 fusing
+记录了16+0 的读入
+记录了16+0 的写出
+8192字节(8.2 kB)已复制，0.199734 秒，41.0 kB/秒
+---------------------------------------
+BL2 fusing
+记录了28+0 的读入
+记录了28+0 的写出
+14336字节(14 kB)已复制，0.144178 秒，99.4 kB/秒
+---------------------------------------
+u-boot fusing
+记录了540+1 的读入
+记录了540+1 的写出
+276932字节(277 kB)已复制，1.96843 秒，141 kB/秒
+---------------------------------------
+TrustZone S/W fusing
+记录了184+0 的读入
+记录了184+0 的写出
+94208字节(94 kB)已复制，0.74048 秒，127 kB/秒
+---------------------------------------
+U-boot image is fused successfully.
+Eject SD card and insert it again.
+[root@host253 tiny4412]# 
+
+
+
+
+
+
+
+
+
+
+
+
+[root@host253 tiny4412]# fdisk /dev/sdb
+Device contains neither a valid DOS partition table, nor Sun, SGI or OSF disklabel
+Building a new DOS disklabel with disk identifier 0x7d37efd0.
+Changes will remain in memory only, until you decide to write them.
+After that, of course, the previous content won't be recoverable.
+
+Warning: invalid flag 0x0000 of partition table 4 will be corrected by w(rite)
+
+WARNING: DOS-compatible mode is deprecated. It's strongly recommended to
+         switch off the mode (command 'c') and change display units to
+         sectors (command 'u').
+
+Command (m for help): p
+
+Disk /dev/sdb: 15.5 GB, 15523119104 bytes
+64 heads, 32 sectors/track, 14804 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x7d37efd0
+
+   Device Boot      Start         End      Blocks   Id  System
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 1
+First cylinder (1-14804, default 1): 20 
+Last cylinder, +cylinders or +size{K,M,G} (20-14804, default 14804): +1G
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 2
+First cylinder (1-14804, default 1): 23
+Sector 45056 is already allocated
+First cylinder (1045-14804, default 1045): +2G
+Last cylinder, +cylinders or +size{K,M,G} (2048-14804, default 14804): +2G
+
+Command (m for help): p
+
+Disk /dev/sdb: 15.5 GB, 15523119104 bytes
+64 heads, 32 sectors/track, 14804 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x7d37efd0
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1              20        1044     1049600   83  Linux
+/dev/sdb2            2048        4096     2098176   83  Linux
+
+Command (m for help): d
+Partition number (1-4): 2
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 2
+First cylinder (1-14804, default 1): 1045
+Last cylinder, +cylinders or +size{K,M,G} (1045-14804, default 14804): +1G
+
+Command (m for help): p
+
+Disk /dev/sdb: 15.5 GB, 15523119104 bytes
+64 heads, 32 sectors/track, 14804 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x7d37efd0
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1              20        1044     1049600   83  Linux
+/dev/sdb2            1045        2069     1049600   83  Linux
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 3
+First cylinder (1-14804, default 1): 2070
+Last cylinder, +cylinders or +size{K,M,G} (2070-14804, default 14804): +2G
+
+Command (m for help): p
+
+Disk /dev/sdb: 15.5 GB, 15523119104 bytes
+64 heads, 32 sectors/track, 14804 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x7d37efd0
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1              20        1044     1049600   83  Linux
+/dev/sdb2            1045        2069     1049600   83  Linux
+/dev/sdb3            2070        4118     2098176   83  Linux
+
+Command (m for help): t
+Partition number (1-4): 1
+Hex code (type L to list codes): c
+Changed system type of partition 1 to c (W95 FAT32 (LBA))
+
+Command (m for help): p
+
+Disk /dev/sdb: 15.5 GB, 15523119104 bytes
+64 heads, 32 sectors/track, 14804 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x7d37efd0
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1              20        1044     1049600    c  W95 FAT32 (LBA)
+/dev/sdb2            1045        2069     1049600   83  Linux
+/dev/sdb3            2070        4118     2098176   83  Linux
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+
+WARNING: If you have created or modified any DOS 6.x
+partitions, please see the fdisk manual page for additional
+information.
+Syncing disks.
+[root@host253 tiny4412]# mkfs.vfat   /dev/sdb1
+mkfs.vfat 3.0.9 (31 Jan 2010)
+[root@host253 tiny4412]# mkfs.ext3   /dev/sdb2
+mke2fs 1.41.12 (17-May-2010)
+警告: 256 块未使用.
+
+文件系统标签=
+操作系统:Linux
+块大小=4096 (log=2)
+分块大小=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+65664 inodes, 262144 blocks
+13120 blocks (5.00%) reserved for the super user
+第一个数据块=0
+Maximum filesystem blocks=268435456
+8 block groups
+32768 blocks per group, 32768 fragments per group
+8208 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376
+
+正在写入inode表: 完成                            
+Creating journal (8192 blocks): 完成
+Writing superblocks and filesystem accounting information: 完成
+
+This filesystem will be automatically checked every 23 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.
+[root@host253 tiny4412]# mkfs.ext3   /dev/sdb3
+mke2fs 1.41.12 (17-May-2010)
+警告: 256 块未使用.
+
+文件系统标签=
+操作系统:Linux
+块大小=4096 (log=2)
+分块大小=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+131328 inodes, 524288 blocks
+26227 blocks (5.00%) reserved for the super user
+第一个数据块=0
+Maximum filesystem blocks=536870912
+16 block groups
+32768 blocks per group, 32768 fragments per group
+8208 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912
+
+正在写入inode表: 完成                            
+Creating journal (16384 blocks): 完成
+Writing superblocks and filesystem accounting information: 完成
+
+This filesystem will be automatically checked every 34 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.
+[root@host253 tiny4412]# 
+[root@host253 tiny4412]# 
+[root@host253 tiny4412]# fdisk -l
+
+Disk /dev/sda: 500.1 GB, 500107862016 bytes
+255 heads, 63 sectors/track, 60801 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0xf0d675ed
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1               1       39164   314584798+   b  W95 FAT32
+/dev/sda4           39165       60801   173799202+   5  Extended
+/dev/sda5   *       39165       39229      522081   83  Linux
+/dev/sda6           39230       39752     4200966   82  Linux swap / Solaris
+/dev/sda7           39753       52807   104864256   83  Linux
+/dev/sda8           52808       60801    64211773+  83  Linux
+
+Disk /dev/sdb: 15.5 GB, 15523119104 bytes
+64 heads, 32 sectors/track, 14804 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x7d37efd0
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1              20        1044     1049600    c  W95 FAT32 (LBA)
+/dev/sdb2            1045        2069     1049600   83  Linux
+/dev/sdb3            2070        4118     2098176   83  Linux
+[root@host253 tiny4412]# mount /dev/sdb1  /mnt
+[root@host253 tiny4412]# cp  /disk/A9/linux-3.5/arch/arm/boot/zImage       /mnt/
+[root@host253 tiny4412]# umount /mnt/
+[root@host253 tiny4412]# mount   /dev/sdb2  /mnt/
+[root@host253 tiny4412]# cp /disk/A9/filesystem/*   /mnt/ -r
+[root@host253 tiny4412]# chmod 777   /mnt/* -R
+[root@host253 tiny4412]# umount /mnt/
+[root@host253 tiny4412]# 
+
+
+TINY4412 # set bootcmd "fatload mmc 0:1 0x40008000 zImage;bootm 0x40008000"
+TINY4412 # set bootargs "root=/dev/mmcblk0p2 console=ttySAC0,115200 lcd=S70 ctp=2"
+TINY4412 # save
+Saving Environment to SMDK bootable device...
+done
+
+
+
+
+
+
+
+
+
+
+
+
+

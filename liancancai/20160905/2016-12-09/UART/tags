@@ -1,0 +1,824 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ALMDAY	res.h	45;"	d
+ALMHOUR	res.h	44;"	d
+ALMMIN	res.h	43;"	d
+ALMMON	res.h	46;"	d
+ALMSEC	res.h	42;"	d
+ALMYEAR	res.h	47;"	d
+APB_DMC_0_BASE	cpu.h	212;"	d
+APB_DMC_0_BASE	cpu.h	215;"	d
+APB_DMC_1_BASE	cpu.h	213;"	d
+APB_DMC_1_BASE	cpu.h	216;"	d
+APLL_CON0_OFFSET	cpu.h	154;"	d
+APLL_CON0_REG	cpu.h	172;"	d
+APLL_CON1_OFFSET	cpu.h	155;"	d
+APLL_LOCK_OFFSET	cpu.h	152;"	d
+ARRAY_SIZE	res.h	8;"	d
+BCDDATE	rtc.h	38;"	d
+BCDDAY	res.h	52;"	d
+BCDDAYWEEK	res.h	51;"	d
+BCDHOUR	res.h	50;"	d
+BCDMIN	res.h	49;"	d
+BCDMON	res.h	53;"	d
+BCDSEC	res.h	48;"	d
+BCDYEAR	res.h	54;"	d
+BIT0	cpu.h	30;"	d
+BIT1	cpu.h	31;"	d
+BIT10	cpu.h	40;"	d
+BIT11	cpu.h	41;"	d
+BIT12	cpu.h	42;"	d
+BIT13	cpu.h	43;"	d
+BIT14	cpu.h	44;"	d
+BIT15	cpu.h	45;"	d
+BIT16	cpu.h	46;"	d
+BIT17	cpu.h	47;"	d
+BIT18	cpu.h	48;"	d
+BIT19	cpu.h	49;"	d
+BIT2	cpu.h	32;"	d
+BIT20	cpu.h	50;"	d
+BIT21	cpu.h	51;"	d
+BIT22	cpu.h	52;"	d
+BIT23	cpu.h	53;"	d
+BIT24	cpu.h	54;"	d
+BIT25	cpu.h	55;"	d
+BIT26	cpu.h	56;"	d
+BIT27	cpu.h	57;"	d
+BIT28	cpu.h	58;"	d
+BIT29	cpu.h	59;"	d
+BIT3	cpu.h	33;"	d
+BIT30	cpu.h	60;"	d
+BIT31	cpu.h	61;"	d
+BIT4	cpu.h	34;"	d
+BIT5	cpu.h	35;"	d
+BIT6	cpu.h	36;"	d
+BIT7	cpu.h	37;"	d
+BIT8	cpu.h	38;"	d
+BIT9	cpu.h	39;"	d
+BIT_ADC	cpu.h	406;"	d
+BIT_ALLMSK	cpu.h	407;"	d
+BIT_BAT_FLT	cpu.h	384;"	d
+BIT_DMA0	cpu.h	394;"	d
+BIT_DMA1	cpu.h	395;"	d
+BIT_DMA2	cpu.h	396;"	d
+BIT_DMA3	cpu.h	397;"	d
+BIT_EINT0	cpu.h	378;"	d
+BIT_EINT1	cpu.h	379;"	d
+BIT_EINT2	cpu.h	380;"	d
+BIT_EINT3	cpu.h	381;"	d
+BIT_EINT4_7	cpu.h	382;"	d
+BIT_EINT8_23	cpu.h	383;"	d
+BIT_IIC	cpu.h	402;"	d
+BIT_LCD	cpu.h	393;"	d
+BIT_RTC	cpu.h	405;"	d
+BIT_SDI	cpu.h	398;"	d
+BIT_SPI0	cpu.h	399;"	d
+BIT_SPI1	cpu.h	404;"	d
+BIT_TICK	cpu.h	385;"	d
+BIT_TIMER0	cpu.h	387;"	d
+BIT_TIMER1	cpu.h	388;"	d
+BIT_TIMER2	cpu.h	389;"	d
+BIT_TIMER3	cpu.h	390;"	d
+BIT_TIMER4	cpu.h	391;"	d
+BIT_UART0	cpu.h	403;"	d
+BIT_UART1	cpu.h	400;"	d
+BIT_UART2	cpu.h	392;"	d
+BIT_USBH	cpu.h	401;"	d
+BIT_WDT	cpu.h	386;"	d
+BUILD_BUG_ON_ZERO	res.h	5;"	d
+Buzzer_Configure	basedevice.c	/^void Buzzer_Configure(void)$/;"	f
+Buzzer_Off	basedevice.c	/^void Buzzer_Off(void)$/;"	f
+Buzzer_On	basedevice.c	/^void Buzzer_On(void)$/;"	f
+C2C_CTRL_OFFSET	cpu.h	98;"	d
+CCFLAG	Makefile	/^CCFLAG=-fno-builtin$/;"	m
+CHIP_ID_BASE	cpu.h	68;"	d
+CLK_DIV_CPU0_OFFSET	cpu.h	165;"	d
+CLK_DIV_CPU1_OFFSET	cpu.h	166;"	d
+CLK_DIV_DMC0_OFFSET	cpu.h	149;"	d
+CLK_DIV_DMC1_OFFSET	cpu.h	150;"	d
+CLK_DIV_FSYS1	cpu.h	169;"	d
+CLK_DIV_FSYS1_OFFSET	cpu.h	143;"	d
+CLK_DIV_FSYS2	cpu.h	170;"	d
+CLK_DIV_FSYS2_OFFSET	cpu.h	144;"	d
+CLK_DIV_FSYS3	cpu.h	171;"	d
+CLK_DIV_FSYS3_OFFSET	cpu.h	145;"	d
+CLK_DIV_LEFTBUS_OFFSET	cpu.h	120;"	d
+CLK_DIV_PERIL0_OFFSET	cpu.h	146;"	d
+CLK_DIV_RIGHTBUS_OFFSET	cpu.h	123;"	d
+CLK_DIV_TOP_OFFSET	cpu.h	142;"	d
+CLK_SRC_CPU_OFFSET	cpu.h	164;"	d
+CLK_SRC_DMC_OFFSET	cpu.h	148;"	d
+CLK_SRC_FSYS	cpu.h	168;"	d
+CLK_SRC_FSYS_OFFSET	cpu.h	140;"	d
+CLK_SRC_LEFTBUS_OFFSET	cpu.h	119;"	d
+CLK_SRC_PERIL0_OFFSET	cpu.h	141;"	d
+CLK_SRC_RIGHTBUS_OFFSET	cpu.h	122;"	d
+CLK_SRC_TOP0_OFFSET	cpu.h	138;"	d
+CLK_SRC_TOP1_OFFSET	cpu.h	139;"	d
+CROSS_COMPILE	Makefile	/^CROSS_COMPILE=arm-linux-$/;"	m
+CURTICCNT	res.h	55;"	d
+DATEBCD	rtc.h	39;"	d
+DMC_AREFSTATUS	cpu.h	237;"	d
+DMC_CHIP0STATUS	cpu.h	235;"	d
+DMC_CHIP1STATUS	cpu.h	236;"	d
+DMC_CONCONTROL	cpu.h	219;"	d
+DMC_DIRECTCMD	cpu.h	223;"	d
+DMC_IVCONTROL	cpu.h	274;"	d
+DMC_MEMCONFIG0	cpu.h	221;"	d
+DMC_MEMCONFIG1	cpu.h	222;"	d
+DMC_MEMCONTROL	cpu.h	220;"	d
+DMC_MRSTATUS	cpu.h	238;"	d
+DMC_PHYCONTROL0	cpu.h	225;"	d
+DMC_PHYCONTROL1	cpu.h	226;"	d
+DMC_PHYCONTROL2	cpu.h	227;"	d
+DMC_PHYSTATUS	cpu.h	233;"	d
+DMC_PHYTEST0	cpu.h	239;"	d
+DMC_PHYTEST1	cpu.h	240;"	d
+DMC_PHYZQCONTROL	cpu.h	234;"	d
+DMC_PRECHCONFIG	cpu.h	224;"	d
+DMC_PWRDNCONFIG	cpu.h	228;"	d
+DMC_QOSCONFIG0	cpu.h	242;"	d
+DMC_QOSCONFIG1	cpu.h	244;"	d
+DMC_QOSCONFIG10	cpu.h	262;"	d
+DMC_QOSCONFIG11	cpu.h	264;"	d
+DMC_QOSCONFIG12	cpu.h	266;"	d
+DMC_QOSCONFIG13	cpu.h	268;"	d
+DMC_QOSCONFIG14	cpu.h	270;"	d
+DMC_QOSCONFIG15	cpu.h	272;"	d
+DMC_QOSCONFIG2	cpu.h	246;"	d
+DMC_QOSCONFIG3	cpu.h	248;"	d
+DMC_QOSCONFIG4	cpu.h	250;"	d
+DMC_QOSCONFIG5	cpu.h	252;"	d
+DMC_QOSCONFIG6	cpu.h	254;"	d
+DMC_QOSCONFIG7	cpu.h	256;"	d
+DMC_QOSCONFIG8	cpu.h	258;"	d
+DMC_QOSCONFIG9	cpu.h	260;"	d
+DMC_QOSCONTROL0	cpu.h	241;"	d
+DMC_QOSCONTROL1	cpu.h	243;"	d
+DMC_QOSCONTROL10	cpu.h	261;"	d
+DMC_QOSCONTROL11	cpu.h	263;"	d
+DMC_QOSCONTROL12	cpu.h	265;"	d
+DMC_QOSCONTROL13	cpu.h	267;"	d
+DMC_QOSCONTROL14	cpu.h	269;"	d
+DMC_QOSCONTROL15	cpu.h	271;"	d
+DMC_QOSCONTROL2	cpu.h	245;"	d
+DMC_QOSCONTROL3	cpu.h	247;"	d
+DMC_QOSCONTROL4	cpu.h	249;"	d
+DMC_QOSCONTROL5	cpu.h	251;"	d
+DMC_QOSCONTROL6	cpu.h	253;"	d
+DMC_QOSCONTROL7	cpu.h	255;"	d
+DMC_QOSCONTROL8	cpu.h	257;"	d
+DMC_QOSCONTROL9	cpu.h	259;"	d
+DMC_TIMINGAREF	cpu.h	229;"	d
+DMC_TIMINGDATA	cpu.h	231;"	d
+DMC_TIMINGPOWER	cpu.h	232;"	d
+DMC_TIMINGROW	cpu.h	230;"	d
+ELFIN_CLOCK_BASE	cpu.h	117;"	d
+ELFIN_HSMMC_0_BASE	cpu.h	334;"	d
+ELFIN_HSMMC_1_BASE	cpu.h	335;"	d
+ELFIN_HSMMC_2_BASE	cpu.h	336;"	d
+ELFIN_HSMMC_3_BASE	cpu.h	337;"	d
+ELFIN_HSMMC_4_BASE	cpu.h	338;"	d
+ELFIN_SROM_BASE	cpu.h	198;"	d
+ELFIN_TZPC0_BASE	cpu.h	183;"	d
+ELFIN_TZPC1_BASE	cpu.h	184;"	d
+ELFIN_TZPC2_BASE	cpu.h	185;"	d
+ELFIN_TZPC3_BASE	cpu.h	186;"	d
+ELFIN_TZPC4_BASE	cpu.h	187;"	d
+ELFIN_TZPC5_BASE	cpu.h	188;"	d
+EPLL_CON0_OFFSET	cpu.h	127;"	d
+EPLL_CON0_REG	cpu.h	174;"	d
+EPLL_CON1_OFFSET	cpu.h	128;"	d
+EPLL_CON2_OFFSET	cpu.h	130;"	d
+EPLL_LOCK_OFFSET	cpu.h	125;"	d
+GENERAL_CTRL_C2C_OFFSET	cpu.h	76;"	d
+GINTSTS_EnumDone	cpu.h	751;"	d
+GINTSTS_IEPInt	cpu.h	750;"	d
+GINTSTS_OEPInt	cpu.h	749;"	d
+GINTSTS_RXFLvl	cpu.h	754;"	d
+GINTSTS_USBRst	cpu.h	752;"	d
+GINTSTS_USBSusp	cpu.h	753;"	d
+GINTSTS_WkUpInt	cpu.h	748;"	d
+GPA0CON	res.h	32;"	d
+GPA0DAT	res.h	33;"	d
+GPD0CON	res.h	28;"	d
+GPD0DAT	res.h	29;"	d
+GPM4CON	res.h	26;"	d
+GPM4DAT	res.h	27;"	d
+GPX3CON	res.h	30;"	d
+GPX3DAT	res.h	31;"	d
+HM_ACMD12ERRSTS	cpu.h	365;"	d
+HM_ARGUMENT	cpu.h	343;"	d
+HM_BDATA	cpu.h	350;"	d
+HM_BLKCNT	cpu.h	342;"	d
+HM_BLKGAP	cpu.h	354;"	d
+HM_BLKSIZE	cpu.h	341;"	d
+HM_CAPAREG	cpu.h	366;"	d
+HM_CLKCON	cpu.h	356;"	d
+HM_CMDREG	cpu.h	345;"	d
+HM_CONTROL2	cpu.h	368;"	d
+HM_CONTROL3	cpu.h	369;"	d
+HM_CONTROL4	cpu.h	370;"	d
+HM_ERRINTSIGEN	cpu.h	364;"	d
+HM_ERRINTSTS	cpu.h	360;"	d
+HM_ERRINTSTSEN	cpu.h	362;"	d
+HM_HCVER	cpu.h	371;"	d
+HM_HOSTCTL	cpu.h	352;"	d
+HM_MAXCURR	cpu.h	367;"	d
+HM_NORINTSIGEN	cpu.h	363;"	d
+HM_NORINTSTS	cpu.h	359;"	d
+HM_NORINTSTSEN	cpu.h	361;"	d
+HM_PRNSTS	cpu.h	351;"	d
+HM_PWRCON	cpu.h	353;"	d
+HM_RSPREG0	cpu.h	346;"	d
+HM_RSPREG1	cpu.h	347;"	d
+HM_RSPREG2	cpu.h	348;"	d
+HM_RSPREG3	cpu.h	349;"	d
+HM_SWRST	cpu.h	358;"	d
+HM_SYSAD	cpu.h	340;"	d
+HM_TIMEOUTCON	cpu.h	357;"	d
+HM_TRNMOD	cpu.h	344;"	d
+HM_WAKCON	cpu.h	355;"	d
+INF_REG0_OFFSET	cpu.h	89;"	d
+INF_REG0_REG	cpu.h	100;"	d
+INF_REG1_OFFSET	cpu.h	90;"	d
+INF_REG1_REG	cpu.h	101;"	d
+INF_REG2_OFFSET	cpu.h	91;"	d
+INF_REG2_REG	cpu.h	102;"	d
+INF_REG3_OFFSET	cpu.h	92;"	d
+INF_REG3_REG	cpu.h	103;"	d
+INF_REG4_OFFSET	cpu.h	93;"	d
+INF_REG4_REG	cpu.h	104;"	d
+INF_REG5_OFFSET	cpu.h	94;"	d
+INF_REG5_REG	cpu.h	105;"	d
+INF_REG6_OFFSET	cpu.h	95;"	d
+INF_REG6_REG	cpu.h	106;"	d
+INF_REG7_OFFSET	cpu.h	96;"	d
+INF_REG7_REG	cpu.h	107;"	d
+INF_REG_BASE	cpu.h	87;"	d
+INTP	res.h	38;"	d
+Key_Configure	basedevice.c	/^void Key_Configure(void)$/;"	f
+Key_Status	basedevice.c	/^unsigned int Key_Status(int key)$/;"	f
+LINK_SCRIPT	Makefile	/^LINK_SCRIPT=test.lds$/;"	m
+Lbignum	_udivsi3.S	/^Lbignum:$/;"	l
+Ldiv0	_divsi3.S	/^Ldiv0:$/;"	l
+Ldiv0	_udivsi3.S	/^Ldiv0:$/;"	l
+Led_Configure	basedevice.c	/^void Led_Configure(void)$/;"	f
+Led_Off	basedevice.c	/^void Led_Off(void)$/;"	f
+Led_On	basedevice.c	/^void Led_On(void)$/;"	f
+Lgot_result	_udivsi3.S	/^Lgot_result:$/;"	l
+Loop1	_udivsi3.S	/^Loop1:$/;"	l
+Loop3	_udivsi3.S	/^Loop3:$/;"	l
+MIU_BASE	cpu.h	280;"	d
+MIU_INTLV_CONFIG	cpu.h	281;"	d
+MIU_INTLV_END_ADDR	cpu.h	284;"	d
+MIU_INTLV_START_ADDR	cpu.h	282;"	d
+MIU_MAPPING_UPDATE	cpu.h	283;"	d
+MIU_SINGLE_MAPPING0_END_ADDR	cpu.h	287;"	d
+MIU_SINGLE_MAPPING0_START_ADDR	cpu.h	286;"	d
+MIU_SINGLE_MAPPING1_END_ADDR	cpu.h	289;"	d
+MIU_SINGLE_MAPPING1_START_ADDR	cpu.h	288;"	d
+MPLL_CON0_OFFSET	cpu.h	157;"	d
+MPLL_CON0_OFFSET	cpu.h	160;"	d
+MPLL_CON0_REG	cpu.h	173;"	d
+MPLL_CON1_OFFSET	cpu.h	158;"	d
+MPLL_CON1_OFFSET	cpu.h	161;"	d
+MPLL_LOCK_OFFSET	cpu.h	153;"	d
+NULL	res.h	17;"	d
+OMR_OFFSET	cpu.h	83;"	d
+PRINT	res.h	34;"	d
+PRINTADDR	res.h	11;"	d
+PRINT_T	res.h	/^typedef  int (*PRINT_T)(const char *,...) ; $/;"	t
+PRO_ID	cpu.h	71;"	d
+PRO_ID_OFFSET	cpu.h	70;"	d
+RTCALM	res.h	41;"	d
+RTCCON	res.h	39;"	d
+S5PV310_CLOCK_BASE	cpu.h	16;"	d
+S5PV310_HSMMC_BASE	cpu.h	24;"	d
+S5PV310_POWER_BASE	cpu.h	15;"	d
+S5PV310_PRO_ID	cpu.h	13;"	d
+S5PV310_PWMTIMER_BASE	cpu.h	25;"	d
+S5PV310_SYSREG_BASE	cpu.h	14;"	d
+S5PV310_UART0_OFFSET	cpu.h	295;"	d
+S5PV310_UART1_OFFSET	cpu.h	296;"	d
+S5PV310_UART2_OFFSET	cpu.h	297;"	d
+S5PV310_UART3_OFFSET	cpu.h	298;"	d
+S5PV310_UART_BASE	cpu.h	27;"	d
+S5PV310_UART_CONSOLE_BASE	cpu.h	301;"	d
+S5PV310_UART_CONSOLE_BASE	cpu.h	303;"	d
+S5PV310_UART_CONSOLE_BASE	cpu.h	305;"	d
+S5PV310_UART_CONSOLE_BASE	cpu.h	307;"	d
+S5PV310_UART_CONSOLE_BASE	cpu.h	309;"	d
+S5P_CHECK_DIDLE	cpu.h	111;"	d
+S5P_CHECK_LPA	cpu.h	112;"	d
+S5P_CHECK_SLEEP	cpu.h	110;"	d
+S5P_OTG_DAINT	cpu.h	600;"	d
+S5P_OTG_DAINTMSK	cpu.h	601;"	d
+S5P_OTG_DCFG	cpu.h	595;"	d
+S5P_OTG_DCTL	cpu.h	596;"	d
+S5P_OTG_DIEPCTL0	cpu.h	610;"	d
+S5P_OTG_DIEPCTL1	cpu.h	614;"	d
+S5P_OTG_DIEPCTL10	cpu.h	650;"	d
+S5P_OTG_DIEPCTL11	cpu.h	654;"	d
+S5P_OTG_DIEPCTL12	cpu.h	658;"	d
+S5P_OTG_DIEPCTL13	cpu.h	662;"	d
+S5P_OTG_DIEPCTL14	cpu.h	666;"	d
+S5P_OTG_DIEPCTL15	cpu.h	670;"	d
+S5P_OTG_DIEPCTL2	cpu.h	618;"	d
+S5P_OTG_DIEPCTL3	cpu.h	622;"	d
+S5P_OTG_DIEPCTL4	cpu.h	626;"	d
+S5P_OTG_DIEPCTL5	cpu.h	630;"	d
+S5P_OTG_DIEPCTL6	cpu.h	634;"	d
+S5P_OTG_DIEPCTL7	cpu.h	638;"	d
+S5P_OTG_DIEPCTL8	cpu.h	642;"	d
+S5P_OTG_DIEPCTL9	cpu.h	646;"	d
+S5P_OTG_DIEPDMA0	cpu.h	613;"	d
+S5P_OTG_DIEPDMA1	cpu.h	617;"	d
+S5P_OTG_DIEPDMA10	cpu.h	653;"	d
+S5P_OTG_DIEPDMA11	cpu.h	657;"	d
+S5P_OTG_DIEPDMA12	cpu.h	661;"	d
+S5P_OTG_DIEPDMA13	cpu.h	665;"	d
+S5P_OTG_DIEPDMA14	cpu.h	669;"	d
+S5P_OTG_DIEPDMA15	cpu.h	673;"	d
+S5P_OTG_DIEPDMA2	cpu.h	621;"	d
+S5P_OTG_DIEPDMA3	cpu.h	625;"	d
+S5P_OTG_DIEPDMA4	cpu.h	629;"	d
+S5P_OTG_DIEPDMA5	cpu.h	633;"	d
+S5P_OTG_DIEPDMA6	cpu.h	637;"	d
+S5P_OTG_DIEPDMA7	cpu.h	641;"	d
+S5P_OTG_DIEPDMA8	cpu.h	645;"	d
+S5P_OTG_DIEPDMA9	cpu.h	649;"	d
+S5P_OTG_DIEPINT0	cpu.h	611;"	d
+S5P_OTG_DIEPINT1	cpu.h	615;"	d
+S5P_OTG_DIEPINT10	cpu.h	651;"	d
+S5P_OTG_DIEPINT11	cpu.h	655;"	d
+S5P_OTG_DIEPINT12	cpu.h	659;"	d
+S5P_OTG_DIEPINT13	cpu.h	663;"	d
+S5P_OTG_DIEPINT14	cpu.h	667;"	d
+S5P_OTG_DIEPINT15	cpu.h	671;"	d
+S5P_OTG_DIEPINT2	cpu.h	619;"	d
+S5P_OTG_DIEPINT3	cpu.h	623;"	d
+S5P_OTG_DIEPINT4	cpu.h	627;"	d
+S5P_OTG_DIEPINT5	cpu.h	631;"	d
+S5P_OTG_DIEPINT6	cpu.h	635;"	d
+S5P_OTG_DIEPINT7	cpu.h	639;"	d
+S5P_OTG_DIEPINT8	cpu.h	643;"	d
+S5P_OTG_DIEPINT9	cpu.h	647;"	d
+S5P_OTG_DIEPMSK	cpu.h	598;"	d
+S5P_OTG_DIEPTSIZ0	cpu.h	612;"	d
+S5P_OTG_DIEPTSIZ1	cpu.h	616;"	d
+S5P_OTG_DIEPTSIZ10	cpu.h	652;"	d
+S5P_OTG_DIEPTSIZ11	cpu.h	656;"	d
+S5P_OTG_DIEPTSIZ12	cpu.h	660;"	d
+S5P_OTG_DIEPTSIZ13	cpu.h	664;"	d
+S5P_OTG_DIEPTSIZ14	cpu.h	668;"	d
+S5P_OTG_DIEPTSIZ15	cpu.h	672;"	d
+S5P_OTG_DIEPTSIZ2	cpu.h	620;"	d
+S5P_OTG_DIEPTSIZ3	cpu.h	624;"	d
+S5P_OTG_DIEPTSIZ4	cpu.h	628;"	d
+S5P_OTG_DIEPTSIZ5	cpu.h	632;"	d
+S5P_OTG_DIEPTSIZ6	cpu.h	636;"	d
+S5P_OTG_DIEPTSIZ7	cpu.h	640;"	d
+S5P_OTG_DIEPTSIZ8	cpu.h	644;"	d
+S5P_OTG_DIEPTSIZ9	cpu.h	648;"	d
+S5P_OTG_DOEPCTL0	cpu.h	676;"	d
+S5P_OTG_DOEPCTL1	cpu.h	680;"	d
+S5P_OTG_DOEPCTL10	cpu.h	716;"	d
+S5P_OTG_DOEPCTL11	cpu.h	720;"	d
+S5P_OTG_DOEPCTL12	cpu.h	724;"	d
+S5P_OTG_DOEPCTL13	cpu.h	728;"	d
+S5P_OTG_DOEPCTL14	cpu.h	732;"	d
+S5P_OTG_DOEPCTL15	cpu.h	736;"	d
+S5P_OTG_DOEPCTL2	cpu.h	684;"	d
+S5P_OTG_DOEPCTL3	cpu.h	688;"	d
+S5P_OTG_DOEPCTL4	cpu.h	692;"	d
+S5P_OTG_DOEPCTL5	cpu.h	696;"	d
+S5P_OTG_DOEPCTL6	cpu.h	700;"	d
+S5P_OTG_DOEPCTL7	cpu.h	704;"	d
+S5P_OTG_DOEPCTL8	cpu.h	708;"	d
+S5P_OTG_DOEPCTL9	cpu.h	712;"	d
+S5P_OTG_DOEPDMA0	cpu.h	679;"	d
+S5P_OTG_DOEPDMA1	cpu.h	683;"	d
+S5P_OTG_DOEPDMA10	cpu.h	719;"	d
+S5P_OTG_DOEPDMA11	cpu.h	723;"	d
+S5P_OTG_DOEPDMA12	cpu.h	727;"	d
+S5P_OTG_DOEPDMA13	cpu.h	731;"	d
+S5P_OTG_DOEPDMA14	cpu.h	735;"	d
+S5P_OTG_DOEPDMA15	cpu.h	739;"	d
+S5P_OTG_DOEPDMA2	cpu.h	687;"	d
+S5P_OTG_DOEPDMA3	cpu.h	691;"	d
+S5P_OTG_DOEPDMA4	cpu.h	695;"	d
+S5P_OTG_DOEPDMA5	cpu.h	699;"	d
+S5P_OTG_DOEPDMA6	cpu.h	703;"	d
+S5P_OTG_DOEPDMA7	cpu.h	707;"	d
+S5P_OTG_DOEPDMA8	cpu.h	711;"	d
+S5P_OTG_DOEPDMA9	cpu.h	715;"	d
+S5P_OTG_DOEPINT0	cpu.h	677;"	d
+S5P_OTG_DOEPINT1	cpu.h	681;"	d
+S5P_OTG_DOEPINT10	cpu.h	717;"	d
+S5P_OTG_DOEPINT11	cpu.h	721;"	d
+S5P_OTG_DOEPINT12	cpu.h	725;"	d
+S5P_OTG_DOEPINT13	cpu.h	729;"	d
+S5P_OTG_DOEPINT14	cpu.h	733;"	d
+S5P_OTG_DOEPINT2	cpu.h	685;"	d
+S5P_OTG_DOEPINT3	cpu.h	689;"	d
+S5P_OTG_DOEPINT4	cpu.h	693;"	d
+S5P_OTG_DOEPINT5	cpu.h	697;"	d
+S5P_OTG_DOEPINT6	cpu.h	701;"	d
+S5P_OTG_DOEPINT7	cpu.h	705;"	d
+S5P_OTG_DOEPINT8	cpu.h	709;"	d
+S5P_OTG_DOEPINT9	cpu.h	713;"	d
+S5P_OTG_DOEPMSK	cpu.h	599;"	d
+S5P_OTG_DOEPTSIZ0	cpu.h	678;"	d
+S5P_OTG_DOEPTSIZ1	cpu.h	682;"	d
+S5P_OTG_DOEPTSIZ10	cpu.h	718;"	d
+S5P_OTG_DOEPTSIZ11	cpu.h	722;"	d
+S5P_OTG_DOEPTSIZ12	cpu.h	726;"	d
+S5P_OTG_DOEPTSIZ13	cpu.h	730;"	d
+S5P_OTG_DOEPTSIZ14	cpu.h	734;"	d
+S5P_OTG_DOEPTSIZ15	cpu.h	738;"	d
+S5P_OTG_DOEPTSIZ2	cpu.h	686;"	d
+S5P_OTG_DOEPTSIZ3	cpu.h	690;"	d
+S5P_OTG_DOEPTSIZ4	cpu.h	694;"	d
+S5P_OTG_DOEPTSIZ5	cpu.h	698;"	d
+S5P_OTG_DOEPTSIZ6	cpu.h	702;"	d
+S5P_OTG_DOEPTSIZ7	cpu.h	706;"	d
+S5P_OTG_DOEPTSIZ8	cpu.h	710;"	d
+S5P_OTG_DOEPTSIZ9	cpu.h	714;"	d
+S5P_OTG_DPTXFSIZ1	cpu.h	467;"	d
+S5P_OTG_DPTXFSIZ10	cpu.h	476;"	d
+S5P_OTG_DPTXFSIZ11	cpu.h	477;"	d
+S5P_OTG_DPTXFSIZ12	cpu.h	478;"	d
+S5P_OTG_DPTXFSIZ13	cpu.h	479;"	d
+S5P_OTG_DPTXFSIZ14	cpu.h	480;"	d
+S5P_OTG_DPTXFSIZ15	cpu.h	481;"	d
+S5P_OTG_DPTXFSIZ2	cpu.h	468;"	d
+S5P_OTG_DPTXFSIZ3	cpu.h	469;"	d
+S5P_OTG_DPTXFSIZ4	cpu.h	470;"	d
+S5P_OTG_DPTXFSIZ5	cpu.h	471;"	d
+S5P_OTG_DPTXFSIZ6	cpu.h	472;"	d
+S5P_OTG_DPTXFSIZ7	cpu.h	473;"	d
+S5P_OTG_DPTXFSIZ8	cpu.h	474;"	d
+S5P_OTG_DPTXFSIZ9	cpu.h	475;"	d
+S5P_OTG_DSTS	cpu.h	597;"	d
+S5P_OTG_DTKNQR1	cpu.h	602;"	d
+S5P_OTG_DTKNQR2	cpu.h	603;"	d
+S5P_OTG_DTKNQR3	cpu.h	606;"	d
+S5P_OTG_DTKNQR4	cpu.h	607;"	d
+S5P_OTG_DVBUSDIS	cpu.h	604;"	d
+S5P_OTG_DVBUSPULSE	cpu.h	605;"	d
+S5P_OTG_EP0_FIFO	cpu.h	745;"	d
+S5P_OTG_GAHBCFG	cpu.h	456;"	d
+S5P_OTG_GINTMSK	cpu.h	460;"	d
+S5P_OTG_GINTSTS	cpu.h	459;"	d
+S5P_OTG_GNPTXFSIZ	cpu.h	464;"	d
+S5P_OTG_GNPTXSTS	cpu.h	465;"	d
+S5P_OTG_GOTGCTL	cpu.h	454;"	d
+S5P_OTG_GOTGINT	cpu.h	455;"	d
+S5P_OTG_GRSTCTL	cpu.h	458;"	d
+S5P_OTG_GRXFSIZ	cpu.h	463;"	d
+S5P_OTG_GRXSTSP	cpu.h	462;"	d
+S5P_OTG_GRXSTSR	cpu.h	461;"	d
+S5P_OTG_GUSBCFG	cpu.h	457;"	d
+S5P_OTG_HAINT	cpu.h	490;"	d
+S5P_OTG_HAINTMSK	cpu.h	491;"	d
+S5P_OTG_HCCHAR0	cpu.h	497;"	d
+S5P_OTG_HCCHAR1	cpu.h	503;"	d
+S5P_OTG_HCCHAR10	cpu.h	557;"	d
+S5P_OTG_HCCHAR11	cpu.h	563;"	d
+S5P_OTG_HCCHAR12	cpu.h	569;"	d
+S5P_OTG_HCCHAR13	cpu.h	575;"	d
+S5P_OTG_HCCHAR14	cpu.h	581;"	d
+S5P_OTG_HCCHAR15	cpu.h	587;"	d
+S5P_OTG_HCCHAR2	cpu.h	509;"	d
+S5P_OTG_HCCHAR3	cpu.h	515;"	d
+S5P_OTG_HCCHAR4	cpu.h	521;"	d
+S5P_OTG_HCCHAR5	cpu.h	527;"	d
+S5P_OTG_HCCHAR6	cpu.h	533;"	d
+S5P_OTG_HCCHAR7	cpu.h	539;"	d
+S5P_OTG_HCCHAR8	cpu.h	545;"	d
+S5P_OTG_HCCHAR9	cpu.h	551;"	d
+S5P_OTG_HCDMA0	cpu.h	502;"	d
+S5P_OTG_HCDMA1	cpu.h	508;"	d
+S5P_OTG_HCDMA10	cpu.h	562;"	d
+S5P_OTG_HCDMA11	cpu.h	568;"	d
+S5P_OTG_HCDMA12	cpu.h	574;"	d
+S5P_OTG_HCDMA13	cpu.h	580;"	d
+S5P_OTG_HCDMA14	cpu.h	586;"	d
+S5P_OTG_HCDMA15	cpu.h	592;"	d
+S5P_OTG_HCDMA2	cpu.h	514;"	d
+S5P_OTG_HCDMA3	cpu.h	520;"	d
+S5P_OTG_HCDMA4	cpu.h	526;"	d
+S5P_OTG_HCDMA5	cpu.h	532;"	d
+S5P_OTG_HCDMA6	cpu.h	538;"	d
+S5P_OTG_HCDMA7	cpu.h	544;"	d
+S5P_OTG_HCDMA8	cpu.h	550;"	d
+S5P_OTG_HCDMA9	cpu.h	556;"	d
+S5P_OTG_HCFG	cpu.h	485;"	d
+S5P_OTG_HCINT0	cpu.h	499;"	d
+S5P_OTG_HCINT1	cpu.h	505;"	d
+S5P_OTG_HCINT10	cpu.h	559;"	d
+S5P_OTG_HCINT11	cpu.h	565;"	d
+S5P_OTG_HCINT12	cpu.h	571;"	d
+S5P_OTG_HCINT13	cpu.h	577;"	d
+S5P_OTG_HCINT14	cpu.h	583;"	d
+S5P_OTG_HCINT15	cpu.h	589;"	d
+S5P_OTG_HCINT2	cpu.h	511;"	d
+S5P_OTG_HCINT3	cpu.h	517;"	d
+S5P_OTG_HCINT4	cpu.h	523;"	d
+S5P_OTG_HCINT5	cpu.h	529;"	d
+S5P_OTG_HCINT6	cpu.h	535;"	d
+S5P_OTG_HCINT7	cpu.h	541;"	d
+S5P_OTG_HCINT8	cpu.h	547;"	d
+S5P_OTG_HCINT9	cpu.h	553;"	d
+S5P_OTG_HCINTMSK0	cpu.h	500;"	d
+S5P_OTG_HCINTMSK1	cpu.h	506;"	d
+S5P_OTG_HCINTMSK10	cpu.h	560;"	d
+S5P_OTG_HCINTMSK11	cpu.h	566;"	d
+S5P_OTG_HCINTMSK12	cpu.h	572;"	d
+S5P_OTG_HCINTMSK13	cpu.h	578;"	d
+S5P_OTG_HCINTMSK14	cpu.h	584;"	d
+S5P_OTG_HCINTMSK15	cpu.h	590;"	d
+S5P_OTG_HCINTMSK2	cpu.h	512;"	d
+S5P_OTG_HCINTMSK3	cpu.h	518;"	d
+S5P_OTG_HCINTMSK4	cpu.h	524;"	d
+S5P_OTG_HCINTMSK5	cpu.h	530;"	d
+S5P_OTG_HCINTMSK6	cpu.h	536;"	d
+S5P_OTG_HCINTMSK7	cpu.h	542;"	d
+S5P_OTG_HCINTMSK8	cpu.h	548;"	d
+S5P_OTG_HCINTMSK9	cpu.h	554;"	d
+S5P_OTG_HCSPLT0	cpu.h	498;"	d
+S5P_OTG_HCSPLT1	cpu.h	504;"	d
+S5P_OTG_HCSPLT10	cpu.h	558;"	d
+S5P_OTG_HCSPLT11	cpu.h	564;"	d
+S5P_OTG_HCSPLT12	cpu.h	570;"	d
+S5P_OTG_HCSPLT13	cpu.h	576;"	d
+S5P_OTG_HCSPLT14	cpu.h	582;"	d
+S5P_OTG_HCSPLT15	cpu.h	588;"	d
+S5P_OTG_HCSPLT2	cpu.h	510;"	d
+S5P_OTG_HCSPLT3	cpu.h	516;"	d
+S5P_OTG_HCSPLT4	cpu.h	522;"	d
+S5P_OTG_HCSPLT5	cpu.h	528;"	d
+S5P_OTG_HCSPLT6	cpu.h	534;"	d
+S5P_OTG_HCSPLT7	cpu.h	540;"	d
+S5P_OTG_HCSPLT8	cpu.h	546;"	d
+S5P_OTG_HCSPLT9	cpu.h	552;"	d
+S5P_OTG_HCTSIZ0	cpu.h	501;"	d
+S5P_OTG_HCTSIZ1	cpu.h	507;"	d
+S5P_OTG_HCTSIZ10	cpu.h	561;"	d
+S5P_OTG_HCTSIZ11	cpu.h	567;"	d
+S5P_OTG_HCTSIZ12	cpu.h	573;"	d
+S5P_OTG_HCTSIZ13	cpu.h	579;"	d
+S5P_OTG_HCTSIZ14	cpu.h	585;"	d
+S5P_OTG_HCTSIZ15	cpu.h	591;"	d
+S5P_OTG_HCTSIZ2	cpu.h	513;"	d
+S5P_OTG_HCTSIZ3	cpu.h	519;"	d
+S5P_OTG_HCTSIZ4	cpu.h	525;"	d
+S5P_OTG_HCTSIZ5	cpu.h	531;"	d
+S5P_OTG_HCTSIZ6	cpu.h	537;"	d
+S5P_OTG_HCTSIZ7	cpu.h	543;"	d
+S5P_OTG_HCTSIZ8	cpu.h	549;"	d
+S5P_OTG_HCTSIZ9	cpu.h	555;"	d
+S5P_OTG_HFIR	cpu.h	486;"	d
+S5P_OTG_HFNUM	cpu.h	487;"	d
+S5P_OTG_HPRT	cpu.h	494;"	d
+S5P_OTG_HPTXFSIZ	cpu.h	466;"	d
+S5P_OTG_HPTXSTS	cpu.h	489;"	d
+S5P_OTG_OTG_DOEPINT15	cpu.h	737;"	d
+S5P_OTG_PCGCCTL	cpu.h	742;"	d
+S5P_OTG_PHYCLK	cpu.h	448;"	d
+S5P_OTG_PHYPWR	cpu.h	447;"	d
+S5P_OTG_PHYTUNE0	cpu.h	450;"	d
+S5P_OTG_PHYTUNE1	cpu.h	451;"	d
+S5P_OTG_RSTCON	cpu.h	449;"	d
+SAMSUNG_BASE	cpu.h	428;"	d
+SROM_BC0_REG	cpu.h	201;"	d
+SROM_BC1_REG	cpu.h	202;"	d
+SROM_BC2_REG	cpu.h	203;"	d
+SROM_BC3_REG	cpu.h	204;"	d
+SROM_BC4_REG	cpu.h	205;"	d
+SROM_BC5_REG	cpu.h	206;"	d
+SROM_BW_REG	cpu.h	200;"	d
+SWRESET	test.c	53;"	d	file:
+SW_RST_REG	cpu.h	85;"	d
+SW_RST_REG_OFFSET	cpu.h	84;"	d
+TARGET	Makefile	/^TARGET=test$/;"	m
+TICCNT	res.h	40;"	d
+TZPC_DECPROT0SET_OFFSET	cpu.h	190;"	d
+TZPC_DECPROT1SET_OFFSET	cpu.h	191;"	d
+TZPC_DECPROT2SET_OFFSET	cpu.h	192;"	d
+TZPC_DECPROT3SET_OFFSET	cpu.h	193;"	d
+U16	res.h	/^typedef  volatile unsigned short U16 ; $/;"	t
+U32	res.h	/^typedef  volatile unsigned int   U32 ; $/;"	t
+U8	res.h	/^typedef  volatile unsigned char  U8  ; $/;"	t
+UART_ERR_MASK	cpu.h	329;"	d
+UBRDIV_OFFSET	cpu.h	322;"	d
+UBRDIVn	res.h	72;"	d
+UCON_OFFSET	cpu.h	313;"	d
+UCONn	res.h	63;"	d
+UDIVSLOT_OFFSET	cpu.h	323;"	d
+UERSTAT_OFFSET	cpu.h	317;"	d
+UERSTATn	res.h	67;"	d
+UFCON_OFFSET	cpu.h	314;"	d
+UFCONn	res.h	64;"	d
+UFRACVALn	res.h	73;"	d
+UFSTAT_OFFSET	cpu.h	318;"	d
+UFSTATn	res.h	68;"	d
+UINTM_OFFSET	cpu.h	326;"	d
+UINTP_OFFSET	cpu.h	324;"	d
+UINTPn	res.h	74;"	d
+UINTSP_OFFSET	cpu.h	325;"	d
+ULCON_OFFSET	cpu.h	312;"	d
+ULCONn	res.h	62;"	d
+UMCON_OFFSET	cpu.h	315;"	d
+UMCONn	res.h	65;"	d
+UMSTAT_OFFSET	cpu.h	319;"	d
+UMSTATn	res.h	69;"	d
+URXH_OFFSET	cpu.h	321;"	d
+URXHn	res.h	71;"	d
+USBOTG_LINK_BASE	cpu.h	374;"	d
+USBOTG_PHY_BASE	cpu.h	375;"	d
+USB_CFG_OFFSET	cpu.h	77;"	d
+USB_CFG_REG	cpu.h	78;"	d
+USB_PHY_CONTROL	cpu.h	178;"	d
+USB_PHY_CONTROL_OFFSET	cpu.h	177;"	d
+UTRSTAT_OFFSET	cpu.h	316;"	d
+UTRSTATn	res.h	66;"	d
+UTXH_OFFSET	cpu.h	320;"	d
+UTXHn	res.h	70;"	d
+VPLL_CON0_OFFSET	cpu.h	132;"	d
+VPLL_CON0_REG	cpu.h	175;"	d
+VPLL_CON1_OFFSET	cpu.h	133;"	d
+VPLL_CON2_OFFSET	cpu.h	135;"	d
+VPLL_LOCK_OFFSET	cpu.h	126;"	d
+_BASEDEVICE_H	basedevice.h	3;"	d
+_BCD_H	bcd.h	11;"	d
+_RES_H	res.h	3;"	d
+_RTC_H_	rtc.h	6;"	d
+_S5PV310_CPU_H	cpu.h	3;"	d
+__ASM_ARCH_UART_H_	uart.h	3;"	d
+__ASM_ARM_IO_H	io.h	2;"	d
+__REG	cpu.h	63;"	d
+___strtok	string.c	/^char * ___strtok;$/;"	v
+__aeabi_idiv	_divsi3.S	/^__aeabi_idiv:$/;"	l
+__aeabi_idivmod	_udivsi3.S	/^__aeabi_idivmod:$/;"	l
+__aeabi_uidiv	_udivsi3.S	/^ __aeabi_uidiv:$/;"	l
+__aeabi_uidivmod	_udivsi3.S	/^__aeabi_uidivmod:$/;"	l
+__arch_getb	io.h	10;"	d
+__arch_getl	io.h	12;"	d
+__arch_getw	io.h	11;"	d
+__arch_putb	io.h	14;"	d
+__arch_putl	io.h	16;"	d
+__arch_putw	io.h	15;"	d
+__div0	basedevice.c	/^void __div0(void)$/;"	f
+__divsi3	_divsi3.S	/^__divsi3:$/;"	l
+__must_be_array	res.h	7;"	d
+__raw_readb	io.h	23;"	d
+__raw_readl	io.h	25;"	d
+__raw_readw	io.h	24;"	d
+__raw_writeb	io.h	19;"	d
+__raw_writel	io.h	21;"	d
+__raw_writew	io.h	20;"	d
+__same_type	res.h	6;"	d
+__udivsi3	_udivsi3.S	/^ __udivsi3:$/;"	l
+_start	test.c	/^int _start(void)$/;"	f
+bcd2bin	bcd.h	/^static inline unsigned int bcd2bin(u8 val)$/;"	f
+bcopy	string.c	/^char * bcopy(const char * src, char * dest, int count)$/;"	f
+bin2bcd	bcd.h	/^static inline u8 bin2bcd (unsigned int val)$/;"	f
+br_rest	uart.h	/^union br_rest {$/;"	u
+curbit	_udivsi3.S	/^curbit		.req	r3$/;"	l
+delay_ASM	basedevice.c	/^void delay_ASM(void)$/;"	f
+delay_C	basedevice.c	/^void delay_C(void)$/;"	f
+dividend	_udivsi3.S	/^dividend	.req	r0$/;"	l
+divisor	_udivsi3.S	/^divisor		.req	r1$/;"	l
+getchar	test.c	/^char getchar(void)$/;"	f
+gets	test.c	/^void gets(char *buffer)$/;"	f
+inb	io.h	40;"	d
+inb_p	io.h	56;"	d
+inl	io.h	42;"	d
+inl_p	io.h	58;"	d
+insb	io.h	48;"	d
+insb_p	io.h	63;"	d
+insl	io.h	50;"	d
+insl_p	io.h	65;"	d
+insw	io.h	49;"	d
+insw_p	io.h	64;"	d
+inw	io.h	41;"	d
+inw_p	io.h	57;"	d
+memchr	string.c	/^void *memchr(const void *s, int c, size_t n)$/;"	f
+memcmp	string.c	/^int memcmp(const void * cs,const void * ct,size_t count)$/;"	f
+memcpy	string.c	/^void * memcpy(void *dest, const void *src, size_t count)$/;"	f
+memcpy_fromio	io.h	78;"	d
+memcpy_toio	io.h	79;"	d
+memmove	string.c	/^void * memmove(void * dest,const void *src,size_t count)$/;"	f
+memscan	string.c	/^void * memscan(void * addr, int c, size_t size)$/;"	f
+memset	string.c	/^void * memset(void * s,int c,size_t count)$/;"	f
+memset_io	io.h	77;"	d
+myprintf	test.c	/^static int myprintf(const char *fmt , ...)$/;"	f	file:
+myputs	test.c	/^void myputs(const char *str)$/;"	f
+outb	io.h	36;"	d
+outb_p	io.h	53;"	d
+outl	io.h	38;"	d
+outl_p	io.h	55;"	d
+outsb	io.h	44;"	d
+outsb_p	io.h	60;"	d
+outsl	io.h	46;"	d
+outsl_p	io.h	62;"	d
+outsw	io.h	45;"	d
+outsw_p	io.h	61;"	d
+outw	io.h	37;"	d
+outw_p	io.h	54;"	d
+print_num	test.c	/^void print_num(int num , int base)$/;"	f
+printf	s3c44b0_rtc.c	/^static PRINT_T printf =  PRINTADDR ; $/;"	v	file:
+printf	string.c	/^static PRINT_T printf =  PRINTADDR ; $/;"	v	file:
+printf	test.c	/^static PRINT_T printf =  PRINTADDR ; $/;"	v	file:
+putchar	test.c	/^void putchar(char ch)$/;"	f
+read_RTC_date	s3c44b0_rtc.c	/^void read_RTC_date(void)$/;"	f
+readb	io.h	31;"	d
+readb	io.h	69;"	d
+readb	io.h	82;"	d
+readl	io.h	33;"	d
+readl	io.h	71;"	d
+readl	io.h	84;"	d
+readw	io.h	32;"	d
+readw	io.h	70;"	d
+readw	io.h	83;"	d
+res1	uart.h	/^	unsigned char	res1[3];$/;"	m	struct:s5p_uart
+res2	uart.h	/^	unsigned char	res2[3];$/;"	m	struct:s5p_uart
+res3	uart.h	/^	unsigned char	res3[0x3d0];$/;"	m	struct:s5p_uart
+rest	uart.h	/^	union br_rest	rest;$/;"	m	struct:s5p_uart	typeref:union:s5p_uart::br_rest
+result	_udivsi3.S	/^result		.req	r2$/;"	l
+rtc_get	s3c44b0_rtc.c	/^int rtc_get (struct rtc_time* tm)$/;"	f
+rtc_reset	s3c44b0_rtc.c	/^void rtc_reset (void)$/;"	f
+rtc_set	s3c44b0_rtc.c	/^int rtc_set (struct rtc_time* tm)$/;"	f
+rtc_time	rtc.h	/^struct rtc_time {$/;"	s
+rtcbase	res.h	37;"	d
+s5p_get_base_uart	serial_s5p.c	/^static inline struct s5p_uart *s5p_get_base_uart(int dev_index)$/;"	f	file:
+s5p_uart	uart.h	/^struct s5p_uart {$/;"	s
+serial_err_check	serial_s5p.c	/^static int serial_err_check(const int dev_index, int op)$/;"	f	file:
+serial_getc_dev	serial_s5p.c	/^int serial_getc_dev(const int dev_index)$/;"	f
+serial_init_dev	serial_s5p.c	/^int serial_init_dev(const int dev_index)$/;"	f
+serial_putc_dev	serial_s5p.c	/^void serial_putc_dev(const char c, const int dev_index)$/;"	f
+serial_puts_dev	serial_s5p.c	/^void serial_puts_dev(const char *s, const int dev_index)$/;"	f
+serial_setbrg_dev	serial_s5p.c	/^void serial_setbrg_dev(const int dev_index)$/;"	f
+serial_tstc_dev	serial_s5p.c	/^int serial_tstc_dev(const int dev_index)$/;"	f
+set_RTC_date	s3c44b0_rtc.c	/^void set_RTC_date(void)$/;"	f
+size_t	res.h	/^typedef  unsigned int  size_t ; $/;"	t
+slot	uart.h	/^	unsigned short	slot;		\/* udivslot *\/$/;"	m	union:br_rest
+strcat	string.c	/^char * strcat(char * dest, const char * src)$/;"	f
+strchr	string.c	/^char * strchr(const char * s, int c)$/;"	f
+strcmp	string.c	/^int strcmp(const char * cs,const char * ct)$/;"	f
+strcpy	string.c	/^char * strcpy(char * dest,const char *src)$/;"	f
+strlen	string.c	/^size_t strlen(const char * s)$/;"	f
+strncat	string.c	/^char * strncat(char *dest, const char *src, size_t count)$/;"	f
+strncmp	string.c	/^int strncmp(const char * cs,const char * ct,size_t count)$/;"	f
+strncpy	string.c	/^char * strncpy(char * dest,const char *src,size_t count)$/;"	f
+strnlen	string.c	/^size_t strnlen(const char * s, size_t count)$/;"	f
+strpbrk	string.c	/^char * strpbrk(const char * cs,const char * ct)$/;"	f
+strrchr	string.c	/^char * strrchr(const char * s, int c)$/;"	f
+strsep	string.c	/^char * strsep(char **s, const char *ct)$/;"	f
+strspn	string.c	/^size_t strspn(const char *s, const char *accept)$/;"	f
+strstr	string.c	/^char * strstr(const char * s1,const char * s2)$/;"	f
+strswab	string.c	/^char *strswab(const char *s)$/;"	f
+strtok	string.c	/^char * strtok(char * s,const char * ct)$/;"	f
+tm_hour	rtc.h	/^	int tm_hour;$/;"	m	struct:rtc_time
+tm_isdst	rtc.h	/^	int tm_isdst;$/;"	m	struct:rtc_time
+tm_mday	rtc.h	/^	int tm_mday;$/;"	m	struct:rtc_time
+tm_min	rtc.h	/^	int tm_min;$/;"	m	struct:rtc_time
+tm_mon	rtc.h	/^	int tm_mon;$/;"	m	struct:rtc_time
+tm_sec	rtc.h	/^	int tm_sec;$/;"	m	struct:rtc_time
+tm_wday	rtc.h	/^	int tm_wday;$/;"	m	struct:rtc_time
+tm_yday	rtc.h	/^	int tm_yday;$/;"	m	struct:rtc_time
+tm_year	rtc.h	/^	int tm_year;$/;"	m	struct:rtc_time
+u16	res.h	/^typedef  unsigned short u16 ; $/;"	t
+u32	res.h	/^typedef  unsigned int u32 ; $/;"	t
+u8	res.h	/^typedef  unsigned char  u8 ; $/;"	t
+uartbase	res.h	61;"	d
+ubrdiv	uart.h	/^	unsigned int	ubrdiv;$/;"	m	struct:s5p_uart
+ucon	uart.h	/^	unsigned int	ucon;$/;"	m	struct:s5p_uart
+udivslot	serial_s5p.c	/^static const int udivslot[] = {$/;"	v	file:
+uerstat	uart.h	/^	unsigned int	uerstat;$/;"	m	struct:s5p_uart
+ufcon	uart.h	/^	unsigned int	ufcon;$/;"	m	struct:s5p_uart
+ufstat	uart.h	/^	unsigned int	ufstat;$/;"	m	struct:s5p_uart
+ulcon	uart.h	/^	unsigned int	ulcon;$/;"	m	struct:s5p_uart
+ulong	res.h	/^typedef  unsigned long ulong ; $/;"	t
+umcon	uart.h	/^	unsigned int	umcon;$/;"	m	struct:s5p_uart
+umstat	uart.h	/^	unsigned int	umstat;$/;"	m	struct:s5p_uart
+urxh	uart.h	/^	unsigned char	urxh;$/;"	m	struct:s5p_uart
+use_divslot	uart.h	/^static int use_divslot = 1;$/;"	v
+utrstat	uart.h	/^	unsigned int	utrstat;$/;"	m	struct:s5p_uart
+utxh	uart.h	/^	unsigned char	utxh;$/;"	m	struct:s5p_uart
+value	uart.h	/^	unsigned char	value;		\/* ufracval *\/$/;"	m	union:br_rest
+writeb	io.h	27;"	d
+writeb	io.h	73;"	d
+writeb	io.h	85;"	d
+writel	io.h	29;"	d
+writel	io.h	75;"	d
+writel	io.h	87;"	d
+writew	io.h	28;"	d
+writew	io.h	74;"	d
+writew	io.h	86;"	d

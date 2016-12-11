@@ -1,0 +1,75 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Buzzer_Configure	basedevice.c	/^void Buzzer_Configure(void)$/;"	f
+Buzzer_Off	basedevice.c	/^void Buzzer_Off(void)$/;"	f
+Buzzer_On	basedevice.c	/^void Buzzer_On(void)$/;"	f
+GPD0CON	res.h	16;"	d
+GPD0DAT	res.h	17;"	d
+GPM4CON	res.h	14;"	d
+GPM4DAT	res.h	15;"	d
+GPX3CON	res.h	18;"	d
+GPX3DAT	res.h	19;"	d
+Key_Configure	basedevice.c	/^void Key_Configure(void)$/;"	f
+Key_Status	basedevice.c	/^unsigned int Key_Status(int key)$/;"	f
+Lbignum	_udivsi3.S	/^Lbignum:$/;"	l
+Ldiv0	_divsi3.S	/^Ldiv0:$/;"	l
+Ldiv0	_udivsi3.S	/^Ldiv0:$/;"	l
+Led_Configure	basedevice.c	/^void Led_Configure(void)$/;"	f
+Led_Off	basedevice.c	/^void Led_Off(void)$/;"	f
+Led_On	basedevice.c	/^void Led_On(void)$/;"	f
+Lgot_result	_udivsi3.S	/^Lgot_result:$/;"	l
+Loop1	_udivsi3.S	/^Loop1:$/;"	l
+Loop3	_udivsi3.S	/^Loop3:$/;"	l
+NULL	res.h	9;"	d
+PRINT	res.h	20;"	d
+U16	res.h	/^typedef  volatile unsigned short U16 ; $/;"	t
+U32	res.h	/^typedef  volatile unsigned int   U32 ; $/;"	t
+U8	res.h	/^typedef  volatile unsigned char  U8  ; $/;"	t
+_BASEDEVICE_H	basedevice.h	3;"	d
+_RES_H	res.h	3;"	d
+___strtok	string.c	/^char * ___strtok;$/;"	v
+__aeabi_idiv	_divsi3.S	/^__aeabi_idiv:$/;"	l
+__aeabi_idivmod	_udivsi3.S	/^__aeabi_idivmod:$/;"	l
+__aeabi_uidiv	_udivsi3.S	/^ __aeabi_uidiv:$/;"	l
+__aeabi_uidivmod	_udivsi3.S	/^__aeabi_uidivmod:$/;"	l
+__div0	basedevice.c	/^void __div0(void)$/;"	f
+__divsi3	_divsi3.S	/^__divsi3:$/;"	l
+__udivsi3	_udivsi3.S	/^ __udivsi3:$/;"	l
+_start	test.c	/^int _start(void)$/;"	f
+bcopy	string.c	/^char * bcopy(const char * src, char * dest, int count)$/;"	f
+curbit	_udivsi3.S	/^curbit		.req	r3$/;"	l
+delay_ASM	basedevice.c	/^void delay_ASM(void)$/;"	f
+delay_C	basedevice.c	/^void delay_C(void)$/;"	f
+dividend	_udivsi3.S	/^dividend	.req	r0$/;"	l
+divisor	_udivsi3.S	/^divisor		.req	r1$/;"	l
+memchr	string.c	/^void *memchr(const void *s, int c, size_t n)$/;"	f
+memcmp	string.c	/^int memcmp(const void * cs,const void * ct,size_t count)$/;"	f
+memcpy	string.c	/^void * memcpy(void *dest, const void *src, size_t count)$/;"	f
+memmove	string.c	/^void * memmove(void * dest,const void *src,size_t count)$/;"	f
+memscan	string.c	/^void * memscan(void * addr, int c, size_t size)$/;"	f
+memset	string.c	/^void * memset(void * s,int c,size_t count)$/;"	f
+number	test.c	/^int number ;   \/\/未初始化全局区 值随机$/;"	v
+printf	test.c	/^int (*printf)(const char *,...) = (void*) 0x43e11ad0 ; $/;"	v
+result	_udivsi3.S	/^result		.req	r2$/;"	l
+size_t	res.h	/^typedef  unsigned int  size_t ; $/;"	t
+strcat	string.c	/^char * strcat(char * dest, const char * src)$/;"	f
+strchr	string.c	/^char * strchr(const char * s, int c)$/;"	f
+strcmp	string.c	/^int strcmp(const char * cs,const char * ct)$/;"	f
+strcpy	string.c	/^char * strcpy(char * dest,const char *src)$/;"	f
+strlen	string.c	/^size_t strlen(const char * s)$/;"	f
+strncat	string.c	/^char * strncat(char *dest, const char *src, size_t count)$/;"	f
+strncmp	string.c	/^int strncmp(const char * cs,const char * ct,size_t count)$/;"	f
+strncpy	string.c	/^char * strncpy(char * dest,const char *src,size_t count)$/;"	f
+strnlen	string.c	/^size_t strnlen(const char * s, size_t count)$/;"	f
+strpbrk	string.c	/^char * strpbrk(const char * cs,const char * ct)$/;"	f
+strrchr	string.c	/^char * strrchr(const char * s, int c)$/;"	f
+strsep	string.c	/^char * strsep(char **s, const char *ct)$/;"	f
+strspn	string.c	/^size_t strspn(const char *s, const char *accept)$/;"	f
+strstr	string.c	/^char * strstr(const char * s1,const char * s2)$/;"	f
+strswab	string.c	/^char *strswab(const char *s)$/;"	f
+strtok	string.c	/^char * strtok(char * s,const char * ct)$/;"	f
+ulong	res.h	/^typedef  unsigned long ulong ; $/;"	t

@@ -1,0 +1,332 @@
+
+[root@host253 tiny4412]# df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/sda7              99G   93G  543M 100% /
+tmpfs                 1.9G   76K  1.9G   1% /dev/shm
+/dev/sda5             486M   76M  386M  17% /boot
+/var/source/CentOS6.7_64_1.iso
+                      3.7G  3.7G     0 100% /CD1
+/var/source/CentOS6.7_64_2.iso
+                      2.1G  2.1G     0 100% /CD2
+/dev/sdb2            1008M   72M  885M   8% /media/5044b185-1feb-4fc9-9f86-86fcbe2ba8b3
+/dev/sdb1            1023M  4.6M 1019M   1% /media/5D13-6E09
+/dev/sdb3             2.0G   68M  1.9G   4% /media/38fa7b25-a79c-4f22-bfdd-37eef00bb5eb
+You have new mail in /var/spool/mail/root
+[root@host253 tiny4412]# cp    E4412_N.bl1.bin   bl2.bin   ../../u-boot.bin    /media/5D13-6E09/
+[root@host253 tiny4412]# ls  /media/5D13-6E09/
+bl2.bin  E4412_N.bl1.bin  u-boot.bin  zImage
+[root@host253 tiny4412]# umount /media/*
+
+
+//将andriod系统删除
+
+TINY4412 # help mmc
+mmc - MMC sub system
+
+Usage:
+mmc read <device num> addr blk# cnt
+mmc write <device num> addr blk# cnt
+mmc rescan <device num>
+mmc erase <boot | user> <device num> <start block> <block count>
+mmc list - lists available devices
+TINY4412 # emmc open  1
+eMMC OPEN Success.!!
+                        !!!Notice!!!
+!You must close eMMC boot Partition after all image writing!
+!eMMC boot partition has continuity at image writing time.!
+!So, Do not close boot partition, Before, all images is written.!
+TINY4412 # mmc erase boot 1 0 10000
+Block count is Too BIG!!
+START: 0 BLOCK: 8191
+high_capacity: 1
+Capacity: 7634944
+
+Erase
+........................................
+........................................
+.
+                        *** NOTICE ***
+*** High Capacity(higher than 2GB) MMC's erase minimum size is 512KB ***
+
+ 4.0 MB erase Done
+MMC erase Success.!!
+TINY4412 # emmc close 1
+eMMC CLOSE Success.!!
+
+关板子,然后将启动引脚打到内部mmc启动,再开机,会发现启动不了andriod
+
+关板子,然后将启动引脚打到外部SD卡启动,再开机,接下来就是烧写动作
+
+
+
+TINY4412 # 
+TINY4412 # emmc open 1
+eMMC OPEN Success.!!
+                        !!!Notice!!!
+!You must close eMMC boot Partition after all image writing!
+!eMMC boot partition has continuity at image writing time.!
+!So, Do not close boot partition, Before, all images is written.!
+TINY4412 # fatload  mmc 0:1 0x40008000 E4412_N.bl1.bin
+Partition1: Start Address(0x9800), Size(0x200800)
+reading E4412_N.bl1.bin
+
+8192 bytes read
+TINY4412 # help mmc
+mmc - MMC sub system
+
+Usage:
+mmc read <device num> addr blk# cnt
+mmc write <device num> addr blk# cnt
+mmc rescan <device num>
+mmc erase <boot | user> <device num> <start block> <block count>
+mmc list - lists available devices
+TINY4412 # mmc write 1 0x40008000  0  0x10
+
+MMC write: dev # 1, block # 0, count 16 ... 16 blocks written: OK
+TINY4412 # fatload mmc 0:1 0x40008000 bl2.bin
+Partition1: Start Address(0x9800), Size(0x200800)
+reading bl2.bin
+
+14336 bytes read
+TINY4412 # mmc write 1 0x40008000  0x10  0x20
+
+MMC write: dev # 1, block # 16, count 32 ... 32 blocks written: OK
+TINY4412 # fatload mmc 0:1 0x40008000 u-boot.bin
+Partition1: Start Address(0x9800), Size(0x200800)
+reading u-boot.bin
+
+276932 bytes read
+TINY4412 # mmc write 1 0x40008000  0x30   0x300
+
+MMC write: dev # 1, block # 48, count 768 ... 768 blocks written: OK
+TINY4412 # emmc close 1
+eMMC CLOSE Success.!!
+
+//到这里已经将uboot烧写入内部mmc中
+//接下来要进行分区
+
+//************************************************************************
+TINY4412 # fdisk -c 0 500 1000 1200
+Count: 10000
+fdisk is completed
+
+partion #    size(MB)     block start #    block count    partition_Id 
+   1           888          5675538         1819752          0x0C 
+   2           502           134244         1029204          0x83 
+   3          1001          1163448         2050950          0x83 
+   4          1201          3214398         2461140          0x83 
+TINY4412 # help fatformat
+fatformat - fatformat - disk format by FAT32
+
+
+Usage:
+fatformat <interface(only support mmc)> <dev:partition num>
+        - format by FAT32 on 'interface'
+
+TINY4412 # fatformat mmc 0:1
+Start format MMC&d partition&d ...
+Partition1: Start Address(0x569a12), Size(0x1bc468)
+size checking ...
+Under 8G
+write FAT info: 32
+Fat size : 0x6f1
+Erase FAT region.......................
+Partition1 format complete.
+TINY4412 # help ext3format
+ext3format - ext3format - disk format by ext3
+
+
+Usage:
+ext3format <interface(only support mmc)> <dev:partition num>
+    - format by ext3 on 'interface'
+
+TINY4412 # ext3format mmc 0:2
+Start format MMC0 partition2 ....
+** Partition2 is not ext2 file-system 0 **
+Partition2: Start Address(0x20c64), Size(0xfb454)
+Start ext2format...
+Wirte 0/4block-group
+Reserved blocks for jounaling : 4102
+Start write addr : 0x20c64
+Erase inode table(0) - 0x20d7c................
+d_indirect_point:0x24d84
+Wirte 1/4block-group
+Reserved blocks for jounaling : 4102
+Start write addr : 0x60c64
+Erase inode table(1) - 0x60d7c................
+Wirte 2/4block-group
+Reserved blocks for jounaling : 4102
+Start write addr : 0xa0c64
+Erase inode table(2) - 0xa0c74................
+Wirte 3/4block-group
+Reserved blocks for jounaling : 4102
+Start write addr : 0xe0c64
+Erase inode table(3) - 0xe0d7c................
+TINY4412 # ext3format mmc 0:3
+Start format MMC0 partition3 ....
+** Partition3 is not ext2 file-system 0 **
+Partition3: Start Address(0x11c0b8), Size(0x1f4b86)
+Start ext2format...
+Wirte 0/8block-group
+Reserved blocks for jounaling : 4102
+Start write addr : 0x11c0b8
+Erase inode table(0) - 0x11c2c8..........
+d_indirect_point:0x11f308
+Wirte 1/8block-group
+Reserved blocks for jounaling : 4102
+Start write addr : 0x15c0b8
+Erase inode table(1) - 0x15c2c8..........
+Wirte 2/8block-group
+Reserved blocks for jounaling : 4102
+Start write addr : 0x19c0b8
+Erase inode table(2) - 0x19c0c8..........
+Wirte 3/8block-group
+Reserved blocks for jounaling : 4102
+Start write addr : 0x1dc0b8
+Erase inode table(3) - 0x1dc2c8..........
+Wirte 4/8block-group
+Reserved blocks for jounaling : 4102
+Start write addr : 0x21c0b8
+Erase inode table(4) - 0x21c0c8..........
+Wirte 5/8block-group
+Reserved blocks for jounaling : 4102
+Start write addr : 0x25c0b8
+Erase inode table(5) - 0x25c2c8..........
+Wirte 6/8block-group
+Reserved blocks for jounaling : 4102
+Start write addr : 0x29c0b8
+Erase inode table(6) - 0x29c0c8..........
+Wirte 7/8block-group
+Reserved blocks for jounaling : 4102
+Start write addr : 0x2dc0b8
+Erase inode table(7) - 0x2dc2c8..........
+TINY4412 # ext3format mmc 0:4
+Start format MMC0 partition4 ....
+** Partition4 is not ext2 file-system 0 **
+Partition4: Start Address(0x310c3e), Size(0x258dd4)
+Start ext2format...
+Wirte 0/10block-group
+Reserved blocks for jounaling : 8202
+Start write addr : 0x310c3e
+Erase inode table(0) - 0x310eb6..........
+d_indirect_point:0x313e56
+Wirte 1/10block-group
+Reserved blocks for jounaling : 8202
+Start write addr : 0x350c3e
+Erase inode table(1) - 0x350eb6..........
+Wirte 2/10block-group
+Reserved blocks for jounaling : 8202
+Start write addr : 0x390c3e
+Erase inode table(2) - 0x390c4e..........
+Wirte 3/10block-group
+Reserved blocks for jounaling : 8202
+Start write addr : 0x3d0c3e
+Erase inode table(3) - 0x3d0eb6..........
+Wirte 4/10block-group
+Reserved blocks for jounaling : 8202
+Start write addr : 0x410c3e
+Erase inode table(4) - 0x410c4e..........
+Wirte 5/10block-group
+Reserved blocks for jounaling : 8202
+Start write addr : 0x450c3e
+Erase inode table(5) - 0x450eb6..........
+Wirte 6/10block-group
+Reserved blocks for jounaling : 8202
+Start write addr : 0x490c3e
+Erase inode table(6) - 0x490c4e..........
+Wirte 7/10block-group
+Reserved blocks for jounaling : 8202
+Start write addr : 0x4d0c3e
+Erase inode table(7) - 0x4d0eb6..........
+Wirte 8/10block-group
+Reserved blocks for jounaling : 8202
+Start write addr : 0x510c3e
+Erase inode table(8) - 0x510c4e..........
+Wirte 9/10block-group
+Reserved blocks for jounaling : 8202
+Start write addr : 0x550c3e
+Erase inode table(9) - 0x550eb6..........
+TINY4412 # emmc close 1
+eMMC CLOSE Failed.!!
+exit not allowed from main input shell.
+TINY4412 # 
+
+//分区完毕并且已经格式化过
+
+烧写内核
+并且进入网络文件系统
+
+' - try 'help'
+TINY4412 # dnw 0x40008000
+OTG cable Connected!
+Now, Waiting for DNW to transmit data
+Download Done!! Download Address: 0x40008000, Download Filesize:0x48fdd8
+Checksum is being calculated.....
+Checksum O.K.
+TINY4412 # movi write kernel 0 0x40008000              
+writing kernel..device 0 Start 1057, Count 12288       
+MMC write: dev # 0, block # 1057, count 12288 ... 12288 blocks written: OK
+completed                                              
+TINY4412 # set bootcmd "movi read kernel 0 0x40008000;bootm 0x40008000"
+TINY4412 # set bootargs "root=/dev/nfs nfsroot=192.168.88.253:/disk/A9/filesystem ip=192.1
+68.88.222 console=ttySAC0,115200 lcd=S70 ctp=2"
+TINY4412 # set serverip 192.168.88.253
+TINY4412 # set gatewayip 192.168.88.1
+TINY4412 # set ipaddr  192.168.88.222
+TINY4412 # save
+Saving Environment to SMDK bootable device...
+done
+TINY4412 # 
+
+
+
+//文件系统
+[root @ cjy  ]# ls /dev/mmcblk0*
+/dev/mmcblk0       /dev/mmcblk0boot1  /dev/mmcblk0p2     /dev/mmcblk0p4
+/dev/mmcblk0boot0  /dev/mmcblk0p1     /dev/mmcblk0p3
+[root @ cjy  ]# mount  /dev/mmcblk0p2   /mnt/
+[  114.140000] EXT2-fs (mmcblk0p2): warning: mounting ext3 filesystem as ext2
+[  114.140000] EXT2-fs (mmcblk0p2): warning: checktime reached, running e2fsck is recommen
+ded
+[root @ cjy  ]# df -h
+Filesystem                Size      Used Available Use% Mounted on
+192.168.88.253:/disk/A9/filesystem/
+                         98.3G     92.8G    537.9M  99% /
+none                    485.6M         0    485.6M   0% /tmp
+/dev/mmcblk0p2          486.8M     16.4M    445.2M   4% /mnt
+[root @ cjy  ]# tar -xf  nfs.tar  -C  /mnt/
+[root @ cjy  ]# chmod 777  /mnt/* -R
+[root @ cjy  ]# umount /mnt/
+[root @ cjy  ]# 
+
+
+//最后一步
+在minicom下配置启动参数
+
+TINY4412 # set   nfsbootargs $bootargs
+TINY4412 # set bootargs "root=/dev/mmcblk0p2 consol=ttySAC0,115200 lcd=S70 ctp=2"
+TINY4412 # save
+TINY4412 # reset
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,239 @@
+[root@host253 A9]# fdisk -l
+
+Disk /dev/sda: 500.1 GB, 500107862016 bytes
+255 heads, 63 sectors/track, 60801 cylinders
+Units = cylinders of 16065 * 512 = 8225280 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0xf0d675ed
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sda1               1       39164   314584798+   b  W95 FAT32
+/dev/sda4           39165       60801   173799202+   5  Extended
+/dev/sda5   *       39165       39229      522081   83  Linux
+/dev/sda6           39230       39752     4200966   82  Linux swap / Solaris
+/dev/sda7           39753       52807   104864256   83  Linux
+/dev/sda8           52808       60801    64211773+  83  Linux
+
+Disk /dev/sdb: 15.5 GB, 15523119104 bytes
+64 heads, 32 sectors/track, 14804 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0x00000000
+
+[root@host253 A9]# fdisk    /dev/sdb
+Device contains neither a valid DOS partition table, nor Sun, SGI or OSF disklabel
+Building a new DOS disklabel with disk identifier 0xfa1120b3.
+Changes will remain in memory only, until you decide to write them.
+After that, of course, the previous content won't be recoverable.
+
+Warning: invalid flag 0x0000 of partition table 4 will be corrected by w(rite)
+
+WARNING: DOS-compatible mode is deprecated. It's strongly recommended to
+         switch off the mode (command 'c') and change display units to
+         sectors (command 'u').
+
+Command (m for help): m
+Command action
+   a   toggle a bootable flag
+   b   edit bsd disklabel
+   c   toggle the dos compatibility flag
+   d   delete a partition
+   l   list known partition types
+   m   print this menu
+   n   add a new partition
+   o   create a new empty DOS partition table
+   p   print the partition table
+   q   quit without saving changes
+   s   create a new empty Sun disklabel
+   t   change a partition's system id
+   u   change display/entry units
+   v   verify the partition table
+   w   write table to disk and exit
+   x   extra functionality (experts only)
+
+Command (m for help): p
+
+Disk /dev/sdb: 15.5 GB, 15523119104 bytes
+64 heads, 32 sectors/track, 14804 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0xfa1120b3
+
+   Device Boot      Start         End      Blocks   Id  System
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 1
+First cylinder (1-14804, default 1): 20
+Last cylinder, +cylinders or +size{K,M,G} (20-14804, default 14804): +2G
+
+Command (m for help): p
+
+Disk /dev/sdb: 15.5 GB, 15523119104 bytes
+64 heads, 32 sectors/track, 14804 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0xfa1120b3
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1              20        2068     2098176   83  Linux
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 2
+First cylinder (1-14804, default 1): 2069
+Last cylinder, +cylinders or +size{K,M,G} (2069-14804, default 14804): +4G
+
+Command (m for help): p
+
+Disk /dev/sdb: 15.5 GB, 15523119104 bytes
+64 heads, 32 sectors/track, 14804 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0xfa1120b3
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1              20        2068     2098176   83  Linux
+/dev/sdb2            2069        6165     4195328   83  Linux
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 3
+First cylinder (1-14804, default 1): 6166
+Last cylinder, +cylinders or +size{K,M,G} (6166-14804, default 14804): +4G
+
+Command (m for help): t
+Partition number (1-4): 1
+Hex code (type L to list codes): L
+
+ 0  Empty           24  NEC DOS         81  Minix / old Lin bf  Solaris        
+ 1  FAT12           39  Plan 9          82  Linux swap / So c1  DRDOS/sec (FAT-
+ 2  XENIX root      3c  PartitionMagic  83  Linux           c4  DRDOS/sec (FAT-
+ 3  XENIX usr       40  Venix 80286     84  OS/2 hidden C:  c6  DRDOS/sec (FAT-
+ 4  FAT16 <32M      41  PPC PReP Boot   85  Linux extended  c7  Syrinx         
+ 5  Extended        42  SFS             86  NTFS volume set da  Non-FS data    
+ 6  FAT16           4d  QNX4.x          87  NTFS volume set db  CP/M / CTOS / .
+ 7  HPFS/NTFS       4e  QNX4.x 2nd part 88  Linux plaintext de  Dell Utility   
+ 8  AIX             4f  QNX4.x 3rd part 8e  Linux LVM       df  BootIt         
+ 9  AIX bootable    50  OnTrack DM      93  Amoeba          e1  DOS access     
+ a  OS/2 Boot Manag 51  OnTrack DM6 Aux 94  Amoeba BBT      e3  DOS R/O        
+ b  W95 FAT32       52  CP/M            9f  BSD/OS          e4  SpeedStor      
+ c  W95 FAT32 (LBA) 53  OnTrack DM6 Aux a0  IBM Thinkpad hi eb  BeOS fs        
+ e  W95 FAT16 (LBA) 54  OnTrackDM6      a5  FreeBSD         ee  GPT            
+ f  W95 Ext'd (LBA) 55  EZ-Drive        a6  OpenBSD         ef  EFI (FAT-12/16/
+10  OPUS            56  Golden Bow      a7  NeXTSTEP        f0  Linux/PA-RISC b
+11  Hidden FAT12    5c  Priam Edisk     a8  Darwin UFS      f1  SpeedStor      
+12  Compaq diagnost 61  SpeedStor       a9  NetBSD          f4  SpeedStor      
+14  Hidden FAT16 <3 63  GNU HURD or Sys ab  Darwin boot     f2  DOS secondary  
+16  Hidden FAT16    64  Novell Netware  af  HFS / HFS+      fb  VMware VMFS    
+17  Hidden HPFS/NTF 65  Novell Netware  b7  BSDI fs         fc  VMware VMKCORE 
+18  AST SmartSleep  70  DiskSecure Mult b8  BSDI swap       fd  Linux raid auto
+1b  Hidden W95 FAT3 75  PC/IX           bb  Boot Wizard hid fe  LANstep        
+1c  Hidden W95 FAT3 80  Old Minix       be  Solaris boot    ff  BBT            
+1e  Hidden W95 FAT1
+Hex code (type L to list codes): c
+Changed system type of partition 1 to c (W95 FAT32 (LBA))
+
+Command (m for help): p
+
+Disk /dev/sdb: 15.5 GB, 15523119104 bytes
+64 heads, 32 sectors/track, 14804 cylinders
+Units = cylinders of 2048 * 512 = 1048576 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disk identifier: 0xfa1120b3
+
+   Device Boot      Start         End      Blocks   Id  System
+/dev/sdb1              20        2068     2098176    c  W95 FAT32 (LBA)
+/dev/sdb2            2069        6165     4195328   83  Linux
+/dev/sdb3            6166       10262     4195328   83  Linux
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+
+WARNING: If you have created or modified any DOS 6.x
+partitions, please see the fdisk manual page for additional
+information.
+Syncing disks.
+You have new mail in /var/spool/mail/root
+[root@host253 A9]# mkfs.vfat   /dev/sdb1
+mkfs.vfat 3.0.9 (31 Jan 2010)
+[root@host253 A9]# mkfs.ext3   /dev/sdb2
+mke2fs 1.41.12 (17-May-2010)
+警告: 256 块未使用.
+
+文件系统标签=
+操作系统:Linux
+块大小=4096 (log=2)
+分块大小=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+262656 inodes, 1048576 blocks
+52441 blocks (5.00%) reserved for the super user
+第一个数据块=0
+Maximum filesystem blocks=1073741824
+32 block groups
+32768 blocks per group, 32768 fragments per group
+8208 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736
+
+正在写入inode表: 完成                            
+Creating journal (32768 blocks): 完成
+Writing superblocks and filesystem accounting information: 完成
+
+This filesystem will be automatically checked every 22 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.
+[root@host253 A9]# mkfs.ext3   /dev/sdb3
+mke2fs 1.41.12 (17-May-2010)
+警告: 256 块未使用.
+
+文件系统标签=
+操作系统:Linux
+块大小=4096 (log=2)
+分块大小=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+262656 inodes, 1048576 blocks
+52441 blocks (5.00%) reserved for the super user
+第一个数据块=0
+Maximum filesystem blocks=1073741824
+32 block groups
+32768 blocks per group, 32768 fragments per group
+8208 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912, 819200, 884736
+
+正在写入inode表: 完成                            
+Creating journal (32768 blocks): 完成
+Writing superblocks and filesystem accounting information: 完成
+
+This filesystem will be automatically checked every 30 mounts or
+180 days, whichever comes first.  Use tune2fs -c or -i to override.
+[root@host253 A9]# 
+[root@host253 A9]# 
+[root@host253 A9]# df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/sda7              99G   93G  756M 100% /
+tmpfs                 1.9G   76K  1.9G   1% /dev/shm
+/dev/sda5             486M   76M  386M  17% /boot
+/var/source/CentOS6.7_64_1.iso
+                      3.7G  3.7G     0 100% /CD1
+/var/source/CentOS6.7_64_2.iso
+                      2.1G  2.1G     0 100% /CD2
+[root@host253 A9]# 
+

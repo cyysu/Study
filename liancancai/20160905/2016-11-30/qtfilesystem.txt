@@ -1,0 +1,61 @@
+1.
+	cd /disk/A9
+	tar -xvf  rootfs_qtopia_qt4-20141213.tar.gz
+	mv rootfs_qtopia_qt4  qtfilesystem
+	chmod 777  qtfilesystem/*  -R
+	vim  /etc/exports
+	//********************  写
+	/disk/A9/qtfilesystem   *(rw,sync,no_root_squash)
+	//********************
+	service nfs restart
+	chkconfig nfs on
+	showmount -e 192.168.88.253  查看是否已经发布
+
+2.
+	将ramdisk-u.img 拷到SD卡的第一个分区下
+	然后将板子以SD卡启动
+	
+	set bootcmd2 $bootcmd
+	set bootcmd "fatload mmc 0:1 0x40008000 zImage;fatload mmc 0:1 0x41000000 ramdisk-u.img;bootm 0x40008000 0x41000000"
+	set bootargs "root=/dev/nfs nfsroot=192.168.88.253:/disk/A9/qtfilesystem console=ttySAC0,115200 lcd=S70 ctp=2"
+	save
+	reset
+
+3.进入qtopia的文件系统进行屏的校准
+
+4.玩一会儿
+
+5.PC机配置QT的编译环境
+	打开QT => 创建一个程序 => tool => option => QT4 => 添加一个qmake 名字 A9
+	指定qmake目录/usr/local/Trolltech/QtEmbedded-4.8.5-arm/bin/qmake
+	保存退出
+
+6.编译QT时,先Projects => Qt version =>  A9
+
+7.Clean All
+  Rebuild All
+
+8.编译完成之后将Qt的可执行程序拷到qt文件系统
+[root@host253 A9]# cp   /root/untitled-build-desktop/untitled   /disk/A9/qtfilesystem/
+
+9.配置qt文件系统的脚本
+cd  /disk/A9/qtfilesystem
+vim etc/init.d/rcS
+
+//************************  更改
+104 #/bin/qtopia &
+105 /bin/qt4 &
+//************************
+
+vim bin/qt4
+//***********************  更改
+  6 #cd /usr/local/Trolltech/QtEmbedded-4.8.5-arm/demos/embedded/fluidlauncher
+  7 ./untitled  -qws
+//***********************
+
+
+10.保存退出之后重启板子,进入自己的QT文件系统
+
+
+
+

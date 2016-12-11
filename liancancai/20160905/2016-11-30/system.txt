@@ -1,0 +1,67 @@
+[root@host253 A9]# cd  /disk/A9/
+[root@host253 A9]# mkdir filesystem
+[root@host253 A9]# cp  busybox-1.22.1/_install/*  filesystem -r
+[root@host253 A9]# cd filesystem
+[root@host253 filesystem]# mkdir dev  etc  lib  opt  tmp  proc  sys mnt 
+[root@host253 filesystem]# mkdir  etc/init.d
+[root@host253 filesystem]# vim    etc/init.d/rcS 
+mount -t ramfs none  /dev
+mount -t sysfs none  /sys
+mount -t proc  none  /proc
+mount -t tmpfs none  /tmp
+/sbin/mdev -s
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+[root@host253 filesystem]#mknod dev/console  c  5  1
+[root@host253 filesystem]#vim    etc/inittab
+::sysinit:/etc/init.d/rcS
+ttySAC0::askfirst:-/bin/sh
+[root@host253 filesystem]#vim   etc/profile
+export  PS1="[root@cjy \W]# "
+[root@host253 filesystem]#cp  /opt/FriendlyARM/toolschain/4.5.1/arm-none-linux-gnueabi/lib/*    ./lib/  -r
+[root@host253 filesystem]#cd ..
+[root@host253 A9]# chmod 777  filesystem -R
+[root@host253 A9]#vim   /etc/exports
+/disk/A9/filesystem     *(rw,sync,no_root_squash)
+[root@host253 A9]#service nfs restart
+[root@host253 A9]#chkconfig nfs on
+[root@host253 A9]# showmount -e 192.168.88.253   (自己IP)
+Export list for 192.168.88.253:
+/disk/A9/filesystem            *
+[root@host253 A9]#能够看到这个就对了
+
+
+minicom:
+
+TINY4412 # 
+TINY4412 # pri
+baudrate=115200
+bootcmd=movi read kernel 0 0x40008000;bootm 0x40008000
+bootdelay=5
+ethaddr=00:40:5c:26:0a:5b
+gatewayip=192.168.0.1  (192.168.88.1)
+ipaddr=192.168.0.20    (板子的IP)
+netmask=255.255.255.0
+sdbootcmd2=movi read kernel 0 0x40008000;bootm 0x40008000
+sdbootcmd2=fatload mmc 0:1 0x40008000 zImage;bootm 0x40008000
+serverip=192.168.0.10  (PC机IP)
+
+Environment size: 336/16380 bytes
+TINY4412 #set ipaddr  192.168.88.222
+TINY4412 #set serverip 192.168.88.253
+TINY4412 #set gatewayip 192.168.88.1
+TINY4412 #save
+TINY4412 #set bootargs "root=/dev/nfs nfsroot=192.168.88.253:/disk/A9/filesystem ip=192.168.88.222 console=ttySAC0,115200 lcd=S70 ctp=2"
+TINY4412 #save
+TINY4412 #reset   查看是否能够进入文件系统 
+注意书写时不要按tab键,如果已经按了tab键只能直接ctrl+c重新写
+如果不够写  ctrl + C
+ctrl + A   再按一下w键开启换行
+
+
+
+
+
+
+
+
+

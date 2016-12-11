@@ -1,0 +1,234 @@
+
+cd  /disk/A9/uboot_tiny4412-master
+
+#如果没有建立ctags
+#那么  ctags -R
+
+ vim   common/main.c
+
+
+ 151 #  if DEBUG_BOOTKEYS
+ 152         printf("%s key:<%s>\n",     ==> printf
+ 153                delaykey[i].retry ? "delay" : "stop",
+ 154                delaykey[i].str ? delaykey[i].str : "NULL");
+ 155 #  endif
+
+ # pri kind tag               文件
+  1 F   d    printf            arch/arm/cpu/ixp/npe/include/IxOsPrintf.h
+               92
+  2 F   f    printf            common/console.c
+               int printf(const char *fmt, ...)
+  3 F   f    printf            examples/api/libgenwrap.c
+               int printf (const char *fmt, ...)
+  4 FS  d    printf            drivers/mtd/nand/s3c2410_nand.c
+               42
+  5 FS  d    printf            drivers/mtd/nand/s3c64xx.c
+               40
+Type number and <Enter> (empty cancels): 
+
+==> 2F
+
+368 int printf(const char *fmt, ...)
+369 {//printf的uboot实现
+370     va_list args;
+371     uint i;
+372     char printbuffer[CONFIG_SYS_PBSIZE];
+373 
+374     va_start(args, fmt);
+375 
+376     /* For this to work, printbuffer must be larger than
+377      * anything we ever want to print.
+378      */
+379     i = vsprintf(printbuffer, fmt, args);
+380     va_end(args);
+381 
+382     /* Print the string */
+383     puts(printbuffer);   //yes  ==>
+384     return i;
+385 }
+
+ts puts
+/disk/A9/uboot_tiny4412-master/common/console.c 391,0-1 722-54%                                          
+  # pri kind tag               文件
+  1 F C f    puts              common/console.c
+               void puts(const char *s)
+  2 F   f    puts              arch/powerpc/cpu/mpc83xx/nand_init.c
+
+==> 1F
+
+	347 void puts(const char *s)
+348 {
+349 #ifdef CONFIG_SILENT_CONSOLE
+350     if (gd->flags & GD_FLG_SILENT)
+351         return;
+352 #endif
+353     
+354 #ifdef CONFIG_DISABLE_CONSOLE
+355     if (gd->flags & GD_FLG_DISABLE_CONSOLE)
+356         return;
+357 #endif
+358 
+359     if (gd->flags & GD_FLG_DEVINIT) {
+360         /* Send to the standard output */
+361         fputs(stdout, s);
+362     } else {
+363         /* Send directly to the handler */
+364         serial_puts(s);  //==>
+365     }
+366 }
+
+ts serial_puts
+
+23 F   f    serial_puts       common/serial.c
+               void serial_puts (const char *s)
+
+=> 23F
+	
+282 void serial_puts (const char *s)
+283 {
+284     if (!(gd->flags & GD_FLG_RELOC) || !serial_current) {
+285         struct serial_device *dev = default_serial_console ();
+286 
+287         dev->puts (s);
+288         return;
+289     }
+290     //调用
+291     serial_current->puts (s);  //查找serial_current谁给它赋值 用#
+292 }
+
+202 int serial_assign (char *name)
+203 {
+204     struct serial_device *s;
+205 
+206     for (s = serial_devices; s; s = s->next) {
+207         if (strcmp (s->name, name) == 0) {
+208             serial_current = s;  //追踪serial_current ==> serial_devices  name
+209             return 0;
+210         }
+211     }
+212 
+213     return 1;
+214 }
+
+确定serial_device是所有串口设备结构体的链表   由传进来的name决定选取哪一个串口结构体
+==> serial_devices   用#
+
+100 int serial_register (struct serial_device *dev)  //这个函数被调用
+101 {
+102 #ifdef CONFIG_NEEDS_MANUAL_RELOC
+103     dev->init += gd->reloc_off;
+104     dev->setbrg += gd->reloc_off;
+105     dev->getc += gd->reloc_off;
+106     dev->tstc += gd->reloc_off;
+107     dev->putc += gd->reloc_off;
+108     dev->puts += gd->reloc_off;
+109 #endif
+110 
+111     dev->next = serial_devices;  //头插
+112     serial_devices = dev;
+113 
+114     return 0;
+115 }
+
+=> 找到
+116 
+117 void serial_initialize (void)  //它调用了serial_register
+118 {
+
+//有效
+155 #if defined(CONFIG_S5P) || defined(CONFIG_S5P6450)
+156     serial_register(&s5p_serial0_device);
+157     serial_register(&s5p_serial1_device);
+158     serial_register(&s5p_serial2_device);
+159     serial_register(&s5p_serial3_device);
+160 #endif
+
+175     serial_assign (default_serial_console ()->name);  //查找名字
+176 }
+
+==>追踪  default_serial_console  //用#
+
+97 struct serial_device *default_serial_console(void) __attribute__((weak, alias("__default_serial_console")));
+
+==> __default_serial_console
+
+ 34 struct serial_device *__default_serial_console (void)
+ 35 {
+
+80     return &s5p_serial0_device;  //最终确定是调它的puts
+
+==>确定该结构体就是s5p_serial0_device  
+
+ts  s5p_serial0_device
+
+  # pri kind tag                 文件
+  1 F   v    s5p_serial0_device  drivers/serial/serial_s5p.c
+               typeref:struct:serial_device
+               struct serial_device s5p_serial0_device =
+Type number and <Enter> (empty cancels): 
+
+=>1F
+
+183 #define DECLARE_S5P_SERIAL_FUNCTIONS(port) \
+184 int s5p_serial##port##_init(void) { return serial_init_dev(port); } \
+185 void s5p_serial##port##_setbrg(void) { serial_setbrg_dev(port); } \
+186 int s5p_serial##port##_getc(void) { return serial_getc_dev(port); } \
+187 int s5p_serial##port##_tstc(void) { return serial_tstc_dev(port); } \
+188 void s5p_serial##port##_putc(const char c) { serial_putc_dev(c, port); } \
+189 void s5p_serial##port##_puts(const char *s) { serial_puts_dev(s, port); }
+190 //s5p_serial0_puts
+191 #define INIT_S5P_SERIAL_STRUCTURE(port, name, bus) { \
+192     name, \
+193     bus, \
+194     s5p_serial##port##_init, \
+195     NULL, \
+196     s5p_serial##port##_setbrg, \
+197     s5p_serial##port##_getc, \
+198     s5p_serial##port##_tstc, \
+199     s5p_serial##port##_putc, \
+200     s5p_serial##port##_puts, }     //s5p_serial0_puts
+201     
+202 DECLARE_S5P_SERIAL_FUNCTIONS(0);
+203 struct serial_device s5p_serial0_device =
+204     INIT_S5P_SERIAL_STRUCTURE(0, "s5pser0", "S5PUART0");
+205 DECLARE_S5P_SERIAL_FUNCTIONS(1);
+206 struct serial_device s5p_serial1_device =
+207     INIT_S5P_SERIAL_STRUCTURE(1, "s5pser1", "S5PUART1");
+208 DECLARE_S5P_SERIAL_FUNCTIONS(2);
+209 struct serial_device s5p_serial2_device =
+210     INIT_S5P_SERIAL_STRUCTURE(2, "s5pser2", "S5PUART2");
+211 DECLARE_S5P_SERIAL_FUNCTIONS(3);
+212 struct serial_device s5p_serial3_device =
+213     INIT_S5P_SERIAL_STRUCTURE(3, "s5pser3", "S5PUART3");
+
+
+==>得出结论找=> serial_puts_dev   用#
+
+176 void serial_puts_dev(const char *s, const int dev_index)
+177 {   
+178     while (*s)
+179         serial_putc_dev(*s++, dev_index);
+180 }
+
+==> serial_putc_dev
+
+149 void serial_putc_dev(const char c, const int dev_index)
+150 {
+151     struct s5p_uart *const uart = s5p_get_base_uart(dev_index);
+152 
+153     /* wait for room in the tx FIFO */
+154     while (!(readl(&uart->utrstat) & 0x2)) {
+155         if (serial_err_check(dev_index, 1))
+156             return;
+157     }
+158 
+159     writeb(c, &uart->utxh);
+160 
+161     /* If \n, also do \r */
+162     if (c == '\n')
+163         serial_putc('\r');
+164 }
+
+
+
+

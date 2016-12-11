@@ -1,0 +1,279 @@
+
+mkdir  /disk/A9  -p
+
+arm-linux-gcc-4.5.1-v6-vfp-20120301.tgz
+uboot_tiny4412-master.zip
+
+1.编译交叉编译器
+cd  /disk/A9
+tar -xvf  arm-linux-gcc-4.5.1-v6-vfp-20120301.tgz
+cp  opt/*   /opt/  -r
+vim   ~/.bash_profile
+
+//*******************************************************
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+fi
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/bin
+PATH=$PATH:/opt/FriendlyARM/toolschain/4.5.1/bin/
+
+export PATH
+//******************************************************
+
+按ctrl + Alt + Backspace  注销
+
+检测
+终端上  arm-  + tab + tab
+能看到
+//******************************************************
+[root@host253 A9]# arm-
+arm-linux-addr2line               arm-none-linux-gnueabi-addr2line
+arm-linux-ar                      arm-none-linux-gnueabi-ar
+arm-linux-as                      arm-none-linux-gnueabi-as
+arm-linux-c++                     arm-none-linux-gnueabi-c++
+arm-linux-cc                      arm-none-linux-gnueabi-cc
+
+
+2.D格SD卡
+
+1>SD卡插入读卡器再插入电脑
+2>解挂所有的已经挂载分区   umount /media/*
+3>通过fdisk -l 查看设备节点号  比方说  /dev/sdb
+4>DD
+	dd  if=/dev/zero  of=/dev/sdb  bs=1024  count=10240
+	//bs   blocksize  每次D多少
+	//count D多少次
+
+3.编译uboot
+cd  /disk/A9
+unzip uboot_tiny4412-master.zip
+cd  uboot_tiny4412-master
+make tiny4412_config
+make
+
+//*******************
+如果是64位    lib.tar  解压并且拷到相应的目录 不能复盖
+tar -xvf lib.tar  ==>  test
+cp  test/lib/*  /lib/  
+cp  test/usrlib/*  /usr/lib
+cp  test/usrlocallib/*  /usr/local/lib/
+
+
+4.烧卡
+cd /disk/A9
+cd uboot_tiny4412-master
+cd sd_fuse
+make
+cd tiny4412
+./sd_fusing.sh  /dev/sdb  (sdb要根据自己的SD卡的设备名字)
+
+5.将卡拔出插入板子,并且将板子的启动引脚打到sdboot启动
+
+6.配置minicom
+1>
+minicom -s
+
+            +-----[configuration]------+
+            | Filenames and paths      |
+            | File transfer protocols  |
+            | Serial port setup        |  ==>
+            | Modem and dialing        |
+            | Screen and keyboard      |
+            | Save setup as dfl        |
+            | Save setup as..          |
+            | Exit                     |
+            | Exit from Minicom        |
+            +--------------------------+
+
+2>
+查看一下串口的节点 
+ls /dev/tty*    => 找到ttyUSB0/1
+自己想办法配置成以下配置
+
+3>
+    +-----------------------------------------------------------------------+
+    | A -    Serial Device      : /dev/ttyUSB0                              |
+    | B - Lockfile Location     : /var/lock                                 |
+    | C -   Callin Program      :                                           |
+    | D -  Callout Program      :                                           |
+    | E -    Bps/Par/Bits       : 115200 8N1                                |
+    | F - Hardware Flow Control : No                                        |
+    | G - Software Flow Control : No                                        |
+    |                                                                       |
+    |    Change which setting?                                              |
+    +-----------------------------------------------------------------------+
+            | Screen and keyboard      |
+            | Save setup as dfl        |
+            | Save setup as..          |
+            | Exit                     |
+            | Exit from Minicom        |
+            +--------------------------+
+
+4>
+	   | Save setup as dfl        |
+
+5>
+	   | Exit                     |
+
+6>
+	  开启板子,看是否出现
+	
+
+U-Boot 2010.12 (Nov 30 2016 - 15:08:15) for TINY4412      
+CPU:    S5PC220 [Samsung SOC on SMP Platform Base on ARM CortexA9]
+        APLL = 1400MHz, MPLL = 800MHz
+Board:  TINY4412
+DRAM:   1023 MiB
+vdd_arm: 1.2
+vdd_int: 1.0
+vdd_mif: 1.1
+BL1 version:  N/A (TrustZone Enabled BSP)                                                
+Checking Boot Mode ... SDMMC   
+REVISION: 1.1                                                                             
+MMC Device 0: 14804 MB        
+MMC Device 1: 3728 MB        
+MMC Device 2: N/A           
+*** Warning - using default environment     
+Net:    No ethernet found.        
+Hit any key to stop autoboot:  0   
+TINY4412 #
+TINY4412 #
+
+如果出现以上图则证明uboot启动成功
+
+
+
+7.编译内核
+1>cd  /disk/A9
+2>tar -xvf  linux-3.5-tiny4412
+3>cd  linux-3.5
+4>cp tiny4412_linux_defconfig   .config
+5>vim  .config
+确保  485 # CONFIG_ARM_TRUSTZONE is not set  已经注释掉
+6>make  -j4
+7>检查一下是否编译完成  echo $?
+编译完成之后,内核镜像所在目录    /disk/A9/linux-3.5/arch/arm/boot/zImage
+
+8.安装dnw驱动
+cd  /disk/A9
+cd  dnw-linux
+make  
+make install    //如果出错检查内核源码树目录  /usr/src/kernels/
+//如果没有内核源码树则  yum -y install  kernel*
+//如果没有权限则给源文件权限既可
+
+9.将内核下载到板子上,尝试是否可以启动内核
+
+minicom:
+	dnw 0x40008000
+
+PC:
+	cd /disk/A9
+	dnw  linux-3.5/arch/arm/boot/zImage
+
+minicom:
+	bootm 0x40008000    //如果启动可以看到四只QQ
+	
+
+10.将内核烧写入SD卡底层上 ,使用movi方法
+
+minicom:
+	dnw 0x40008000     //将内核从PC机上下载到板子上的内存上(DRAM)
+PC:
+	cd /disk/A9
+	dnw linux-3.5/arch/arm/boot/zImage
+minicom:
+	movi write kernel 0 0x40008000	  //将内核从内存中写入到SD卡的底层
+	set bootcmd "movi read kernel 0 0x40008000;bootm 0x40008000"  //将内核从SD卡底层读取到内存并且引导内核
+	save
+	reset
+查看是否可以直接启动内核
+
+11.做SD卡,并且将内核拷入SD卡的第一个分区上层
+做卡步骤在note1.txt下
+
+	将/disk/A9/linux-3.5/arch/arm/boot/zImage拷入到/dev/sdb1(/media/xxxx)
+	umount /media/*
+	将SD卡插入板子,并且启动板子
+	minicom:
+		1> 查看zImage是否已经拷入SD卡的fat32中
+		help   fatls
+		fatls mmc 0:1 /	                    //0:1  0 是第0个设备  1 是第一个分区	
+		如果查看到zimage就证明内核在该分区下
+
+		2>配置
+		set bootcmd "fatload mmc 0:1 0x40008000 zImage;bootm 0x40008000"
+		save
+		reset
+		看是否可以进入内核
+
+12.制作文件系统并且烧写文件系统 
+cd  /disk/A9/
+tar -xvf  busybox-1.22.1.tar.bz2
+cd  busybox-1.22.1
+make defconfig
+make menuconfig   //注意1>窗体必须大于22行81列 2>如果出错  yum -y install ncurses*
+进入menuconfig之后配置
+
+     Busybox Settings  --->  
+		   Build Options  --->  
+				 │ │       [*] Build BusyBox as a static binary (no shared libs)  │ │  
+  				 │ │       [*]   Build BusyBox as a position independent executable (NEW)    
+		   (arm-linux-) Cross Compiler prefix
+	配置完之后保存退出
+make 
+make install
+接下来描述制作一个文件系统.   system.txt
+
+
+13.制作SD文件系统  1>非拔卡
+PC:
+	cd  /disk/A9/filesystem
+	tar -cf nfs.tar  *
+开启板子, 并且进入网络文件系统
+
+板子SHELL:
+	mount   /dev/mmcblk0p2    /mnt
+	tar -xvf  nfs.tar -C  /mnt
+	chmod  777  /mnt/*  -R
+	umount /mnt
+	reboot
+
+minicom:
+	set  nfsbootargs  $bootargs
+	set bootargs  "root=/dev/mmcblk0p2  console=ttySAC0,115200 lcd=S70 ctp=2"
+	save
+	reset
+将网线拔了,看是否可以启动SD卡的文件系统
+
+2>拔卡方式
+	将SD卡从板子上拔出并且插入PC机中
+PC:
+	df -h 查看/dev/sdb2的挂载目录  比方说  /media/xxx
+	cd  /disk/A9
+	cp filesystem/*   /media/xxx
+	chmod 777  /media/xxx/*  -R
+	umount /media/*
+将卡插入板子上,并且启动板子
+minicom:
+	set  nfsbootargs  $bootargs
+	set bootargs  "root=/dev/mmcblk0p2  console=ttySAC0,115200 lcd=S70 ctp=2"
+	save
+	reset
+将网线拔了,看是否可以启动SD卡的文件系统
+	
+
+
+
+
+
+
+
+
+
