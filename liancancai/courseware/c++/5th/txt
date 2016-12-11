@@ -1,0 +1,165 @@
+栈的封装：=> 类
+类模板 => template <class type>
+	Stack<data_type> value_name
+
+	模板库(STL) => string 
+
+
+void operator+(option)
+	调用函数:
+	函数参数：
+
+	friend()
+
+	int num
+	string 
+	cout << num
+	Time t;
+	cout << t
+类继承
+	基类
+	派生类
+	
+
+	1 派生类都会调用基类构造函数和析构函数,再调用自己构造函数和析构函数
+
+	公有继承：
+		派生类只能直接访问公有成员，要访问基类保护成员和私有成员，则通过基类方法来实现。
+
+		基类私有成员变成派生类私有成员
+		基类保护成员变成派生类保护成员
+		基类公有成员变成派生类公有成员
+
+	继承方式：	公有继承		保护继承		私有继承
+	公有成员：	公有			保护			私有
+	保护成员：	保护			保护			私有
+	私有成员	只能通过基类	同上，且只能在	同上
+				接口访问		派生类中
+
+		
+	派生类对象可以赋值给基类对象，而且不用强制类型转换
+	然而基类指针或者引用只能访问基类方法，不可以访问派生类方法。
+
+
+	两种：
+		1 派生类中直接定义这种方法
+		2 虚函数 virtual
+
+	虚函数：
+		virual void show(void);
+
+		在派生类赋值给基类时候，要访问派生类方法，则需要把基类的函数设置成虚函数。
+	纯虚函数
+		virtual void show(void) = 0;
+
+		抽象类
+
+
+		class her{
+			private:
+				name = "hello";
+				drink = water;
+			public:
+				virtual void show(void) = 0;
+		};
+
+		class A1 : public her{
+		
+		}
+		class A2 : public her{
+			
+		}
+
+		
+
+	友元类：
+		class A{
+			public:
+				friend class B;
+		};
+
+		class B{};
+
+		表示B是A的一个友元类
+		通过友元类方法访问访问基类对象所有成员属性及方法。
+
+	file : 
+		iostream
+		cout => ostream
+		cin => istream
+		fstream
+		ofstream => out
+		ifstream =>  in
+
+		读文件：
+			1 创建ifstream输入流 ifstream fin
+			2 帮定文件和输入流
+				fin.open(filename); 判断是否打开成功
+			3 获取数据
+				fin >> ch //一个字符
+				char buf[128]
+				fin >> buf;
+				fin.getline(buf, sizeof(buf));//获取行
+				string str;
+				getline(fin, str);
+			4 关闭文件
+				fin.close();
+
+			判断文件打开成功与否：
+				fin:
+				fin.is_open()
+				fin.good()
+					如果成功：true
+					如果失败：false
+
+				fin.fail()
+					如果成功：false
+					如果失败：true
+
+			是否到文件结尾
+				fin.eof()
+			指向开头
+				fin.clear();//表示重置流状态
+
+	写文件
+		1 创建输出流 ofstream fout
+		2 输出流和文件帮定 fout.open(filename);
+		3 写入数据到文件中
+			fout << "hello";
+		4 关闭文件
+			fout.close();
+
+	模式：
+		open(filename);
+		open(filename, mode);
+
+		mode:
+			ios_base::in		表示只读
+			ios_base::out		表示只写
+			ios_base::app		表示追加
+			ios_base::trunc		表示清空
+			ios_base::binary	表示二进制代码
+
+	c			c++
+	r:			ios_base::in
+	r+:			ios_base::in | ios_base::out
+	w:			ios_base::out | ios_base::trunc
+	w+:			ios_base::in | ios_base::out | ios_base::trunc
+	a:			ios_base::out | ios_base::app
+	a+:			ios_base::in | ios_base::out | ios_base::app
+
+	
+	作业：
+	struct cls_t{
+		char name[128];
+		int age;
+		char sex;
+		double result;
+	}
+
+	1 以文本方式存储
+	2 以二进制方式存储
+
+
+
+

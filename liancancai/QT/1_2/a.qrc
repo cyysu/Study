@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file alias="ico">16x16_youtube_16px_13768_easyicon.net.ico</file>
+    </qresource>
+</RCC>

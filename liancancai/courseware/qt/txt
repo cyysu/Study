@@ -1,0 +1,116 @@
+安装QT：
+	1
+		32位操作系统
+			./qt-sdk-linux-x86-opensource-2010.04.bin
+
+		安装字体库
+			1 解压
+			tar -xvf fontconfig-2.8.0.tar.gz
+			2 安装：
+				./configure
+				make
+				make install
+
+		64位操作系统
+			./qt-opensource-linux-x64-5.5.0-2.run  5.5
+			qmake -project 
+				添加：QT +=widgets
+			qmake
+			make => ?
+			./qt-sdk-linux-x86_64-opensource-2010.04.bin  4.7
+
+
+	2 配置环境变量
+		测试是否配置环境变量：qmak
+			[root@localhost qt]# which qmake 
+			/opt/qtsdk-2010.04/qt/bin/qmake
+		vim ~/.bashrc 打开这个文件
+			QTDIR=/opt/qtsdk-2010.04/qt
+			export PATH=$QTDIR/bin:$PATH
+		source ~/.bashrc 文件生效
+		
+	3 配置库文件
+		/etc/ld.so.conf 库文件中添加如下路径
+		/opt/qtsdk-2010.04/lib
+		ldconfig : 库生效
+
+	4 创建QT项目文件 file.cpp
+		1 qmake -project => 项目文件
+		2 qmake => Makefile 
+		3 make		默认生成可执行文件跟目录名同名
+		4 运行
+
+
+
+=============================
+案例：
+	mainwidows : 含有菜单栏 状态栏等等
+	widget	: 自定义窗口
+	dialog  : 临时对话窗口
+
+	#include <QWidget> 窗口头文件 
+	#include <QLabel>  标签
+	#include <QLineEdit> 行编辑
+	#include <QPushButton> 按钮
+	#include <QHBoxLayout> 水平布局
+	#include <QVBoxLayout> 垂直布局
+	=============================
+
+	水平布局：ctrl + h
+		取消：右键 => layout => break
+	垂直布局：ctrl + l
+		
+	1 确定部件
+		cmdLabel =>  Display Widgets => Label
+
+
+		openLabel => 
+		cmdLinrEdit => Input Widgets => LineEdit
+		选中 ctrl => ctrl + h
+
+		submitButton
+		cancelButton
+		browserButton => Buttons => PushButton
+		选中 ：ctrl + h
+
+		================
+	2	 ctrl + l
+		==============
+	3  按主窗口 ctrl + l
+
+		360 * 150
+	Example:
+
+	 qDebug("Items in list: %d", myList.size());
+	 If you include <QtDebug>, a more convenient syntax is also available:
+
+	  qDebug() << "Brush:" << myQBrush << "Other value:" << i;
+	=============================
+	显示中文信息
+	设置字符编码：utf-8
+	QTextCodec *	codecForName ( const char * name )
+
+
+	QObject::connect(ui->closeButton, SIGNAL(clicked()),this,SLOT(close()));
+	第一个参数：表示发送着
+	第二个参数：表示发送者发送的一个信号
+	第三个参数：表示接收者
+	第四个参数：表示接收者执行操作
+
+
+	＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
+	实现两个部件之间信号和槽
+	定义
+	
+	定义两个按钮：
+		hello: => goodbye
+		world: => how are you
+
+
+
+
+
+
+
+
+

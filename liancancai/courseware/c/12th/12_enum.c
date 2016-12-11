@@ -12,6 +12,8 @@ int main(void)
 	/*one = 3;*/
 	enum weekday today;
 
+	one = 3;
+
 	printf("sizeof(enum num) = %d\n", sizeof(enum num));
 	printf("sizeof(enum weekday) = %d\n", sizeof(enum weekday));
 	printf("please input weekday : ");

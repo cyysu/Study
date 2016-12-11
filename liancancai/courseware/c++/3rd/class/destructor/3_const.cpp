@@ -110,7 +110,8 @@ student::~student(void)
 
 void student::show(void)const
 {
-	//strcpy(name, "he");
+	//strcpy(nme, "he");
+	name = "jim";
 	cout << "name : " << name << "  age : " << age << endl;
 }
 
